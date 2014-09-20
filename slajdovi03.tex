@@ -1,0 +1,508 @@
+\documentclass[utf8,compress]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{irbookslide}
+\usepackage{irilmenau2}
+
+\title{Rukovanje brojevima}
+\subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
+\subject{Osnove programiranja}
+\institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
+\date{2011.}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Ciljevi}
+  \begin{itemize}
+    \item razumevanje pojma tipova podataka
+    \item poznavanje osnovnih numeričkih tipova podataka u Pythonu
+    \item razumevanje osnovnih principa reprezentacije brojeva u računaru
+    \item korišćenje Pythonove \texttt{math} biblioteke
+    \item razumevanje akumulator šablona
+    \item razumevanje i pisanje programa koji operišu numeričkim podacima
+  \end{itemize}
+}
+
+\section{Tipovi podataka}
+
+\frame{
+  \frametitle{Numerički tipovi podataka}
+  \begin{itemize}
+    \item informacije koje obrađuje računar su predstavljene u obliku podataka
+    \item dve vrste brojeva:
+    \begin{itemize}
+      \item \myblue{celi brojevi} -- nemaju razlomljeni deo, npr. 5, 4, 3, 6
+      \item \myblue{decimalni ostaci} -- brojevi između 0 i 1, npr. .25, .1, .05, .01
+    \end{itemize}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Numerički tipovi podataka $_2$}
+  \begin{itemize}
+    \item celi i razlomljeni brojevi su različito predstavljeni unutar računara!
+    \item kažemo da su celi i razlomljeni brojevi različitog \myblue{tipa}
+    \item tip podatka određuje koje vrednosti promenljiva može imati i koje operacije možemo izvršiti nad njima
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Numerički tipovi podataka $_3$}
+  \begin{itemize}
+    \item celi brojevi se predstavljaju tipom podataka \myblue{integer} (kraće \myblue{int})
+    \item vrednosti tipa \myblue{int} mogu biti pozitivni i negativni celi brojevi i nula
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Numerički tipovi podataka $_4$}
+  \begin{itemize}
+    \item brojevi koji imaju razlomljeni deo predstavljaju se kao \myblue{brojevi u pokretnom zarezu} (\myblue{float})
+    \item kako ih razlikujemo?
+    \begin{itemize}
+      \item numerički literal bez decimalne tačne predstavlja \texttt{int} vrednost
+      \item numerički literal sa decimalnom tačkom predstavlja \texttt{float} vrednost (makar sve decimale bile 0)
+    \end{itemize}
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Numerički tipovi podataka $_5$}
+  \begin{itemize}
+    \item Python ima posebnu funkciju \texttt{type} koja vraća tip date vrednosti
+  \end{itemize}
+\begin{verbatim}
+>>> type(3)
+<class 'int'>
+>>> type(3.1)
+<class 'float'>
+>>> type(3.0)
+<class 'float'>
+>>> myInt = 32
+>>> type(myInt)
+<class 'int'>
+>>>
+\end{verbatim}
+\end{frame}
+
+\frame{
+  \frametitle{Numerički tipovi podataka $_6$}
+  \begin{itemize}
+    \item zašto nam trebaju dve vrste brojeva?
+    \begin{itemize}
+      \item brojači ne mogu biti razlomljeni
+      \item puno matematičkih algoritama su vrlo efikasni sa celim brojevima
+      \item tip \texttt{float} čuva samo \myblue{aproksimaciju} realnog broja
+      \item pošto \texttt{float} brojevi nisu egzaktni, treba koristiti \texttt{int} kad god je moguće
+    \end{itemize}
+  \end{itemize}
+}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Numerički tipovi podataka $_7$}
+  \begin{itemize}
+    \item operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove, osim \texttt{/}
+    \item operacije nad \texttt{float}-ovima proizvode \texttt{float}-ove
+  \end{itemize}
+\begin{verbatim}
+>>> 3.0+4.0
+7.0
+>>> 3+4
+7
+>>> 3.0*4.0
+12.0
+>>> 3*4
+12
+>>> 10.0/3.0
+3.3333333333333335
+>>> 10/3
+3.3333333333333335
+>>> 10 // 3
+3
+>>> 10.0 // 3.0
+3.0
+\end{verbatim}
+\end{frame}
+
+\frame{
+  \frametitle{Numerički tipovi podataka $_8$}
+  \begin{itemize}
+    \item celobrojno deljenje proizvodi ceo broj: \texttt{10//3 = 3}
+    \item ostatak pri deljenju: \texttt{10\%3 = 1}
+    \item \texttt{a = (a//b)*b + a\%b}
+  \end{itemize}
+}
+
+\section{Paket \texttt{math}}
+
+\frame{
+  \frametitle{Paket \texttt{math}}
+  \begin{itemize}
+    \item pored aritmetičkih operacija (+,-,*,/,//,**,\%,abs) postoji još puno matematičkih funkcija u paketu \texttt{math}
+    \item paket je skup korisnih funkcija
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Korišćenje \texttt{math} paketa}
+  \begin{itemize}
+    \item napišimo program koji izračunava korene kvadratne jednačine \\
+    $$ x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
+    \item jedini deo koji nam nedostaje je izračunavanje kvadratnog korena...
+    \item za to postoji funkcija u paketu \texttt{math}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Korišćenje \texttt{math} paketa $_2$}
+  \begin{itemize}
+    \item da bismo koristili paket, potreban nam je sledeći red u programu: \\
+      \texttt{import math}
+    \item \texttt{import}-i obično stoje na početku programa
+    \item importovanje paketa čini funkcije iz tog paketa dostupnima u našem programu
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Korišćenje \texttt{math} paketa $_3$}
+  \begin{itemize}
+    \item funkciju \texttt{sqrt} pozivamo sa \texttt{math.sqrt(x)}
+    \item ,,tačka-notacija`` kaže Pythonu da funkciju \texttt{sqrt} traži u paketu
+    \item za izračunavanje korena možemo pisati: \\
+      \texttt{root = math.sqrt(b*b - 4*a*c)}
+  \end{itemize}
+}
+
+\section{Primer 1}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Korišćenje \texttt{math} paketa $_4$}
+\begin{verbatim}
+# quadratic.py
+#    Izračunava realne korene kvadratne jednačine
+#    Ilustruje korišćenje math paketa
+#    Pažnja: program puca ako nema realnih korena
+
+import math  # čini funkcije iz paketa dostupnim
+
+print("Izračunavanje korena kvadratne jednačine")
+print()
+
+a, b, c = eval(input("Unesite koeficijente (a, b, c): "))
+
+root = math.sqrt(b * b - 4 * a * c)
+root1 = (-b + root) / (2 * a)
+root2 = (-b - root) / (2 * a)
+
+print()
+print("Rešenja su:", root1, root2)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Korišćenje \texttt{math} paketa $_5$}
+\begin{verbatim}
+$ python quadratic.py
+Izračunavanje korena kvadratne jednačine
+
+Unesite koeficijente (a, b, c): 3, 4, -1
+
+Rešenja su: 0.215250437022 -1.54858377035
+\end{verbatim}
+  \begin{itemize}
+    \item Šta je ovo?
+  \end{itemize}
+\begin{verbatim}
+$ python quadratic.py
+Izračunavanje korena kvadratne jednačine
+
+Unesite koeficijente (a, b, c): 1, 2, 3
+
+Traceback (most recent call last):
+  File "/home/branko/pajton/quadratic.py", line 14, in -toplevel-
+    root = math.sqrt(b * b - 4 * a * c)
+ValueError: math domain error
+\end{verbatim}
+
+\end{frame}
+
+\frame{
+  \frametitle{Korišćenje \texttt{math} paketa $_6$}
+  \begin{itemize}
+    \item ako je $a=1, b=2, c=3$, pokušavamo da izračunamo koren negativnog broja
+    \item umesto \texttt{math.sqrt} možemo da upotrebimo \texttt{**}
+    \item kako iskoristiti \texttt{**} za izračunavanje korena?
+  \end{itemize}
+}
+
+\section{Akumulatori}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel}
+  \begin{itemize}
+    \item čekaš u redu sa još 5 ljudi; na koliko načina se može poređati 6 ljudi?
+    \item permutacije 6 elemenata
+    \item ukupan broj permutacija = 6! (6 faktorijel) = 720
+    \item faktorijel se definiše ovako: $n! = n(n-1)(n-2)...(1)$
+    \item prema tome $6! = 6*5*4*3*2*1 = 720$
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_2$}
+  \begin{itemize}
+    \item kako napisati program za računanje faktorijela?
+    \item[1] uneti broj čiji faktorijel se računa
+    \item[2] izračunati faktorijel
+    \item[3] ispisati rezultat
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_3$}
+  \begin{itemize}
+    \item kako smo izračunali 6! ?
+    \item[1] 6*5 = 30
+    \item[2] uzeti tih 30, i pomnožiti 30 * 4 = 120
+    \item[3] uzeti tih 120, i pomnožiti 120 * 3 = 360
+    \item[4] uzeti tih 360, i pomnožiti 360 * 2 = 720
+    \item[5] uzeti tih 720, i pomnožiti 720 * 1 = 720
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_4$}
+  \begin{itemize}
+    \item ponavljamo množenje i pamtimo međurezultat
+    \item ovakvi algoritmi se zovu \myblue{akumulatori}, jer postepeno gradimo (akumuliramo) rezultat
+    \item međurezultati i konačni rezultat se čuvaju u \myblue{akumulatorskoj promenljivoj}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_5$}
+  \begin{itemize}
+    \item opšti oblik akumulatorskog algorima izgleda ovako:
+    \item[1] inicijalizuj akumulatorsku promenljivu
+    \item[2] ponavljaj narednu operaciju dok se ne dobije konačan rezultat
+    \item[2a] \ \ \ \ ažuriraj vrednost akumulatorske promenljive
+    \item[3] rezultat je u akumulatorskoj promenljivoj
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Akumuliranje rezultata: faktorijel $_6$}
+  \begin{itemize}
+    \item trebaće nam petlja
+  \end{itemize}
+\begin{verbatim}
+fact = 1
+for i in (6,5,4,3,2,1):
+    fact = fact * i
+\end{verbatim}
+  \begin{itemize}
+    \item da probamo ovo ručno da izvršimo
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_7$}
+  \begin{itemize}
+    \item zašto smo inicijalizovali \texttt{fact} na 1?
+    \begin{itemize}
+      \item u svakom ciklusu petlje prethodna vrednost \texttt{fact} se koristi za računanje sledeće
+      \item u prvom prolazu \texttt{fact} će imati vrednost zahvaljujući inicijalizaciji
+    \end{itemize}
+    \item ako bismo izostavili inicijalizaciju šta bi se desilo?
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Akumuliranje rezultata: faktorijel $_8$}
+  \begin{itemize}
+    \item množenje je komutativno, možemo napisati program ovako:
+  \end{itemize}
+\begin{verbatim}
+fact = 1
+for i in (2,3,4,5,6):
+    fact = fact * i
+\end{verbatim}
+  \begin{itemize}
+    \item šta ako želimo faktorijel nekog drugog broja?
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_9$}
+  \begin{itemize}
+    \item šta vraća \texttt{range(n)}? \\
+      0, 1, 2, 3, ..., n-1
+    \item \texttt{range} može imati još parametara; \texttt{range(start, n)} vraća \\
+      start, start+1, ..., n-1
+    \item \texttt{range(start, n, step)} vraća \\
+      start, start+step, ..., n-1
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Akumuliranje rezultata: faktorijel $_{10}$}
+  \begin{itemize}
+    \item pomoću \texttt{range} funkcije možemo napraviti našu \texttt{for} petlju na više načina
+    \item možemo brojati od 2 do n: \\
+      \texttt{range(2, n+1)} \ \ \ \ (zašto n+1?)
+    \item možemo brojati od n do 2: \\
+      \texttt{range(n, 1, -1)}
+  \end{itemize}
+}
+
+\section{Primer 2}
+
+
+\begin{frame}[fragile]
+  \frametitle{Akumuliranje rezultata: faktorijel $_{11}$}
+  \begin{itemize}
+    \item kompletan program za računanje faktorijela
+  \end{itemize}
+\begin{verbatim}
+# factorial.py
+#    Program računa faktorijel datog broja
+#    Ilustruje petlju sa akumulatorom
+
+n = eval(input("Unesite prirodan broj: "))
+fact = 1
+for i in range(n,1,-1): 
+    fact = fact * i
+print("Faktorijel od", n, "je", fact)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Granice \texttt{int}-a}
+  \begin{itemize}
+    \item koliko je 100! ?
+  \end{itemize}
+\begin{verbatim}
+$ python factorial.py
+Unesite prirodan broj: 100
+Faktorijel od 100 je 93326215443944152681699238856266700
+49071596826438162146859296389521759999322991560894146397
+61565182862536979208272237582511852109168640000000000000
+00000000000
+\end{verbatim}
+  \begin{itemize}
+    \item prilično veliki broj
+  \end{itemize}
+\end{frame}
+
+\section{Opseg brojeva}
+
+\frame{
+  \frametitle{Granice \texttt{int}-a $_2$}
+  \begin{itemize}
+    \item novije verzije Pythona mogu da izračunaju 100!
+    \item u starijim verzijama ovaj program će pući već za n=13
+    \item \texttt{OverflowError: integer multiplication}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Granice \texttt{int}-a $_3$}
+  \begin{itemize}
+    \item iako postoji beskonačno mnogo celih brojeva, samo konačan broj njih se može predstaviti pomoću \texttt{int}-a
+    \item opseg mogućih vrednosti zavisi od broja \myblue{bita} koje CPU koristi za predstavljanje \texttt{int}-a
+    \item tipično se za \texttt{int} koristi 32 bita
+    \item<2> to znači da ima $2^{32}$ mogućih vrednosti, sa 0 u sredini
+    \item<2> opseg je od $-2^{31}$ do $2^{31}-1$ \\(ovo -1 je zbog nule koja takođe zauzima mesto)
+    \item<2> 100! je mnogo veće od $2^{31}$; kako to radi?
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Rukovanje velikim brojevima}
+  \begin{itemize}
+    \item ako koristimo \texttt{float} umesto \texttt{int}-a?
+    \item kada inicijalizujemo akumulator na 1.0 dobijamo
+  \end{itemize}
+\begin{verbatim}
+$ python factorial.py
+Unesite prirodan broj: 15
+Faktorijel od 15 je 1.307674368e+012
+\end{verbatim}
+  \begin{itemize}
+    \item više ne dobijamo potpuno tačan rezultat!
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{Rukovanje velikim brojevima $_2$}
+  \begin{itemize}
+    \item vrlo veliki ili vrlo mali brojevi se izražavaju u \myblue{eksponencijalnoj notaciji}
+    \item \texttt{1.307674368e+012} predstavlja broj $1.307674368 \cdot 10^{12}$
+    \item ovim množenjem se decimalna tačka pomera za 12 mesta u desno
+    \item ali broj ima 9 decimala
+    \item 3 cifre su izgubljene!
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Rukovanje velikim brojevima $_3$}
+  \begin{itemize}
+    \item \texttt{float}-ovi su aproksimacije
+    \item pomoću njih možemo prikazati veći opseg brojeva, ali sa manjom preciznošću
+    \item (noviji) Python ima rešenje -- prošireni \texttt{int}-ovi
+    \item fleksibilnost na račun brzine i potrošnje memorije
+  \end{itemize}
+}
+
+\section{Konverzije tipova}
+
+\frame{
+  \frametitle{Konverzije tipova}
+  \begin{itemize}
+    \item kombinovanje \texttt{int}-a i \texttt{int}-a proizvodi \texttt{int}
+    \item kombinovanje \texttt{float}-a i \texttt{float}-a proizvodi \texttt{float}
+    \item šta se dešava kada ih pomešamo? \\
+      \texttt{x = 5.0 + 2}
+    \item šta bi trebalo da bude rezultat?
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Konverzije tipova $_2$}
+  \begin{itemize}
+    \item morali bismo ili konvertovati 5.0 u 5 i obaviti \texttt{int}-sabiranje
+    \item ili konvertovati 2 u 2.0 i obaviti \texttt{float}-sabiranje 
+    \item kovertovanje \texttt{float} u \texttt{int} (u opštem slučaju) nosi gubitak podataka
+    \item \texttt{int}-ovi se lako konvertuju u \texttt{float} dodavanjem .0
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Konverzije tipova $_3$}
+  \begin{itemize}
+    \item u \myblue{mešovitim} izrazima Python će automatski konvertovati \\ \texttt{int} $\rightarrow$ \texttt{float}
+    \item nekada mi želimo da kontrolišemo konverziju tipa \\ -- \myblue{eksplicitna tipizacija}
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Konverzije tipova $_4$}
+\begin{verbatim}
+>>> float(22//5)
+4.0
+>>> int(4.5)
+4
+>>> int(3.9)
+3
+>>> round(3.9)
+4
+>>> round(3)
+3
+\end{verbatim}
+\end{frame}
+
+
+\end{document}

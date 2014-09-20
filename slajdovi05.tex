@@ -1,0 +1,899 @@
+\documentclass[utf8,compress]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{irbookslide}
+\usepackage{irilmenau2}
+
+\title{Funkcije}
+\subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
+\subject{Osnove programiranja}
+\institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
+\date{2011.}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Ciljevi}
+  \begin{itemize}
+    \item razumevanje zašto je korisno podeliti program u skup više potprograma (funkcija)
+    \item poznavanje pisanja funkcija u Pythonu
+    \item poznavanje detalja pozivanja funkcija i prenosa parametara
+    \item pisanje programa koji koriste funkcije -- radi povećanja modularnosti i izbegavanja ponavljanja koda
+  \end{itemize}
+}
+
+\section{Pojam funkcije}
+
+\frame{
+  \frametitle{Funkcija funkcija}
+  \begin{itemize}
+    \item do sada smo videli različite vrste funkcija:
+    \item u nekim primerima program se sastojao od jedne funkcije \texttt{main}
+    \item ugrađene funkcije, npr. \texttt{abs}
+    \item funkcije iz paketa, npr. \texttt{math.sqrt}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Funkcija funkcija $_2$}
+  \begin{itemize}
+    \item imati isti programski kod na više mesta donosi probleme
+    \item problem \myblue{1}: pisanje istog koda više puta je više posla
+    \item problem \myblue{2}: isti kod se mora održavati na više mesta istovremeno
+    \item funkcije se mogu upotrebiti protiv ponavljanja istog koda, i pomažu da programi budu čitljiviji i lakši za održavanje
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Funkcija funkcija $_3$}
+  \begin{itemize}
+    \item funkcija je kao potprogram, mali program unutar većeg programa
+    \item osnovna ideja -- napišemo niz naredbi i dodelimo mu ime; 
+    \item kasnije izvršavamo taj niz naredbi pozivajući ga po imenu
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Funkcija funkcija $_4$}
+  \begin{itemize}
+    \item deo programa u kome se funkcija kreira zove se \myblue{definicija funkcije}
+    \item kada se funkcija koristi u programu, kažemo da se ona \myblue{poziva}
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija}
+  \begin{itemize}
+    \item definicija funkcije
+  \end{itemize}
+\begin{verbatim}
+def main():
+    print("Happy birthday to you!" )
+    print("Happy birthday to you!" )
+    print("Happy birthday, dear Fred...")
+    print("Happy birthday to you!")
+\end{verbatim}
+  \begin{itemize}
+    \item poziv funkcije
+  \end{itemize}
+\begin{verbatim}
+>>> main()
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Fred...
+Happy birthday to you!
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_2$}
+  \begin{itemize}
+    \item imamo ponavljanje u kodu: \\
+      \texttt{print("Happy birthday to you!" )}
+    \item možemo napisati funkciju koja ispisuje ovaj red:
+  \end{itemize}
+\begin{verbatim}
+def happy():
+    print("Happy birthday to you!")
+\end{verbatim}
+  \begin{itemize}
+    \item sada možemo da skratimo naš program
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_3$}
+  \begin{itemize}
+    \item novi program
+  \end{itemize}
+\begin{verbatim}
+def singFred():
+    happy()
+    happy()
+    print("Happy birthday, dear Fred...")
+    happy()
+\end{verbatim}
+  \begin{itemize}
+    \item rezultat je:
+  \end{itemize}
+\begin{verbatim}
+>>> singFred()
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Fred...
+Happy birthday to you!
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_4$}
+  \begin{itemize}
+    \item funkcija \texttt{happy} nam je uštedela dosta kucanja
+    \item šta ako nam treba rođendan za Lucy?
+    \item mogli bismo napisati funkciju za Lucy:
+  \end{itemize}
+\begin{verbatim}
+def singLucy():
+    happy()
+    happy()
+    print("Happy birthday, dear Lucy...")
+    happy()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer funkcija $_5$}
+  \begin{itemize}
+    \item možemo napisati program za Freda i Lucy
+  \end{itemize}
+\begin{verbatim}
+def main():
+    singFred()
+    print()
+    singLucy()
+\end{verbatim}
+  \begin{itemize}
+    \item dobićemo ovaj rezultat
+  \end{itemize}
+\begin{verbatim}
+>>> main()
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Fred..
+Happy birthday to you!
+
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Lucy...
+Happy birthday to you!
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_5$}
+  \begin{itemize}
+    \item još uvek ima ponavljanja koda
+    \item jedina razlika između \texttt{singFred} i \texttt{singLucy} je ime u trećoj naredbi
+    \item od ove dve funkcije može se napraviti jedna, sa parametrom
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_6$}
+  \begin{itemize}
+    \item opštija funkcija \texttt{sing} 
+  \end{itemize}
+\begin{verbatim}
+def sing(person):
+    happy()
+    happy()
+    print("Happy birthday, dear", person + ".")
+    happy()
+\end{verbatim}
+  \begin{itemize}
+    \item ova funkcija ima \myblue{parametar} sa nazivom \texttt{person}
+    \item parametar je promenljiva čija vrednost se definiše prilikom poziva funkcije
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer funkcija $_7$}
+  \begin{itemize}
+    \item novi izlaz iz programa je:
+  \end{itemize}
+\begin{verbatim}
+>>> sing("Fred")
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Fred.
+Happy birthday to you!
+\end{verbatim}
+  \begin{itemize}
+    \item sada možemo da preradimo i glavni program
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer funkcija $_8$}
+  \begin{itemize}
+    \item novi glavni program glasi:
+  \end{itemize}
+\begin{verbatim}
+def main():
+    sing("Fred")
+    print()
+    sing("Lucy")
+\end{verbatim}
+  \begin{itemize}
+    \item rezultat je sada sledeći:
+  \end{itemize}
+\begin{verbatim}
+>>> main()
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Fred.
+Happy birthday to you!
+
+Happy birthday to you!
+Happy birthday to you!
+Happy birthday, dear Lucy.
+Happy birthday to you!
+\end{verbatim}
+\end{frame}
+
+\section{Parametri}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije i parametri}
+  \begin{itemize}
+    \item \myblue{opseg} (scope) promenljive definiše deo programa u kome se promenljiva može koristiti
+    \item svaka funkcija je poseban potprogram
+    \item promenljive koje se koriste unutar funkcije su \myblue{lokalne} za tu funkciju
+    \item makar imale isto ime kao i neke promenljive izvan te funkcije \\ \ \\
+    \item jedini način da funkcija ,,vidi`` podatak izvan sebe je da ga dobije kao parametar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije i parametri $_2$}
+  \begin{itemize}
+    \item definicija funkcije izgleda ovako: \\
+      \texttt{def <name>(<formal-parameters>):} \\
+      \texttt{\ \ \ \ <body>}
+    \item ime funkcije (\texttt{name}) mora biti identifikator
+    \item \texttt{formal-parameters} je lista imena parametara (lista može biti prazna)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije i parametri $_3$}
+  \begin{itemize}
+    \item formalni parametri su dostupni samo u telu funkcije
+    \item promenljive sa istim imenom u drugim delovima programa su različite od parametara i lokalnih promenljivih u funkciji
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije i parametri $_4$}
+  \begin{itemize}
+    \item funkcija se poziva po imenu za kojim sledi lista \myblue{stvarnih parametara} ili \myblue{argumenata}: \\
+      \texttt{<name>(<actual-parameters>)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije}
+  \begin{itemize}
+    \item kada Python naiđe na poziv funkcije, otpočinje proces od 4 koraka:
+    \item[1] pozivajući program zaustavlja izvršavanje u tački poziva funkcije
+    \item[2] formalni parametri funkcije dobijaju vrednosti stvarnih parametara iz poziva
+    \item[3] telo funkcije se izvršava
+    \item[4] kontrola se vraća u tačku odmah iza poziva funkcije
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_2$}
+  \begin{itemize}
+    \item prođimo kroz sledeći kod:
+  \end{itemize}
+\begin{verbatim}
+sing("Fred")
+print()
+sing("Lucy")
+\end{verbatim}
+  \begin{itemize}
+    \item kada Python naiđe na \texttt{sing("Fred")}, izvršavanje \texttt{main} se privremeno zaustavlja
+    \item Python traži definiciju funkcije \texttt{sing} i vidi da ona ima jedan formalni parametar, \texttt{person}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_3$}
+  \begin{itemize}
+    \item formalni parametar dobija vrednost stvarnog parametra
+    \item to je kao da smo izvršili sledeću naredbu
+  \end{itemize}
+\begin{verbatim}
+person = "Fred"
+\end{verbatim}
+  \begin{itemize}
+    \item promenljiva \texttt{person} je upravo inicijalizovana
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=8cm]{pic04}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_4$}
+  \begin{itemize}
+    \item u ovom trenutku Python počinje izvršavanje tela funkcije \texttt{sing}
+    \item prva naredba je poziv funkcije \texttt{happy}
+    \item Python zaustavlja izvršavanje funkcije \texttt{sing} i prebacuje kontrolu na \texttt{happy}
+    \item funkcija \texttt{happy} se sastoji iz jedne \texttt{print} naredbe koja se izvrši i kontrola se vraća nazad
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_5$}
+  \begin{center}
+    \includegraphics[width=10cm]{pic05}
+  \end{center}
+  \begin{itemize}
+    \item izvršavanje se nastavlja sa još dva poziva funkcije \texttt{happy}
+    \item kada Python dođe do kraja funkcije \texttt{sing}, vraća kontrolu nazad funkciji \texttt{main}
+    \item tamo nastavlja izvršavanje odmah posle poziva funkcije \texttt{sing}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_6$}
+  \begin{center}
+    \includegraphics[width=10cm]{pic06}
+  \end{center}
+  \begin{itemize}
+    \item promenljiva \texttt{person} u funkciji \texttt{sing} nije vidljiva!
+    \item memorija koju zauzimaju lokalne promenljive dok se funkcija izvršava se oslobađa nakon završetka funkcije
+    \item lokalne promenljive ne čuvaju vrednost između dva poziva funkcije
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_7$}
+  \begin{itemize}
+    \item sledeća naredba je \texttt{print()} koja ispisuje prazan red
+    \item Python nailazi na još jedan poziv funkcije \texttt{sing}
+    \item prenosi kontrolu na funkciju \texttt{sing}, a parametar ima vrednost \texttt{"Lucy"}
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=10cm]{pic07}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_7$}
+  \begin{itemize}
+    \item telo funkcije \texttt{sing} sada se izvršava sa parametrom \texttt{"Lucy"}
+    \item to uključuje tri poziva funkcije \texttt{happy}
+    \item na kraju se kontrola prenosi nazad u \texttt{main}
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=10cm]{pic08}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Poziv funkcije $_8$}
+  \begin{itemize}
+    \item prosleđivanje parametara je mehanizam za inicijalizaciju promenljivih u funkciji
+    \item parametri predstavljaju \myblue{ulazne} podatke za funkciju
+    \item možemo pozivati funkciju više puta sa različitim parametrima i dobiti različite rezultate
+  \end{itemize}
+\end{frame}
+
+\section{Rezultat}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije}
+  \begin{itemize}
+    \item videli smo primere funkcija koje vraćaju vrednost onome ko ih poziva \\
+      \texttt{root = math.sqrt(b*b - 4*a*c)}
+    \item vrednost \texttt{b*b - 4*a*c} je stvarni parametar poziva funkcije \texttt{math.sqrt}
+    \item kažemo da \texttt{math.sqrt} \myblue{vraća} kvadratni koren svog argumenta
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije $_2$}
+  \begin{itemize}
+    \item ova funkcija vraća kvadrat datog broja: \\
+  \end{itemize}
+\begin{verbatim}
+def square(x):
+   return x*x
+\end{verbatim}
+  \begin{itemize}
+    \item kada Python naiđe na \texttt{return} vraća se nazad iz funkcije i predaje kontrolu u tački gde je funkcija pozvana
+    \item vrednost data u \texttt{return} naredbi se šalje nazad onome ko je pozvao funkciju
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije $_3$}
+\begin{verbatim}
+>>> square(3)
+9
+>>> print(square(4))
+16
+>>> x = 5
+>>> y = square(x)
+>>> print(y)
+25
+>>> print(square(x) + square(3))
+34
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije $_4$}
+  \begin{itemize}
+    \item možemo da iskoristimo funkciju \texttt{square} da napravimo funkciju za rastojanje dve tačke $(x_1,y_1)$ i $(x_2,y_2)$
+  \end{itemize}
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dist = math.sqrt(square(x2 - x1) + square(y2 - y1))
+    return dist
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije $_5$}
+  \begin{itemize}
+    \item nekad funkcija mora da vrati više od jedne vrednosti
+    \item rezultat funkcije može biti lista vrednosti
+  \end{itemize}
+\begin{verbatim}
+def sumDiff(x, y):
+    sum = x + y
+    diff = x – y
+    return sum, diff
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Rezultat funkcije $_6$}
+  \begin{itemize}
+    \item kada se poziva ovakva funkcija, koristi se istovremena dodela više vrednosti
+  \end{itemize}
+\begin{verbatim}
+num1, num2 = eval(input("Enter two numbers (num1, num2): "))
+s, d = sumDiff(num1, num2)
+print("The sum is", s, "and the difference is", d)
+\end{verbatim}
+  \begin{itemize}
+    \item vrednosti se dodeljuju prema poziciji
+    \item \texttt{s} će dobiti prvu vrednost, a \texttt{d} drugu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rezultat funkcije $_7$}
+  \begin{itemize}
+    \item sitna fora: sve Python funkcije vraćaju vrednost
+    \item bez obzira da li postoji \texttt{return} ili ne
+    \item ako ne postoji \texttt{return} vraća se specijalna vrednost \texttt{None}
+    \item \texttt{return} se često zaboravi u pisanju koda!
+    \begin{itemize}
+      \item ako se prilikom poziva funkcije dobijaju čudne greške, prvo proveriti ovo
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Prenos parametara}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara}
+  \begin{itemize}
+    \item rezultat funkcije je osnovni način da se informacije vrate nazad onome ko poziva funkciju
+    \item rezultat rada funkcije se može preneti nazad i tako što se parametar funkcije promeni
+    \item razumevanje ovog postupka traži dublje poznavanje mehanizma dodele vrednosti i prenosa parametara
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_2$}
+  \begin{itemize}
+    \item recimo da pišemo program koji upravlja bankovnim računima
+    \item treba nam funkcija koja dodaje kamatu na račun
+    \item prva verzija funkcije
+  \end{itemize}
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_3$}
+  \begin{itemize}
+    \item ideja je da se pomeni \texttt{balance} tako da se poveća za iznos kamate
+    \item napišimo program za test:
+  \end{itemize}
+\begin{verbatim}
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_4$}
+  \begin{itemize}
+    \item nadamo se da će 5\% biti dodato na račun i da će rezultat biti 1050
+  \end{itemize}
+\begin{verbatim}
+>>> test()
+1000
+\end{verbatim}
+  \begin{itemize}
+    \item nema greške, sve je u redu!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_5$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item prve dve linije u \texttt{test}-u kreiraju dve lokalne promenljive, \texttt{amount} i \texttt{rate}
+    \item one dobijaju vrednosti 1000 i 0.05
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_5$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item kontrola se dalje prenosi na funkciju \texttt{addInterest}
+    \item formalni parametri \texttt{balance} i \texttt{rate} dobijaju vrednosti stvarnih parametara \texttt{amount} i \texttt{rate}
+    \item iako \texttt{rate} postoji u obe funkcije, to su dve različite promenljive
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_6$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item dodela vrednosti za parametre \texttt{balance} i \texttt{rate} funkcije \texttt{addInterest} koristi vrednosti \myblue{stvarnih} parametara
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_7$}
+\begin{center}
+  \includegraphics[width=10cm]{pic09}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_8$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item izvršavanje prve linije u \texttt{addInterest} će kreirati novu promenljivu \texttt{newBalance}
+    \item u drugoj liniji će \texttt{balance} primiti vrednost od \texttt{newBalance}
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_9$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item \texttt{balance} sada pokazuje na istu vrednost kao i \texttt{newBalance}
+    \item ali to nema uticaja na \texttt{amount} u \texttt{test}-u
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_{10}$}
+\begin{center}
+  \includegraphics[width=12cm]{pic10}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_{11}$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item izvršavanje \texttt{addInterest} se završava i kontrola se vraća \texttt{test}-u
+    \item lokalne promenljive iz \texttt{addInterest} više ne postoje, ali \texttt{amount} i \texttt{rate} u \texttt{test}-u pokazuju i dalje na stare vrednosti
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    balance = newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{12}$}
+  \begin{itemize}
+    \item rezime: formalni parametri funkcije primaju samo \myblue{vrednosti} stvarnih parametara
+    \item funkcija nema pristup promenljivoj koja čuva stvarni parametar \\ \ \\
+    \item kaže se da Python sve parametre \myblue{prenosi po vrednosti}
+    \item ,,pass by value``
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{13}$}
+  \begin{itemize}
+    \item neki drugi jezici (C++, itd) omogućavaju da se se same promenljive (a ne njihove vrednosti) prenesu kao parametar poziva funkcije
+    \item ovaj mehanizam se zove \myblue{prenos po referenci}
+    \item ,,pass by reference``
+    \item tada se izmene parametara unutar funkcije vide nakon njenog poziva
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{14}$}
+  \begin{itemize}
+    \item Python nema ovu mogućnost
+    \item možemo izmeniti \texttt{addInterest} tako da vraća \texttt{newBalance}
+  \end{itemize}
+\begin{verbatim}
+def addInterest(balance, rate):
+    newBalance = balance * (1 + rate)
+    return newBalance
+
+def test():
+    amount = 1000
+    rate = 0.05
+    amount = addInterest(amount, rate)
+    print(amount)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{15}$}
+  \begin{itemize}
+    \item umesto da radimo sa jednim bankovnim računom, možemo da radimo sa više računa
+    \item račune možemo čuvati u listi
+    \item i kamatu dodavati na svaki račun u listi
+    \item prvi račun bi se mogao menjati ovako:
+  \end{itemize}
+\begin{verbatim}
+balances[0] = balances[0] * (1 + rate)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{16}$}
+\begin{verbatim}
+balances[0] = balances[0] * (1 + rate)
+\end{verbatim}
+  \begin{itemize}
+    \item ovo znači ,,pomnoži vrednost nultog elementa liste sa \texttt{1+rate} i to smesti nazad u nulti element liste``
+    \item opštiji način da ovo uradimo bio bi pomoću petlje koja ide kroz listu sa indeksom 0, 1, ..., dužina-1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{17}$}
+\begin{verbatim}
+# addinterest3.py
+
+def addInterest(balances, rate):
+    for i in range(len(balances)):
+        balances[i] = balances[i] * (1+rate)
+
+def test():
+    amounts = [1000, 2200, 800, 360]
+    rate = 0.05
+    addInterest(amounts, 0.05)
+    print(amounts)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{18}$}
+  \begin{itemize}
+    \item početne vrednosti računa su bile \\
+      \texttt{[1000, 2200, 800, 360]}
+    \item program je vratio \\
+      \texttt{[1050.0, 2310.0, 840.0, 378.0]}
+    \item šta se desilo? izgleda kao da je \texttt{amounts} promenjen?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_{19}$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item prve dve linije u \texttt{test}-u inicijalizuju promenljive \texttt{amounts} i \texttt{rate}
+    \item vrednost promenljive \texttt{amounts} je lista koja sadrži 4 int vrednosti
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balances, rate):
+    for i in range(len(balances)):
+        balances[i] = balances[i] * 
+            (1+rate)
+
+def test():
+    amounts = [1000, 2200, 800, 360]
+    rate = 0.05
+    addInterest(amounts, 0.05)
+    print(amounts)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{20}$}
+\begin{center}
+  \includegraphics[width=10cm]{pic11}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_{21}$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item izvršava se \texttt{addInterest}
+    \item petlja ide kroz listu 0, 1, 2, 3 i ažurira tu vrednost u \texttt{balances}
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balances, rate):
+    for i in range(len(balances)):
+        balances[i] = balances[i] * 
+            (1+rate)
+
+def test():
+    amounts = [1000, 2200, 800, 360]
+    rate = 0.05
+    addInterest(amounts, 0.05)
+    print(amounts)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{22}$}
+\begin{center}
+  \includegraphics[width=10cm]{pic12}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Izmena parametara $_{23}$}
+\begin{tabular}{p{5cm}p{7cm}}
+  \begin{itemize}
+    \item stare vrednosti na dijagramu nisu obrisane već su ostavljene da ,,vise`` da bismo naglasili da se nisu promenili brojevi u svojim kutijama, već su novi dodeljeni elementima postojeće liste
+    \item stare vrednosti će iz memorije osloboditi \myblue{garbage collection} mehanizam
+  \end{itemize}
+&
+\begin{verbatim}
+def addInterest(balances, rate):
+    for i in range(len(balances)):
+        balances[i] = balances[i] * 
+            (1+rate)
+
+def test():
+    amounts = [1000, 2200, 800, 360]
+    rate = 0.05
+    addInterest(amounts, 0.05)
+    print(amounts)
+\end{verbatim}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{24}$}
+  \begin{itemize}
+    \item kada se \texttt{addInterest} završi i kontrola prenese nazad u \texttt{test}
+    \item \texttt{amounts} nije promenjen (i dalje je ona stara lista)
+    \item ali je stanje te stare liste promenjeno, i to je vidljivo u \texttt{test}-u
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Izmena parametara $_{25}$}
+  \begin{itemize}
+    \item parametri se \myblue{uvek} prenose po vrednosti
+    \item ako je vrednost parametra promenljivi objekat, promene na tom objektu će biti vidljive nakon povratka iz funkcije
+  \end{itemize}
+\end{frame}
+
+\section{Strukturiranje programa}
+
+\begin{frame}[fragile]
+  \frametitle{Modularni programi}
+  \begin{itemize}
+    \item do sada smo funkcije koristili kao sredstvo da sprečimo ponavljanje koda
+    \item drugi razlog za upotrebu funkcija je pisanje \myblue{modularnih} programa
+    \item kako algoritmi koje kreiramo postaju sve složeniji, sve je teže čitati programski kod \\ \ \\
+    \item jedan način da se ovo reši je podela algoritma na manje potprograme gde je svaki od njih autonoman (ima smisla sam za sebe)
+  \end{itemize}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,770 @@
+\documentclass[utf8,compress]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{irbookslide}
+\usepackage{irilmenau2}
+
+\title{Kolekcije podataka}
+\subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
+\subject{Osnove programiranja}
+\institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
+\date{2011.}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Ciljevi}
+  \begin{itemize}
+    \item upotreba lista (nizova) za reprezentaciju kolekcije povezanih podataka
+    \item poznavanje funkcija za manipulaciju Python listama
+    \item upotreba lista za upravljanje podacima
+    \item upotreba lista i rečnika za organizaciju složenih podataka
+  \end{itemize}
+}
+
+\section[Primer]{Primer: statistika}
+
+\frame{
+  \frametitle{Primer: jednostavna statistika}
+  \begin{itemize}
+    \item mnogi programi rukuju velikom količinom sličnih podataka
+    \begin{itemize}
+      \item reči u tekstu
+      \item spisak studenata
+      \item podaci iz eksperimenta
+      \item poslovni partneri
+      \item grafički objekti na ekranu
+      \item karte u špilu
+    \end{itemize}
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Primer od ranije}
+  \begin{itemize}
+    \item izračunavanje proseka za niz brojeva, korišćenjem praznog stringa kao sentinela
+  \end{itemize}
+\begin{verbatim}
+def main():
+    sum = 0.0
+    count = 0
+    xStr = input("Unesite broj (<Enter> za kraj) >> ")
+    while xStr != "":
+        x = eval(xStr)
+        sum = sum + x
+        count = count + 1
+        xStr = input("Unesite broj (<Enter> za kraj) >> ")
+    print("\nProsek je", sum / count)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer od ranije $_2$}
+  \begin{itemize}
+    \item unosimo niz brojeva, ali program ne pamti \myblue{sve} brojeve koje smo uneli
+    \item pamti samo tekuću sumu unetih brojeva
+    \item sada je potrebno izračunati prosek, \myblue{median} i \myblue{standardno odstupanje}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Median}
+  \begin{itemize}
+    \item \myblue{median} je vrednost koja deli skup brojeva na dva jednako velika dela
+    \item za brojeve 2, 4, 6, 9, 13 median je 6
+    \begin{itemize}
+      \item ima dve vrednosti manje od 6 i dve veće od 6
+      \item broj 6 ,,deli`` ovaj niz na dva jednaka dela
+      \item broj 6 nalazi se u sredini sortiranog niza brojeva
+    \end{itemize}
+    \item izračunavanje mediana:
+    \begin{itemize}
+      \item unesi sve brojeve
+      \item sortiraj po veličini
+      \item izdvoj srednji broj (ne srednju vrednost!)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Standardno odstupanje}
+  \begin{itemize}
+    \item \myblue{standardno odstupanje} je mera koliko podaci odstupaju od prosečne vrednosti
+    \item ako su svi podaci ,,blizu`` prosečne vrednosti, odstupanje je malo
+    \item ako su podaci ,,rasuti``, odstupanje je veliko
+    \item izraz za standardno odstupanje: \\
+    $$ s = \sqrt{\frac{\sum{(\bar{x}-x_i)^2}}{n-1}} $$
+    \item $\bar{x}$ je prosek
+    \item $n$ je broj podataka
+    \item $x_i$ je $i$-ti podatak
+    \item izraz $(\bar{x} - x_i)^2$ je kvadrat ,,odstupanja`` pojedinačnog podatka od proseka
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Standardno odstupanje $_2$}
+  \begin{itemize}
+    \item za niz brojeva 2, 4, 6, 9, 13
+    \item prosek je 6.8 \\
+    $$(6.8-2)^2 + (6.8-4)^2 + (6.8-6)^2 + (6.8-9)^2 + (6.8-13)^2 = 149.6$$
+    $$s = \sqrt{\frac{149.6}{5-1}} = \sqrt{37.4} = 6.11$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Standardno odstupanje $_3$}
+  \begin{itemize}
+    \item za izračunavanje standardnog odstupanja potreban je prosek
+    \item (koji ne možemo izračunati dok nemamo sve podatke)
+    \item ali i svaki pojedinačni podatak! \\ \ \\
+    \item treba nam način da zapamtimo sve podatke koji se unose
+  \end{itemize}
+\end{frame}
+
+\section[Lista]{Lista}
+
+\begin{frame}[fragile]
+  \frametitle{Lista}
+  \begin{itemize}
+    \item treba nam rešenje za skladištenje čitave kolekcije brojeva
+    \item ne možemo da koristimo posebne promenljive jer ne znamo unapred koliko će brojeva biti
+    \item treba nam način da \myblue{ceo niz} brojeva tretiramo kao jednu promenljivu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python lista}
+  \begin{itemize}
+    \item Python \myblue{lista} je uređena sekvenca podataka
+    \item na primer, sekvenca $n$ brojeva može se nazvati S: \\
+    $$S = s_0, s_1, s_2, \ldots, s_{n-1}$$
+    \item pojedine vrednosti u listi možemo dobiti pomoću \myblue{indeksa}
+    \item korišćenjem indeksa, možemo sažeto zapisati matematičke operacije nad svim elementima liste
+    \item na primer, zbir svih elemenata liste: \\
+    $$ \sum_{i=0}^{n-1}{s_i} $$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python lista $_2$}
+  \begin{itemize}
+    \item neka je sekvenca smeštena u promenljivoj \texttt{s}
+    \item petlja za sumiranje svih elemenata liste:
+  \end{itemize}
+\begin{verbatim}
+sum = 0
+for i in range(n):
+    sum = sum + s[i]
+\end{verbatim}
+  \begin{itemize}
+    \item skoro svi programski jezici poznaju ovakvu strukturu
+    \item negde se zove \myblue{niz}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python lista $_3$}
+  \begin{itemize}
+    \item \myblue{lista} (niz) je sekvenca vrednosti gde cela sekvenca ima svoj identifikator (npr. \texttt{s})
+    \item gde se elementima sekvence pristupa pomoću indeksa \\(npr. \texttt{s[i]}) \\ \ \\
+    \item u drugim programskim jezicima nizovi su obično \myblue{fiksne dužine} \\i \myblue{homogeni}
+    \begin{itemize}
+      \item kada se niz inicijalizuje, mora se navesti max broj elemenata
+      \item svi elementi niza su istog tipa
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python lista $_4$}
+  \begin{itemize}
+    \item liste u Pythonu nemaju unapred određen broj elemenata
+    \begin{itemize}
+      \item mogu da se ,,produžavaju`` i ,,skraćuju`` po potrebi \\ \ \\
+    \end{itemize}
+    \item liste u Pythonu su heterogene
+    \begin{itemize}
+      \item jedna lista može sadržati elemente različitog tipa \\ \ \\
+    \end{itemize}
+    \item sadržaj liste se može menjati (\myblue{mutable})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad listama}
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{operator} & \textbf{značenje} \\ \hline
+\texttt{<list> + <list>} & konkatenacija \\
+\texttt{<list> * <int-expr>} & ponavljanje \\
+\texttt{<list>[]} & indeksiranje \\
+\texttt{len(<list>)} & dužina liste \\
+\texttt{<list>[:]} & isecanje \\
+\texttt{for <var> in <list>:} & iteracija \\
+\texttt{<expr> in <list>} & postojanje elementa
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad listama $_2$}
+  \begin{itemize}
+    \item osim poslednje operacije, sve ostale su dostupne i za stringove
+    \item operacija koja testira postojanje elementa:
+  \end{itemize}
+\begin{verbatim}
+>>> lst = [1,2,3,4]
+>>> 3 in lst
+True
+\end{verbatim}
+  \begin{itemize}
+    \item za razliku od stringova, liste se mogu menjati
+  \end{itemize}
+\begin{verbatim}
+>>> lst = [1,2,3,4]
+>>> lst[2] = 7
+>>> lst
+[1, 2, 7, 4]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad listama $_3$}
+  \begin{itemize}
+    \item sumiranje elemenata liste možemo ovako zapisati:
+  \end{itemize}
+\begin{verbatim}
+sum = 0
+for x in s:
+    sum = sum + x
+\end{verbatim}
+  \begin{itemize}
+    \item lista sa jednakim elementima:
+  \end{itemize}
+\begin{verbatim}
+>>> zeroes = [0] * 50
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad listama $_4$}
+  \begin{itemize}
+    \item liste se često popunjavaju jedan-po-jedan element
+    \item funkcija \texttt{append} dodaje element na kraj liste
+  \end{itemize}
+\begin{verbatim}
+nums = []
+x = eval(input('Unesite broj: '))
+while x >= 0:
+    nums.append(x)
+    x = eval(input('Unesite broj: '))
+\end{verbatim}
+  \begin{itemize}
+    \item ovde se \texttt{nums} koristi kao akumulator!
+    \item inicijalizuje se kao prazna lista
+    \item u svakom ciklusu petlje dodaje se jedan element liste
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Još operacija nad listama}
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{funkcija} & \textbf{značenje} \\ \hline
+\texttt{<list>.append(x)} & dodaj element \texttt{x} na kraj liste \\
+\texttt{<list>.sort()} & sortiraj listu \\
+\texttt{<list>.reverse()} & obrni redosled elemenata u listi \\
+\texttt{<list>.index(x)} & indeks prve pojave vrednosti \texttt{x} u listi \\
+\texttt{<list>.insert(i, x)} & ubaci \texttt{x} u listu na mesto indeksa \texttt{i} \\
+\texttt{<list>.count(x)} & broj pojavljivanja vrednosti \texttt{x} u listi \\
+\texttt{<list>.remove(x)} & ukloni prvu pojavu vrednosti \texttt{x} iz liste \\
+\texttt{<list>.pop(i)} & izbaci i-ti element iz liste i vrati njegovu vrednost
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile,shrink=5]
+  \frametitle{Još operacija nad listama $_2$}
+\begin{verbatim}
+>>> lst = [3, 1, 4, 1, 5, 9]
+>>> lst.append(2)
+>>> lst
+[3, 1, 4, 1, 5, 9, 2]
+>>> lst.sort()
+>>> lst
+[1, 1, 2, 3, 4, 5, 9]
+>>> lst.reverse()
+>>> lst
+[9, 5, 4, 3, 2, 1, 1]
+>>> lst.index(4)
+2
+>>> lst.insert(4, "Hello")
+>>> lst
+[9, 5, 4, 3, 'Hello', 2, 1, 1]
+>>> lst.count(1)
+2
+>>> lst.remove(1)
+>>> lst
+[9, 5, 4, 3, 'Hello', 2, 1]
+>>> lst.pop(2)
+4
+>>> lst
+[9, 5, 3, 'Hello', 2, 1]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Još operacija nad listama $_3$}
+  \begin{itemize}
+    \item većina ovih funkcija ne vraća ništa, već menja sadržaj liste
+    \item lista se može produžavati dodavanjem novih vrednosti
+    \item ili skraćivati izbacivanjem postojećih
+    \item elementi ili čitavi isečci se mogu izbaciti pomoću operatora \texttt{del}
+  \end{itemize}
+\begin{verbatim}
+>>> myList=[34, 26, 0, 10]
+>>> del myList[1]
+>>> myList
+[34, 0, 10]
+>>> del myList[1:3]
+>>> myList
+[34]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Principi rada sa Python listama}
+  \begin{itemize}
+    \item lista je sekvenca podataka koja se čuva kao jedan objekat
+    \item elementi liste su dostupni putem indeksa
+    \item podliste su dostupne putem isecanja
+    \item liste se mogu menjati
+    \begin{itemize}
+      \item elementi ili isečci se mogu zameniti pomoću dodele vrednosti
+      \item nije moguće kod stringova!
+    \end{itemize}
+    \item liste se mogu produžavati i skraćivati po potrebi
+    \item postoje gotove funkcije za manipulaciju listama
+  \end{itemize}
+\end{frame}
+
+\section[Primer]{Primer: statistika}
+
+\begin{frame}[fragile]
+  \frametitle{Statistika sa listama}
+  \begin{itemize}
+    \item rešićemo naš statistički problem tako što ćemo čuvati sve podatke u listi
+    \item napisaćemo funkcije koje računaju prosek, odstupanje i median za datu listu
+    \item rešavamo problem korak-po-korak
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za unos podataka: \texttt{getNumbers}}
+  \begin{itemize}
+    \item unos brojeva pomoću sentinel petlje
+    \item inicijalno prazna lista će biti akumulator
+    \item vraćamo listu kao rezultat funkcije kada se unesu svi podaci
+    \item upotreba funkcije: \\
+    \texttt{data = getNumbers()}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za unos podataka: \texttt{getNumbers} $_2$}
+\begin{verbatim}
+def getNumbers():
+    nums = []     # počnemo sa praznom listom
+
+    # sentinel petlja za unos brojeva
+    xStr = input("Unesi broj (<Enter> za kraj) >> ")
+    while xStr != "":
+        x = eval(xStr)
+        nums.append(x)   # dodaj vrednost na kraj liste
+        xStr = input("Unesi broj (<Enter> za kraj) >> ")
+    return nums
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za izračunavanje proseka: \texttt{mean}}
+  \begin{itemize}
+    \item ulaz: lista brojeva
+    \item izlaz: prosečna vrednost elemenata liste
+  \end{itemize}
+\begin{verbatim}
+def mean(nums):
+    sum = 0.0
+    for num in nums:
+        sum = sum + num
+    return sum / len(nums)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za izračunavanje odstupanja: \texttt{stdDev}}
+  \begin{itemize}
+    \item da bismo izračunali standardno odstupanje, treba nam prosek
+    \item da li da izračunavamo prosek unutar \texttt{stdDev}?
+    \item da li da vrednost proseka prenesemo kao parametar u \texttt{stdDev}?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za izračunavanje odstupanja: \texttt{stdDev} $_2$}
+  \begin{itemize}
+    \item izračunavanje proseka više puta unutar \texttt{stdDev} nije efikasno
+    \item pošto naš program ispisuje i prosek i odstupanje, 
+    \item prenećemo prosek kao parametar u \texttt{stdDev}
+  \end{itemize}
+\begin{verbatim}
+def stdDev(nums, avg):
+    sumDevSq = 0.0      # akumulator
+    for num in nums:
+        dev = avg - num
+        sumDevSq = sumDevSq + dev * dev
+    return sqrt(sumDevSq/(len(nums)-1))
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za izračunavanje mediana: \texttt{median}}
+  \begin{itemize}
+    \item nemamo formulu za računanje mediana: treba nam algoritam
+    \item[1] sortiramo brojeve u rastućem redosledu
+    \item[2] srednji element niza je median
+    \item[3] ako niz ima paran broj elemenata, median je prosek dva srednja elementa
+  \end{itemize}
+\begin{verbatim}
+sortiraj brojeve u rastućem redosledu
+if neparan broj elemenata:
+    median = srednji element
+else:
+    median = prosek dva srednja elementa
+return median
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija za izračunavanje mediana: \texttt{median} $_2$}
+\begin{verbatim}
+def median(nums):
+    nums.sort()
+    size = len(nums)
+    midPos = size // 2
+    if size % 2 == 0:
+        median = (nums[midPos] + nums[midPos-1]) / 2
+    else:
+        median = nums[midPos]
+    return median
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Glavni program}
+\begin{verbatim}
+def main():
+    print("Izračunava prosek, median i std. odstupanje.")
+
+    data = getNumbers()
+    avg = mean(data)
+    std = stdDev(data, avg)
+    med = median(data)
+    
+    print("\nProsek je", avg)
+    print("Standardno odstupanje je", std)
+    print("Median je", med)
+\end{verbatim}
+\end{frame}
+
+\section[Sekvenca]{Sekvenca}
+
+\begin{frame}[fragile]
+  \frametitle{Sekvenca}
+  \begin{itemize}
+    \item sekvenca je \myblue{immutable} lista
+    \item ne možemo joj menjati sadržaj
+    \item umesto uglastih zagrada \texttt{[]} koristimo obične \texttt{()}
+  \end{itemize}
+\begin{verbatim}
+>>> lst = [1,2,3]
+>>> lst[0] = 7
+>>> lst
+[7, 2, 3]
+>>> sek = (1,2,3)
+>>> sek[0] = 7
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sekvenca $_2$}
+  \begin{itemize}
+    \item Python efikasnije koristi sekvence od listi
+    \item treba koristiti sekvence kad je to moguće
+    \item string se ponaša kao sekvenca
+  \end{itemize}
+\end{frame}
+
+
+\section[Rečnik]{Rečnik}
+
+\begin{frame}[fragile]
+  \frametitle{Rečnik}
+  \begin{itemize}
+    \item \myblue{rečnik} (dictionary), za razliku od liste, ne poznaje redosled elemenata
+    \item elementi rečnika nisu dostupni putem indeksa, već putem \myblue{ključa}
+    \item rečnik čuva \myblue{parove ključ-vrednost}
+  \end{itemize}
+\begin{verbatim}
+>>> lozinke = {"guido":"superprogrammer", 
+        "turing":"genius", "bill":"monopoly"}
+>>> lozinke["guido"]
+'superprogrammer'
+>>> lozinke["bill"]
+'monopoly'
+\end{verbatim}
+  \begin{itemize}
+    \item šta je ovde ključ, a šta vrednost?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rečnik $_2$}
+  \begin{itemize}
+    \item rečnici se mogu menjati
+  \end{itemize}
+\begin{verbatim}
+>>> lozinke["bill"] = "bluescreen"
+>>> lozinke
+{'turing': 'genius', 'bill': 'bluescreeen', 'guido': \
+'superprogrammer'}
+\end{verbatim}
+  \begin{itemize}
+    \item originalni redosled nije očuvan!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Rečnik $_3$}
+  \begin{itemize}
+    \item ključ može biti bilo koji \myblue{immutable} tip - broj, string
+    \item vrednost može biti bilo kog tipa \\ \ \\
+    \item rečnici se retko javljaju u drugim programskim jezicima
+    \item u Pythonu se često koriste
+    \item efikasni su, mogu primiti stotine hiljada elemenata
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dodavanje elemenata u rečnik}
+  \begin{itemize}
+    \item rečnik može biti prazan: \texttt{\{\}}
+    \item dodavanje elementa u rečnik: upotrebi se novi ključ
+  \end{itemize}
+\begin{verbatim}
+>>> lozinke["newuser"] = "jasamnovi"
+>>> lozinke
+{'turing': 'genius', 'bill': 'bluescreeen', 'guido': \
+'superprogrammer', 'newuser': 'jasamnovi'}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: učitavanje rečnika iz fajla}
+\begin{verbatim}
+passwd = {}
+for line in open('passwords','r').readlines():
+    user, pass = string.split(line)
+    passwd[user] = pass
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad rečnikom}
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{operacija} & \textbf{značenje} \\ \hline
+\texttt{<dict>.has\_key(<key>)} & vraća \texttt{True} ako postoji dati ključ \\
+\texttt{<dict>.keys()} & vraća listu ključeva \\
+\texttt{<dict>.values()} & vraća listu vrednosti \\
+\texttt{<dict>.items()} & vraća listu sekvenci \texttt{(key,val)} \\
+\texttt{del <dict>[<key>]} & uklanja element iz rečnika \\
+\texttt{<dict>.clear()} & uklanja sve elemente iz rečnika
+\end{tabular}
+\end{center}
+\end{frame}
+
+\section[Primer]{Primer: brojanje reči}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: brojanje reči u tekstu}
+  \begin{itemize}
+    \item program analizira tekst i prebrojava koliko se puta svaka reč pojavila u tekstu
+    \item ignorišemo različite gramatičke oblike (posmatramo ih kao različite reči) \\ \ \\
+    \item možemo rešavati problem pomoću akumulatora
+    \item samo nam treba akumulator za svaku reč koju pronađemo u tekstu
+    \item ne znamo unapred koje ćemo reči pronaći
+    \item nema smisla inicijalizovati akumulator za svaku moguću reč \\ \ \\
+    \item kako upotrebiti rečnik?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: brojanje reči u tekstu $_2$}
+  \begin{itemize}
+    \item ključevi su stringovi sa rečima
+    \item vrednosti su brojevi koliko se puta reč pojavila u tekstu
+    \item kada naiđemo na reč u tekstu, inkrementiramo njen akumulator:
+  \end{itemize}
+\begin{verbatim}
+counts[word] = counts[word] + 1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: brojanje reči u tekstu $_3$}
+\begin{verbatim}
+counts[word] = counts[word] + 1
+\end{verbatim}
+  \begin{itemize}
+    \item šta kada prvi put naiđemo na reč u tekstu?
+    \item \texttt{counts[word]} ne postoji, dobićemo grešku
+    \item $\Rightarrow$ nova reč nema svoj element u rečniku
+    \item kada naiđemo na novu reč, moramo dodati novi element u rečnik
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dodavanje novog elementa u rečnik}
+  \begin{itemize}
+    \item varijanta 1: prvo proverimo da li reč postoji u rečniku
+  \end{itemize}
+\begin{verbatim}
+if counts.has_key(word):
+    counts[word] = counts[word] + 1
+else:
+    counts[word] = 1
+\end{verbatim}
+  \begin{itemize}
+    \item varijanta 2: pokušamo da inkrementiramo akumulator;
+    ako pukne, dodamo novi element u rečnik
+  \end{itemize}
+\begin{verbatim}
+try:
+    counts[word] = counts[word] + 1
+except KeyError:
+    counts[word] = 1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Učitavanje teksta i podela na reči}
+\begin{verbatim}
+fname = input("Ime fajla: ")
+
+# učitaj fajl kao dugačak string
+text = open(fname, "r").read()
+
+# pretvori sva slova u mala
+text = string.lower(text)
+
+# zameni svaki znak interpunkcije razmakom
+for ch in "!\"#$%&()*+,-./:;<=>?@[\\]ˆ_'{|}":
+    text = text.replace(ch, " ")
+
+# podeli string na reči
+words = string.split(text)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Brojanje parsiranih reči}
+\begin{verbatim}
+counts = {}
+for w in words:
+    try:
+        counts[w] = counts[w] + 1
+    except KeyError:
+        counts[w] = 1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ispis rezultata}
+\begin{verbatim}
+# uzmi listu reči
+uniqueWords = counts.keys()
+
+# sortiraj listu reči
+uniqueWords.sort()
+
+# ispiši svaku reč i broj pojavljivanja
+for w in uniqueWords:
+    print w, counts[w]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sortiranje}
+\begin{verbatim}
+uniqueWords.sort()
+\end{verbatim}
+  \begin{itemize}
+    \item reči će nam biti sortirane po abecedi
+    \item kako da sortiramo reči po broju pojavljivanja?
+    \item \texttt{sort} može da primi parametar -- funkciju za poređenje
+  \end{itemize}
+\begin{verbatim}
+uniqueWords.sort(compareWords)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sortiranje $_2$}
+\begin{verbatim}
+def compareWords((w1,c1), (w2,c2)):
+    if c1 > c2:
+        return -1
+    elif c1 == c2:
+        return cmp(w1, w2)
+    else:
+        return 1
+\end{verbatim}
+  \begin{itemize}
+    \item funkcija vraća -1 ako je prva reč ,,češća`` od druge
+    \item vraća +1 ako je prva reč ,,ređa`` od druge
+    \item ako se reči pojavljuju jednako često, tada ih uporedi po abecedi
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sortiranje $_3$}
+\begin{verbatim}
+uniqueWords.sort(compareWords)
+\end{verbatim}
+  \begin{itemize}
+    \item funkcija \texttt{compareWords} se koristi kao parametar
+    \item nema zagrada -- \texttt{compareWords} se \myblue{ne poziva}!
+    \item ova funkcija, data kao parametar funkciji \texttt{sort}, biće pozvana unutar \texttt{sort}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ispis rezultata}
+  \begin{itemize}
+    \item ispisujemo prvih \texttt{n} najčešćih reči
+  \end{itemize}
+\begin{verbatim}
+for i in range(n):
+    print("{0:<10}{1:>6}".format(uniqueWords[i], 
+        counts[uniquewords[i]]))
+\end{verbatim}
+\end{frame}
+
+
+\end{document}

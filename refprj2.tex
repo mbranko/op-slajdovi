@@ -1,0 +1,95 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{minted}
+
+\frenchspacing
+\setlength{\hoffset}{0cm}
+\setlength{\voffset}{0cm}
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{25cm}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{0pt}
+
+\title{Primer projektnog zadatka: studentska služba}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Definicija projektnog zadatka}
+
+Implementirati aplikaciju za vođenje evidencije u studentskoj službi. Aplikacija
+treba da obezbedi rad sa sledećim entitetima:
+
+\begin{itemize}
+  \item \textit{student} opisan \textit{brojem indeksa}, \textit{imenom},
+  \textit{prezimenom}, \textit{imenom roditelja},
+  \textit{datumom rođenja}, \textit{JMBG brojem}, \textit{adresom},
+  \textit{telefonom}, \textit{e-mailom} i \textit{tekućom godinom studija}. Pri
+  tome ne mogu postojati dva studenta sa identičnim brojem indeksa niti JMBG
+  brojem. Fajl sa spiskom studenata se ažurira iz aplikacije, nakon izvršavanja
+  odgovarajućih komandi.
+
+  \item \textit{Referent} studentske službe opisan \textit{imenom},
+  \textit{prezimenom}, \textit{korisničkim imenom} i \textit{lozinkom}.
+\end{itemize}
+
+Izbor formata u kome se podaci o studentima i referentima zapisuju u fajlove je
+deo projektnog zadatka. Nakon pokretanja aplikacije referent ima mogućnost
+jedino da se prijavi na sistem, pri čemu unosi korisničko ime i lozinku. Nakon
+uspešnog prijavljivanja na sistem aplikacija referentu treba da omogući sledeće:
+
+\begin{itemize}
+  \item Pronalaženje studenta po broju indeksa. Nakon izvršavanja ove komande
+  prikazuju se podaci o studentu sa datim brojem indeksa.
+
+  \item Pretraživanje studenata po prezimenu. Nakon izvršavanja svake od ovih
+  komandi prikazuju se podaci o studentima koji zadovoljavaju kriterijum
+  pretraživanja.
+
+  \item Pregledanje svih studenata sortiranih po prezimenu.
+
+  \item Izmenu adrese, telefona i e-maila studenta. Pri izvršavanju ove komande,
+  referent unosi broj indeksa studenta čiji podaci se menjaju i potom nove 
+  podatke.
+  
+  \item Upis studenata na prvu godinu studija, tj. upis novog studenta koji 
+  prethodno nije bio evidentiran u sistemu.
+  
+  \item Grupni upis studenata na narednu godinu studija. Pri tome, unose se
+  brojevi indeksa onih studenata koji upisuju narednu godinu, i podatak o
+tekućoj
+  godini studija se inkrementira za svakog od njih.
+  
+\end{itemize}
+
+\section{Rešenje zadatka}
+
+\subsection{Rukovanje referentima}
+
+Jednog referenta studentske službe ćemo u programu reprezentovati rečnikom, čiji
+elementi odgovaraju podacima koje evidentiramo za svakog referenta. Sledeći
+primer predstavlja opis jednog referenta studentske službe.
+
+\begin{listing}[htb]
+\setlength\partopsep{-\topsep}
+\addtolength\partopsep{-\parskip}
+\begin{minted}{python}
+referent = {
+  'ime': 'Mitar',
+  'prezime': 'Mirić',
+  'username': 'mitar',
+  'password': '123'}
+\end{minted}
+\caption{Python listing}
+\label{lst:java1}
+\end{listing}
+
+\end{document}
+

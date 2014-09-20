@@ -1,0 +1,1177 @@
+\documentclass[utf8,compress]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{irbookslide}
+\usepackage{irilmenau2}
+
+\title{Sekvence: stringovi, liste, fajlovi}
+\subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
+\subject{Osnove programiranja}
+\institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
+\date{2011.}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Ciljevi}
+  \begin{itemize}
+    \item razumevanje stringova i njihove reprezentacije u računaru
+    \item poznavanje operacija nad stringovima
+    \item poznavanje pojma sekvence i indeksa, primena na stringove i liste
+    \item veština formatiranja stringova
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Ciljevi $_2$}
+  \begin{itemize}
+    \item poznavanje osnovnih koncepata rada sa fajlovima
+    \item poznavanje tehnika za čitanje i pisanje fajlova u Pythonu
+    \item razumevanje i pisanje programa koji rukuju tekstualnim fajlovima
+  \end{itemize}
+}
+
+\section{String}
+
+\frame{
+  \frametitle{Tip podataka string}
+  \begin{itemize}
+    \item obrada teksta je najčešći oblik korišćenja računara
+    \item u programima tekst je predstavljen tipom \myblue{string}
+    \item string je niz (sekvenca) znakova
+    \item navodi se unutar jednostrukih (') ili dvostrukih (") navodnika
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Tip podataka string $_2$}
+\begin{verbatim}
+>>> str1="Hello"
+>>> str2='spam'
+>>> print(str1, str2)
+Hello spam
+>>> type(str1)
+<class 'str'>
+>>> type(str2)
+<class 'str'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tip podataka string $_3$}
+  \begin{itemize}
+    \item unos stringa sa tastature
+  \end{itemize}
+\begin{verbatim}
+>>> firstName = input("Please enter your name: ")
+Please enter your name: Žika
+>>> print("Hello", firstName)
+Hello Žika
+\end{verbatim}
+  \begin{itemize}
+    \item uneti string nije \texttt{eval}-uiran -- želimo da memorišemo unete znakove, a ne da ih interpretiramo kao Python izraz
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{String i pojedinačni znakovi}
+  \begin{itemize}
+    \item možemo pristupiti pojedinačnim znakovima u stringu pomoću \myblue{indeksa}
+    \item indeks predstavlja redni broj znaka u stringu
+    \item brojanje počinje od 0
+    \item opšti oblik je \texttt{<string>[<expr>]} gde vrednost \texttt{expr} određuje izabrani znak u stringu
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{String i pojedinačni znakovi $_2$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\cline{1-9}
+H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
+\multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8}
+\end{tabular}
+\begin{verbatim}
+>>> greet = "Hello Bob"
+>>> greet[0]
+'H'
+>>> print(greet[0], greet[2], greet[4])
+H l o
+>>> x = 8
+>>> print(greet[x - 2])
+B
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{String i pojedinačni znakovi $_3$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\cline{1-9}
+H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
+\multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8}
+\end{tabular}
+\begin{itemize}
+  \item u stringu od $n$ znakova, poslednji znak je na poziciji $n-1$ jer brojanje počinjemo od $0$
+  \item možemo brojati i sa desnog kraja pomoću negativnih brojeva
+\end{itemize}
+\begin{verbatim}
+>>> greet[-1]
+'b'
+>>> greet[-3]
+'B'
+\end{verbatim}
+\end{frame}
+
+\frame{
+  \frametitle{String i pojedinačni znakovi $_4$}
+  \begin{itemize}
+    \item indeksiranje vraća string koji sadrži tačno jedan znak
+    \item možemo izdvojiti i duži podniz znakova iz stringa -- \myblue{podstring} (substring)
+    \item postupak \myblue{isecanja} (slicing)
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{String i pojedinačni znakovi $_5$}
+  \begin{itemize}
+    \item isecanje: \\
+      \texttt{<string>[<start>:<end>]}
+    \item \texttt{start} i \texttt{end} moraju biti tipa \texttt{int}
+    \item isečak (slice) sadrži podstring od \texttt{start}-nog znaka (uključivo) do \texttt{end}-nog (isključivo)
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{String i pojedinačni znakovi $_6$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\cline{1-9}
+H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
+\multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8}
+\end{tabular}
+\begin{verbatim}
+>>> greet[0:3]
+'Hel'
+>>> greet[5:9]
+' Bob'
+>>> greet[:5]
+'Hello'
+>>> greet[5:]
+' Bob'
+>>> greet[:]
+'Hello Bob'
+\end{verbatim}
+  \begin{itemize}
+    \item ako nedostaju \texttt{start} ili \texttt{end} podrazumevaju se početak odnosno kraj stringa
+  \end{itemize}
+\end{frame}
+
+\frame{
+  \frametitle{Konkatenacija i ponavljanje stringa}
+  \begin{itemize}
+    \item \myblue{konkatenacija} predstavlja ,,spajanje`` stringova -- kraj prvog stringa sa početkom drugog
+    \item operator za konkatenaciju je + \\\ %
+    \item \myblue{ponavljanje} predstavlja višestruku konkatenaciju stringa sa samim sobom
+    \item operator za ponavljanje je *
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Konkatenacija i ponavljanje stringa $_2$}
+\begin{verbatim}
+>>> "spam" + "eggs"
+'spameggs'
+>>> "Spam" + "And" + "Eggs"
+'SpamAndEggs'
+>>> 3 * "spam"
+'spamspamspam'
+>>> "spam" * 5
+'spamspamspamspamspam'
+>>> (3 * "spam") + ("eggs" * 5)
+'spamspamspameggseggseggseggseggs'
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dužina stringa}
+  \begin{itemize}
+    \item funkcija \texttt{len} vraća dužinu (broj znakova) stringa
+  \end{itemize}
+\begin{verbatim}
+>>> len("spam")
+4
+>>> for ch in "Spam!":
+        print (ch, end=" ")
+	
+S p a m !
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad stringom}
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{operator} & \textbf{značenje} \\ \hline
+\texttt{+} & konkatenacija \\
+\texttt{*} & ponavljanje \\
+\texttt{<string>[]} & indeksiranje \\
+\texttt{<string>[:]} & isecanje \\
+\texttt{for <var> in <string>} & iteracija kroz znakove
+\end{tabular}
+\end{center}
+\end{frame}
+
+\section{Primeri}
+
+\begin{frame}[fragile]
+  \frametitle{Primeri obrade stringova}
+  \begin{itemize}
+    \item korisničko ime u nekom računarskom sistemu: \\
+      prvo slovo imena i prvih 7 slova prezimena
+  \end{itemize}
+\begin{verbatim}
+first = input("Unesite ime: ")
+last = input("Unesite prezime: ")
+
+username = first[0] + last[:7]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formiranje korisničkog imena}
+\begin{verbatim}
+Unesite ime: ana
+Unesite prezime: tot
+username = atot
+
+Unesite ime: dimitrije
+Unesite prezime: dimitrijević
+username = ddimitri
+\end{verbatim}
+\end{frame}
+
+\frame{
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka}
+  \begin{itemize}
+    \item smestimo sve troslovne oznake u jedan veliki string: \\
+      \texttt{"JanFebMarAprMajJunJulAvgSepOktNovDec"}
+    \item koristimo redni broj meseca kao indeks za string: \\
+      \texttt{mesecSkr = meseci[pos:pos+3]}
+    \item da bismo izračunali \texttt{pos}, treba od broja meseca oduzeti 1 i pomnožiti to sa 3
+  \end{itemize}
+\begin{center}
+\begin{tabular}{l|r|r}
+\textbf{mesec} & \textbf{broj} & \texttt{pos} \\ \hline
+Jan & 1 & 0 \\
+Feb & 2 & 3 \\
+Mar & 3 & 6 \\
+Apr & 4 & 9 \\
+\end{tabular}
+\end{center}}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_2$}
+\begin{verbatim}
+# month.py
+#  Štampa skraćeno ime meseca za dati redni broj
+
+# ovde čuvamo nazive
+meseci = "JanFebMarAprMajJunJulAvgSepOktNovDec"
+
+n = eval(input("Unesite mesec (1-12): "))
+
+# izračunaj indeks u stringu
+pos = (n-1) * 3
+
+# iseci podstring
+mesecSkr = meseci[pos:pos+3]
+
+# ispiši rezultat
+print ("Skraćenica je", mesecSkr + ".")
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_3$}
+\begin{verbatim}
+$ python month.py
+Unesite mesec (1-12): 1
+Skraćenica je Jan.
+$ python month.py
+Unesite mesec (1-12): 12
+Skraćenica je Dec.
+\end{verbatim}
+  \begin{itemize}
+    \item ovo rešenje je ispravno samo ako su nazivi svih meseci iste dužine
+    \item kako da to prevaziđemo?
+  \end{itemize}
+\end{frame}
+
+\section{Liste}
+
+\begin{frame}[fragile]
+  \frametitle{Stringovi, liste, sekvence}
+  \begin{itemize}
+    \item string je specijalni oblik sekvence
+    \item string operacije postoje za sve sekvence!
+  \end{itemize}
+\begin{verbatim}
+>>> [1,2] + [3,4]
+[1, 2, 3, 4]
+>>> [1,2]*3
+[1, 2, 1, 2, 1, 2]
+>>> grades = ['A', 'B', 'C', 'D', 'F']
+>>> grades[0]
+'A'
+>>> grades[2:4]
+['C', 'D']
+>>> len(grades)
+5
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Stringovi, liste, sekvence $_2$}
+  \begin{itemize}
+    \item string je uvek sekvenca znakova
+    \item lista može da sadrži bilo kakve podatke -- \\ brojeve, stringove, ili oba
+  \end{itemize}
+\begin{verbatim}
+myList = [1, "Spam ", 4, "U"]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_4$}
+  \begin{itemize}
+    \item string je uvek sekvenca znakova
+    \item lista može da sadrži bilo kakve podatke -- \\ brojeve, stringove, ili oba
+  \end{itemize}
+\begin{verbatim}
+meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
+    "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
+\end{verbatim}
+  \begin{itemize}
+    \item naredba dodele vrednosti se proteže preko dva reda
+    \item Python zna da nije završena u prvom redu pa dalje čita tekst programa
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_5$}
+  \begin{itemize}
+    \item sada se naziv meseca dobija ovako:
+  \end{itemize}
+\begin{verbatim}
+mesecSkr = meseci[n-1]
+\end{verbatim}
+  \begin{itemize}
+    \item umesto ovako:
+  \end{itemize}
+\begin{verbatim}
+mesecSkr = meseci[pos:pos+3]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_6$}
+\begin{verbatim}
+# month2.py
+#  Štampa skraćeno ime meseca za dati redni broj
+
+# ovde čuvamo nazive
+meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
+    "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
+
+n = eval(input("Unesite mesec (1-12): "))
+
+# ispiši rezultat
+print ("Skraćenica je", meseci[n-1] + ".")
+\end{verbatim}
+  \begin{itemize}
+    \item pošto je indeks lako izračunati, nije nam neophodna pomoćna promenljiva
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Redni broj meseca u godini $\rightarrow$ naziv meseca}
+  \begin{itemize}
+    \item ova verzija programa se lako menja za rad sa punim nazivima
+  \end{itemize}
+\begin{verbatim}
+meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", 
+    "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", 
+    "Decembar"]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Menjanje sekvence, stringa i liste}
+  \begin{itemize}
+    \item sekvenca je lista koja se ne može menjati
+    \item string je sekvenca $\Rightarrow$ ne može se menjati
+    \item lista se može menjati
+  \end{itemize}
+\begin{verbatim}
+>>> myList = [34, 26, 15, 10]
+>>> myList[2]
+15
+>>> myList[2] = 0
+>>> myList
+[34, 26, 0, 10]
+>>> myString = "Hello World"
+>>> myString[2]
+'l'
+>>> myString[2] = "p"
+
+Traceback (most recent call last):
+  File "<pyshell#16>", line 1, in -toplevel-
+    myString[2] = "p"
+TypeError: object doesn't support item assignment
+\end{verbatim}
+\end{frame}
+
+\section{Kodiranje slova}
+
+\begin{frame}[fragile]
+  \frametitle{Kodni rasporedi}
+  \begin{itemize}
+    \item \myblue{kodni raspored}: mapiranje slova na brojeve radi reprezentacije slova u memoriji
+    \item u davna vremena, svaki proizvođač računara je imao sopstveni kodni raspored
+    \item ASCII standard: 7-bitni kodni raspored (127 slova)
+    \item Unicode standard: preko 100.000 različitih slova
+    \item Python radi sa Unicode slovima (default od verzije 3)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Konverzija slovo $\leftrightarrow$ broj}
+  \begin{itemize}
+    \item funkcija \texttt{ord} vraća numerički kod za dato slovo
+    \item funkcija \texttt{chr} vraća slovo za dati numerički kod
+  \end{itemize}
+\begin{verbatim}
+>>> ord("A")
+65
+>>> ord("a")
+97
+>>> chr(97)
+'a'
+>>> chr(65)
+'A'
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: konverzija string $\leftrightarrow$ niz brojeva}
+  \begin{itemize}
+    \item algoritam je jednostavan:
+    \item[1] unesi string za konverziju
+    \item[2] za svaki znak u stringu:
+    \item[2a] \ \ \ ispiši numerički kod znaka \\ \ \\ %
+    \item \texttt{for} petlja ide kroz sekvencu, a string je sekvenca: \\
+      \texttt{for <ch> in <string>:}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer: konverzija string $\leftrightarrow$ niz brojeva $_2$}
+\begin{verbatim}
+# text2numbers.py
+#     Konvertuje string u niz brojeva koristeći Unicode
+#     kodni raspored
+
+print("Konvertuje string u niz brojeva koristeći")
+print("Unicode kodni raspored.\n")
+
+# unesi tekst
+message = input("Unesite tekst za kodiranje: ")
+
+print("\nOvo su Unicode kodovi:")
+
+# za svaki znak u stringu ispiši njegov kod
+for ch in message:
+    print(ord(ch),  end=" ")
+
+print()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string}
+  \begin{itemize}
+    \item bilo bi lepo imati i program koji radi inverziju prethodnog
+    \item algoritam za dekoder bi mogao da glasi:
+    \item[1] unesi niz brojeva za dekodiranje
+    \item[2] message $\leftarrow$ ""
+    \item[3] za svaki broj u nizu:
+    \item[3a] \ \ \ konvertuj broj u znak
+    \item[3b] \ \ \ dodaj znak na kraj message
+    \item[4] ispiši message
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string $_2$}
+  \begin{itemize}
+    \item promenljiva \texttt{message} je akumulator
+    \item inicijalno postavljena na \myblue{prazan string}
+    \item u svakom prolazu petlje jedan broj se konvertuje u znak
+    \item i dodaje na kraj akumulatora
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string $_2$}
+  \begin{itemize}
+    \item kako da unesemo sa tastature niz brojeva promenljive dužine?
+    \item učitamo ga kao string, pa podelimo na delove koji predstavljaju pojedinačne brojeve
+    \item novi algoritam:
+    \item[1] unesi niz brojeva kao string
+    \item[2] message $\leftarrow$ ""
+    \item[3] za svaki od podstringova:
+    \item[3a] \ \ \ konvertuj niz znakova koji predstavljaju broj u broj
+    \item[3b] \ \ \ konvertuj taj broj u znak
+    \item[3c] \ \ \ dodaj znak na kraj message
+    \item[4] ispiši message
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija \texttt{split}}
+  \begin{itemize}
+    \item podeli string na podstringove, u odnosu na neki separator-znak
+  \end{itemize}
+\begin{verbatim}
+>>> "Hello string methods!".split()
+['Hello', 'string', 'methods!']
+
+>>> "32,24,25,57".split(",")
+['32', '24', '25', '57']
+>>>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija \texttt{eval}}
+  \begin{itemize}
+    \item konverzija string $\rightarrow$ broj pomoću funkcije \texttt{eval}
+  \end{itemize}
+\begin{verbatim}
+>>> numStr = "500"
+>>> eval(numStr)
+500
+>>> x = eval(input("Enter a number "))
+Enter a number 3.14
+>>> print x
+3.14
+>>> type (x)
+<type 'float'>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string $_2$}
+\begin{verbatim}
+# numbers2text.py
+#     Konvertuje niz Unicode brojeva u string
+
+print("Konvertuje niz Unicode brojeva u string.\n")
+
+# unesi poruku
+inString = input("Unesite poruku kao Unicode niz: ")
+
+# za svaki podstring odredi znak i dodaj ga u rezultat
+message = ""
+for numStr in inString.split(" "):
+    # konvertuj podstring u broj
+    codeNum = eval(numStr)
+    # dodaj znak na kraj rezultata
+    message = message + chr(codeNum) 
+
+print("\nDekodirana poruka je:", message)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string $_2$}
+\begin{verbatim}
+$ python text2numbers.py
+Konvertuje string u niz brojeva koristeći
+Unicode kodni raspored.
+
+Unesite tekst za kodiranje: Pajton je zakon
+
+Ovo su Unicode kodovi:
+80 97 106 116 111 110 32 106 101 32 122 97 107 111 110
+
+$ python numbers2text.py
+Konvertuje niz Unicode brojeva u string.
+
+Unesite poruku kao Unicode niz: 80 97 106 116 111 110 32 106 101 32 122 97 107 111 110
+
+Dekodirana poruka je: Pajton je zakon
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Još funkcija za stringove}
+  \begin{itemize}
+    \item postoji puno funkcija koje operišu nad stringovima
+    \item \texttt{s.capitalize()} -- kopija \texttt{s} sa prvim znakom pretvorenim u veliko slovo
+    \item \texttt{s.title()} -- kopija \texttt{s} sa prvim znakom svake reči pretvorenim u veliko slovo
+    \item \texttt{s.center(width)} -- centriraj \texttt{s} u string dužine \texttt{width}
+    \item \texttt{s.ljust(width)} -- kao \texttt{center}, samo je tekst poravnat sa leve strane
+    \item \texttt{s.rjust(width)} -- kao \texttt{center}, samo je tekst poravnat sa desne strane
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Još funkcija za stringove $_2$}
+  \begin{itemize}
+    \item \texttt{s.count(sub)} -- broj pojavljivanja podstringa \texttt{sub} u stringu \texttt{s}
+    \item \texttt{s.find(sub)} -- indeks prvog mesta gde se podstring \texttt{sub} pojavljuje u stringu \texttt{s}
+    \item \texttt{s.rfind(sub)} -- kao \texttt{find}, samo traži podstring sa desne strane
+    \item \texttt{s.join(list)} -- konkatenraj stringove iz liste \texttt{list} koristeći \texttt{s} kao separator
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Još funkcija za stringove $_3$}
+  \begin{itemize}
+    \item \texttt{s.lower()} -- konvertuje sve u mala slova
+    \item \texttt{s.upper()} -- konvertuje sve u velika slova
+    \item \texttt{s.lstrip()} -- ukloni razmake (whitespace) sa početka stringa
+    \item \texttt{s.rstrip()} -- ukloni razmake (whitespace) sa kraja stringa
+    \item \texttt{s.split(sep)} -- podeli \texttt{s} na delove oko znakova \texttt{sep}
+    \item \texttt{s.replace(oldsub, newsub)} -- zameni sve podstringove \texttt{oldsub} u stringu \texttt{s} sa \texttt{newsub}
+  \end{itemize}
+\end{frame}
+
+\section{Formatiranje}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova}
+  \begin{itemize}
+    \item često moramo da ,,ulepšamo`` string pre ispisa
+    \item recimo da hoćemo da konvertujemo datum iz oblika ''15.10.2011.'' u oblik ''15. oktobar 2011.''
+    \item[1] unesi datum u formatu dd.mm.gggg.
+    \item[2] podeli string oko tačke u dan, mesec i godinu
+    \item[3] konvertuj broj meseca u naziv
+    \item[4] formiraj novi string u obliku dd. mesec gggg.
+    \item[5] ispiši novi string
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_2$}
+  \begin{itemize}
+    \item prva dva reda su jednostavna: \\
+      \texttt{dateStr = input('Unesite datum (dd.mm.gggg.): ')} \\
+      \texttt{dayStr, monthStr, yearStr, x = dateStr.split('.')} \\ \ \\ %
+    \item datum se učita kao string, pa se podeli oko tačke na 4 dela
+    \item prva tri dela upišemo u bitne promenljive
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_3$}
+  \begin{itemize}
+    \item sledeći korak: konvertovati \texttt{monthStr} u broj
+    \item možemo da koristimo funkciju \texttt{int} \\
+      \texttt{int("05") = 5}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_4$}
+  \begin{itemize}
+    \item \texttt{eval} neće raditi za brojeve sa vodećim nulama\\ (vodeća nula je nekad označavala oktalni broj)
+  \end{itemize}
+\begin{verbatim}
+>>> int("05")
+5
+>>> eval("05")
+ Traceback (most recent call last):
+File "<pyshell#9>", line 1, in <module>
+eval("05")
+File "<string>", line 1
+05
+     ^
+SyntaxError: invalid token
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_5$}
+\begin{verbatim}
+months = [“januar”, “februar”, ..., “decembar”]
+monthStr = months[int(monthStr) – 1]
+\end{verbatim}
+  \begin{itemize}
+    \item indeks u listi počinje od nula, zato oduzimamo 1 od broja meseca
+    \item ostaje još konkatenacija rezultujućeg stringa
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_6$}
+\begin{verbatim}
+print ("Konvertovani datum je:", dayStr+".", 
+    monthStr, yearStr+".")
+\end{verbatim}
+  \begin{itemize}
+    \item tačka je dodata na \texttt{dayStr} i \texttt{yearStr} konkatenacijom
+  \end{itemize}
+\begin{verbatim}
+Unesite datum (dd.mmm.gggg.): 15.10.2011.
+Konvertovani datum je: 15. oktobar 2011.
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Broj $\rightarrow$ string}
+  \begin{itemize}
+    \item za konverziju broj $\rightarrow$ string možemo da koristimo funkciju \texttt{str}
+  \end{itemize}
+\begin{verbatim}
+>>> str(500)
+'500'
+>>> value = 3.14
+>>> str(value)
+'3.14'
+>>> print("The value is", str(value) + ".")
+The value is 3.14.
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=6]
+  \frametitle{Broj $\rightarrow$ string i konkatenacija}
+  \begin{itemize}
+    \item ako je neka vrednost string, možemo konkatenirati tačku na njen kraj
+    \item ako je ta vrednost int, šta onda?
+  \end{itemize}
+\begin{verbatim}
+>>> value = 3.14
+>>> print("The value is", value + ".")
+The value is
+
+Traceback (most recent call last):
+  File "<pyshell#10>", line 1, in -toplevel-
+    print "The value is", value + "."
+TypeError: unsupported operand type(s) for +: 'float' and 'str'
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije za konverziju}
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{funkcija} & \textbf{značenje} \\ \hline
+\texttt{float(expr)} & konvertuj \texttt{expr} u \texttt{float} vrednost \\
+\texttt{int(expr)} & konvertuj \texttt{expr} u \texttt{int} vrednost \\
+\texttt{str(expr)} & vrati string reprezentaciju od \texttt{expr} \\
+\texttt{eval(str)} & izračunaj \texttt{str} kao Python izraz
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova}
+\begin{verbatim}
+Change Counter
+
+Please enter the count of each coin type.
+Quarters: 6
+Dimes: 0
+Nickels: 0
+Pennies: 0
+
+The total value of your change is 1.5
+\end{verbatim}
+  \begin{itemize}
+    \item bilo bi lepše da na kraju piše \texttt{\$1.50}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Formatiranje stringova $_2$}
+  \begin{itemize}
+    \item možemo da preradimo ispis rezultata ovako:
+  \end{itemize}
+\begin{verbatim}
+print("Your change is ${0:0.2f}".format(total))
+\end{verbatim}
+  \begin{itemize}
+    \item sada ćemo dobiti nešto ovako:
+  \end{itemize}
+\begin{verbatim}
+The total value of your change is $1.50
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija \texttt{format}}
+  \begin{itemize}
+    \item \texttt{<šablon>.format(<vrednosti>)}
+    \item vitičaste zagrade \{...\} označavaju mesta u koja se upisuju vrednosti
+    \item svako mesto ima \myblue{format}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija \texttt{format} $_2$}
+\begin{verbatim}
+print("Your change is ${0:0.2f}".format(total))
+\end{verbatim}
+  \begin{itemize}
+    \item šablon sadrži jedno mesto sa opisom \texttt{0:0.2f}
+    \item opis ima format \texttt{<index>:<format-spec>}
+    \item \texttt{index} je redni broj parametra koga treba upisati
+    \item \texttt{format-spec} ima oblik: \texttt{<width>.<precision><type>}
+    \item \texttt{width} je broj znakova koju vrednost treba da zauzima; \\0 znači da zauzme koliko je potrebno
+    \item \texttt{precision} je broj decimala
+    \item \texttt{f} znači broj u ,,fiksnom zarezu``
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=25]
+  \frametitle{Funkcija \texttt{format} $_3$}
+\begin{verbatim}
+>>> "Hello {0} {1}, you may have won ${2}" .format("Mr.", "Smith", 10000)
+'Hello Mr. Smith, you may have won $10000'
+
+>>> 'This int, {0:5}, was placed in a field of width 5'.format(7)
+'This int,     7, was placed in a field of width 5'
+
+>>> 'This int, {0:10}, was placed in a field of witdh 10'.format(10)
+'This int,         10, was placed in a field of witdh 10'
+
+>>> 'This float, {0:10.5}, has width 10 and precision 5.'.format(3.1415926)
+'This float,    3.1416, has width 10 and precision 5.'
+
+>>> 'This float, {0:10.5f},  is fixed at 5 decimal places.'.format(3.1415926)
+'This float,   3.14159, has width 0 and precision 5.'
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija \texttt{format} $_4$}
+  \begin{itemize}
+    \item ako je \texttt{width} veči nego što je potrebno
+    \begin{itemize}
+      \item podrazumevano poravnanje:
+      \item numerički podaci se poravnavaju po desnoj strani
+      \item stringovi se poravnavaju po levoj strani
+    \end{itemize}
+    \item poravnanje se može eksplicitno navesti pre \texttt{width}
+  \end{itemize}
+\begin{verbatim}
+>>> "left justification: {0:<5}.format("Hi!")
+'left justification: Hi!  '
+>>> "right justification: {0:>5}.format("Hi!")
+'right justification:   Hi!'
+>>> "centered: {0:^5}".format("Hi!")
+'centered:  Hi! '
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Novčani iznosi}
+  \begin{itemize}
+    \item brojevi u pokretnom zarezu su nezgodni za čuvanje novčanih iznosa
+    \item možemo čuvati novac u parama/centima kao \texttt{int} i konvertovati u dinare/evre i pare/cente prilikom ispisa
+    \item ako je \texttt{total} vrednost u evro centima:
+  \end{itemize}
+\begin{verbatim}
+euros = total // 100
+cents = total % 100
+\end{verbatim}
+  \begin{itemize}
+    \item centi se ispisuju sa širinom \texttt{0>2} da bismo dobili desno poravnat broj sa vodećim nulama
+    \item tako se 5 centi ispisuje kao \texttt{05}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Novčani iznosi $_2$}
+\begin{verbatim}
+# change2.py
+
+print ("Change Counter\n")
+print ("Please enter the count of each coin type.")
+quarters = eval(input("Quarters: "))
+dimes = eval(input("Dimes: "))
+nickels = eval(input("Nickels: "))
+pennies = eval(input("Pennies: "))
+total = quarters * 25 + dimes * 10 + nickels * 5 + pennies 
+
+print ("The total value of your change is ${0}.{1:0>2}"
+    .format(total//100, total%100))
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile,shrink=20]
+  \frametitle{Novčani iznosi $_3$}
+\begin{center}
+\begin{tabular}{p{6cm}|p{6cm}}
+\begin{verbatim}
+Change Counter
+
+Please enter the count of
+each coin type.
+Quarters: 0
+Dimes: 0
+Nickels: 0
+Pennies: 1
+
+The total value of your change
+is $0.01
+\end{verbatim}
+&
+\begin{verbatim}
+Change Counter
+
+Please enter the count of
+each coin type.
+Quarters: 12
+Dimes: 1
+Nickels: 0
+Pennies: 4
+
+The total value of your change
+is $3.14
+\end{verbatim}
+\end{tabular}
+\end{center}
+\end{frame}
+
+\section{Fajlovi}
+
+\begin{frame}[fragile]
+  \frametitle{Fajlovi}
+  \begin{itemize}
+    \item \myblue{fajl} (datoteka) je sekvenca podataka koji se čuva na sekundarnoj memoriji (disku)
+    \item fajlovi mogu da sadrže bilo koji tip podataka
+    \item najlakše je raditi sa tekstom
+    \item tekstualni fajl tipično sadrži više redova teksta
+    \item Python koristi \myblue{line feed} znak (\texttt{\textbackslash n}, str(10)) da označi kraj reda
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Višelinijski stringovi}
+\begin{verbatim}
+Hello
+World
+
+Goodbye 32
+\end{verbatim}
+  \begin{itemize}
+    \item kada se ovaj string snimi u fajl, on izgleda ovako:
+  \end{itemize}
+\begin{verbatim}
+Hello\nWorld\n\nGoodbye 32\n
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Višelinijski stringovi}
+  \begin{itemize}
+    \item ovo radi na isti način kao ugrađivanje \texttt{\textbackslash n} u \texttt{print} naredbe
+    \item ovi znakovi utiču samo na ispis; ne utiču na izračunavanje izraza
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Obrađivanje fajlova}
+  \begin{itemize}
+    \item proces \myblue{otvaranja} fajla uključuje povezivanje fajla na disku sa objektom u memoriji
+    \item nakon otvaranja možemo menjati fajl putem tog objekta
+    \begin{itemize}
+      \item čitanje iz fajla
+      \item pisanje u fajl
+    \end{itemize}
+    \item nakon obavljenog posla, fajl je potrebno \myblue{zatvoriti}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Zatvaranje fajla}
+  \begin{itemize}
+    \item zatvaranje fajla će pokrenuti sve operacije nad fajlom koje do tada nisu izvršene
+    \begin{itemize}
+      \item snimanje podataka
+      \item pražnjenje bafera, itd.
+    \end{itemize}
+    \item ako zaboravimo da zatvorimo fajl, moguće je da će doći do gubitka nekih podataka!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Čitanje fajla}
+  \begin{itemize}
+    \item učitavanje fajla u tekst-editor
+    \begin{itemize}
+      \item otvaranje fajla
+      \item učitavanje sadržaja fajla u memoriju
+      \item zatvaranje fajla
+      \item izmene nad sadržajem se obavljaju u memoriji, fajl se ne menja!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Snimanje fajla}
+  \begin{itemize}
+    \item snimanje fajla iz memorije na disk
+    \begin{itemize}
+      \item originalni fajl je otvara u režimu koji omogućuje upis podataka -- to će obrisati stari sadržaj!
+      \item operacije za upis podataka će iskopirati sadržaj iz memorije na disk
+      \item zatvaranje fajla (obavezno!)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Tekstualni fajlovi i Python}
+  \begin{itemize}
+    \item otvaranje fajla (kreiranje objekta u memoriji koji predstavlja fajl) \\
+      \texttt{<filevar> = open(<name>, <mode>)}
+    \item \texttt{name} je string koji predstavlja ime fajla na disku
+    \item \texttt{mode} je \texttt{"r"} ili \texttt{"w"} zavisno od toga da li čitamo ili pišemo u fajl
+  \end{itemize}
+\begin{verbatim}
+infile = open("numbers.dat", "r")
+outfile = open("numbers2.dat", "w")
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Operacije nad fajlom}
+  \begin{itemize}
+    \item \texttt{<file>.read()} -- vraća preostali sadržaj fajla kao jedan (veliki!) višelinijski string
+      \texttt{<filevar> = open(<name>, <mode>)}
+    \item \texttt{<file>.readline()} -- vraća narednu liniju teksta iz fajla uključujući i \texttt{\textbackslash n}
+    \item \texttt{<file>.readlines()} -- vraća listu preostalih linija teksta iz fajla; elementi liste su redovi teksta koji se završavaju sa \texttt{\textbackslash n}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer operacija nad fajlom}
+\begin{verbatim}
+# printfile.py
+
+fname = input("Enter filename: ")
+infile = open(fname,'r')
+data = infile.read()
+print(data)
+infile.close()
+\end{verbatim}
+  \begin{itemize}
+    \item[1] korisnik unosi ime fajla
+    \item[2] fajl se otvara za čitanje
+    \item[3] ceo fajl se učitava i smešta u string \texttt{data}
+    \item[4] string \texttt{data} se ispisuje
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Čitanje celog fajla}
+  \begin{itemize}
+    \item \texttt{readline} se može upotrebiti za čitanje sledećeg reda iz fajla, uključujući i \texttt{\textbackslash n}
+  \end{itemize}
+\begin{verbatim}
+infile = open(someFile, "r")
+for i in range(5):
+    line = infile.readline()
+    print(line[:-1])
+infile.close()
+\end{verbatim}
+  \begin{itemize}
+    \item čita prvih 5 redova iz fajla
+    \item uklanjanje \texttt{\textbackslash n} se obavlja pomoću \texttt{split}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Čitanje celog fajla $_2$}
+  \begin{itemize}
+    \item drugi način je da pročitamo sve redove pomoću \texttt{readlines}
+    \item i da u petlji prođemo kroz listu stringova
+  \end{itemize}
+\begin{verbatim}
+infile = open(someFile, "r")
+for line in infile.readlines():
+    # uradi nešto sa tekućim redom
+infile.close()
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Čitanje celog fajla $_3$}
+  \begin{itemize}
+    \item Python tretira fajl-objekat kao sekvencu redova!
+  \end{itemize}
+\begin{verbatim}
+infile = open(someFile, "r")
+for line in infile:
+    # uradi nešto sa tekućim redom
+infile.close()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pisanje u fajl}
+  \begin{itemize}
+    \item otvaranje fajla za upis priprema fajl za prijem podataka
+    \item ako se otvori postojeći fajl, njegov sadržaj će biti obrisan
+    \item ako fajl prethodno ne postoji, biće kreiran novi fajl
+  \end{itemize}
+\begin{verbatim}
+outfile = open(someFile, "w")
+print(sadržaj, file=outfile)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Batch režim rada}
+  \begin{itemize}
+    \item \myblue{batch} režim rada: nema neposrednog unosa/ispisa podataka
+    \item ulaz i izlaz se odvija preko fajlova
+    \item primer: kreiranje korisničkih imena (username) na osnovu imena i prezimena
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Batch režim rada $_2$}
+\begin{verbatim}
+infileName = input("Input file? ")
+outfileName = input("Output file? ")
+
+infile = open(infileName, 'r')
+outfile = open(outfileName, 'w')
+
+for line in infile:
+    first, last = line.split()
+    uname = (first[0]+last[:7]).lower()
+    print(uname, file=outfile)
+
+infile.close()
+outfile.close()
+
+print("Written to", outfileName)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Batch režim rada $_3$}
+  \begin{itemize}
+    \item programi često imaju otvoreno više fajlova
+    \item funkcija \texttt{lower} je zgodna za konverziju imena fajlova u mala slova
+  \end{itemize}
+\end{frame}
+
+
+\end{document}
