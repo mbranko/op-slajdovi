@@ -1,14 +1,21 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Elementi Python programa}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
 
@@ -153,17 +160,17 @@
 
 \begin{frame}[fragile,shrink=12]
 \frametitle{Primer programa: konverzija temperature $_5$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # convert.py
-#     A program to convert Celsius temps to Fahrenheit
+# Konvertuje temperaturu Celzijus -> Farenhajt
 
 def main():
-    celsius = eval(input("What is the Celsius temperature? "))
+    celsius = eval(raw_input("Unesite temperaturu C >> "))
     fahrenheit = 9/5 * celsius + 32
-    print("The temperature is", fahrenheit, "degrees Fahrenheit.")
+    print("Temperatura je ", fahrenheit, "stepeni Farenhajta.")
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=12]
@@ -172,15 +179,15 @@ main()
   \item kada napišemo program, treba ga testirati
 \end{itemize}
 \begin{verbatim}
->>> 
-What is the Celsius temperature? 0
-The temperature is  32.0  degrees Fahrenheit.
+>>> main() 
+Unesite temperaturu u C >> 0
+Temperatura je  32.0  stepeni Farenhajta.
 >>> main()
-What is the Celsius temperature? 100
-The temperature is  212.0  degrees Fahrenheit.
+Unesite temperaturu u C >> 100
+Temperatura je  212.0  stepeni Farenhajta.
 >>> main()
-What is the Celsius temperature? -40
-The temperature is  -40.0  degrees Fahrenheit.
+Unesite temperaturu u C >> -40
+Temperatura je  -40.0  stepeni Farenhajta.
 >>>
 \end{verbatim}
 \end{frame}
@@ -276,21 +283,21 @@ NameError: name 'spam' is not defined
 \frametitle{Primeri \texttt{print}-a}
 \begin{tabular}{p{6cm}p{6cm}}
 program & ispis \\ \hline
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 print(3+4)
 print(3,4,3+4)
 print()
 print(3,4,end=' ')
 print(3 + 4)
-print('The answer is', 3+4)
-\end{verbatim}
+print('Rezultat je', 3+4)
+\end{minted}
 &
 \begin{verbatim}
 7
 3 4 7
 
 3 4 7
-The answer is 7
+Rezultat je 7
 \end{verbatim}
 \end{tabular}
 \end{frame}
@@ -359,7 +366,7 @@ The answer is 7
   \frametitle{Čitanje ulaza}
   \begin{itemize}
     \item svrha \texttt{input} funkcije je da očita podatak koji unosi korisnik i smesti ga u promenljivu
-    \item \texttt{<variable> = eval(input(<prompt>))}
+    \item \texttt{<variable> = eval(raw\_input(<prompt>))}
   \end{itemize}
 }
 
@@ -402,7 +409,7 @@ The answer is 7
     \item zamena vrednosti pomoću višestruke dodele je jednostavna u Pythonu: \\
       \texttt{x,y = y,x}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> x = 3
 >>> y = 4
 >>> print x, y
@@ -410,7 +417,7 @@ The answer is 7
 >>> x, y = y, x
 >>> print x, y
 4 3
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -419,15 +426,15 @@ The answer is 7
     \item možemo koristiti istu ideju za unos više promenljivih pomoću jednog \texttt{input}-a
     \item vrednosti koje unosimo razdvajamo zarezom
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def babezabe():
-    babe, zabe = eval(input('Unesite broj baba i broj zaba: ')
-    print('Narucili ste', babe, 'baba i', zabe, 'zaba.')
+    babe, zabe = eval(raw_input('Unesite broj baba i broj žaba: ')
+    print('Naručili ste', babe, 'baba i', zabe, 'žaba.')
 
 >>> babezabe()
-Unesite broj baba i zaba: 3, 2
-Narucili ste 3 baba i 2 zaba.
-\end{verbatim}
+Unesite broj baba i žaba: 3, 2
+Naručili ste 3 baba i 2 žaba.
+\end{minted}
 \end{frame}
 
 \frame{
@@ -443,10 +450,10 @@ Narucili ste 3 baba i 2 zaba.
 
 \begin{frame}[fragile]
   \frametitle{Konačna petlja $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 for <var> in <sequence>:
   <body>
-\end{verbatim}
+\end{minted}
 \begin{itemize}
   \item promenljiva \texttt{var} zove se \myblue{indeks petlje}
   \item u svakom prolazu petlje uzima narednu vrednost iz date sekvence
@@ -455,7 +462,7 @@ for <var> in <sequence>:
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Konačna petlja $_3$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> for i in [0,1,2,3]:
       print (i)
 
@@ -471,7 +478,7 @@ for <var> in <sequence>:
 25
 49
 >>>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -549,11 +556,11 @@ for <var> in <sequence>:
     \begin{itemize}
       \item svaki red specifikacije se preslikava na jedan red u Pythonu (u ovom primeru!)
       \item ispiši uvodnu poruku \\
-        \texttt{print('Vrednost 10-godisnjeg ulaganja.')}
+        \texttt{print('Vrednost 10-godišnjeg ulaganja.')}
       \item unesi početno stanje računa \\
-        \texttt{principal = eval(input('Unesite pocetni ulog: '))}
+        \texttt{principal = eval(raw\_input('Početni ulog: '))}
       \item unesi godišnju kamatu \\
-        \texttt{principal = eval(input('Unesite kamatu: '))}
+        \texttt{principal = eval(raw\_input('Unesite kamatu: '))}
       \item ponavljaj 10 puta \\
         \texttt{for i in range(10):}
       \item izračunaj principal \\
@@ -566,18 +573,18 @@ for <var> in <sequence>:
 
 \begin{frame}[fragile]
   \frametitle{Primer programa: obračun kamata $_5$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # futval.py
-#    Program racuna vrednost investicije
-#    10 godina nakon ulaganja
+# Program racuna vrednost investicije
+# 10 godina nakon ulaganja
 
-print("Vrednost 10-godisnjeg ulaganja.")
-principal = eval(input("Unesite pocetni ulog: "))
-apr = eval(input("Unesite kamatu: "))
+print("Vrednost 10-godišnjeg ulaganja.")
+principal = eval(raw_input("Početni ulog: "))
+apr = eval(raw_input("Unesite kamatu: "))
 for i in range(10):
     principal = principal * (1 + apr)
 print ("Vrednost iznosi:", principal)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]

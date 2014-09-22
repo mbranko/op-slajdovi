@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
 
@@ -389,14 +389,14 @@ Kako si?
 
 \begin{frame}[fragile]
 \frametitle{Python $_7$}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> greet("Pera")
 Hello Pera
 How are you?
 >>> greet("Mika")
 Hello Mika
 How are you?
-\end{minted}
+\end{verbatim}
 \begin{itemize}
   \item kada koristimo parametre, rezultat rada funkcije može da zavisi od njih
 \end{itemize}
@@ -417,7 +417,7 @@ How are you?
 \begin{frame}[fragile]
 \frametitle{Python $_9$}
 \begin{minted}[linenos=false]{python}
-# File: chaos.py
+# chaos.py
 # Ovaj program simulira haotično ponašanje
 
 print("Ovaj program simulira haotično ponašanje")
@@ -567,11 +567,11 @@ x = 3.9 * x * (1 - x)
 \frametitle{Analiza Python programa $_8$}
 \begin{minted}[linenos=false]{python}
 def main():
-  print("Ovaj program ilustruje haotično ponašanje")
-  x = eval(raw_input("Unesite broj između 0 i 1: "))
-  for i in range(10):
-    x = 3.9 * x * (1 - x)
-    print(x)
+    print("Ovaj program ilustruje haotično ponašanje")
+    x = eval(raw_input("Unesite broj između 0 i 1: "))
+    for i in range(10):
+        x = 3.9 * x * (1 - x)
+        print(x)
 
 main()
 \end{minted}
