@@ -1,16 +1,26 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Sekvence: stringovi, liste, fajlovi}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+% da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -47,7 +57,7 @@
 
 \begin{frame}[fragile]
   \frametitle{Tip podataka string $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> str1="Hello"
 >>> str2='spam'
 >>> print(str1, str2)
@@ -56,7 +66,7 @@ Hello spam
 <class 'str'>
 >>> type(str2)
 <class 'str'>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -64,12 +74,12 @@ Hello spam
   \begin{itemize}
     \item unos stringa sa tastature
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> firstName = input("Please enter your name: ")
 Please enter your name: Žika
 >>> print("Hello", firstName)
 Hello Žika
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item uneti string nije \texttt{eval}-uiran -- želimo da memorišemo unete znakove, a ne da ih interpretiramo kao Python izraz
   \end{itemize}
@@ -92,7 +102,7 @@ Hello Žika
 H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
 \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8}
 \end{tabular}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> greet = "Hello Bob"
 >>> greet[0]
 'H'
@@ -101,7 +111,7 @@ H l o
 >>> x = 8
 >>> print(greet[x - 2])
 B
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -115,12 +125,12 @@ H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
   \item u stringu od $n$ znakova, poslednji znak je na poziciji $n-1$ jer brojanje počinjemo od $0$
   \item možemo brojati i sa desnog kraja pomoću negativnih brojeva
 \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> greet[-1]
 'b'
 >>> greet[-3]
 'B'
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -149,7 +159,7 @@ H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
 H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
 \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8}
 \end{tabular}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> greet[0:3]
 'Hel'
 >>> greet[5:9]
@@ -160,7 +170,7 @@ H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
 ' Bob'
 >>> greet[:]
 'Hello Bob'
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ako nedostaju \texttt{start} ili \texttt{end} podrazumevaju se početak odnosno kraj stringa
   \end{itemize}
@@ -197,14 +207,14 @@ H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
   \begin{itemize}
     \item funkcija \texttt{len} vraća dužinu (broj znakova) stringa
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> len("spam")
 4
 >>> for ch in "Spam!":
         print (ch, end=" ")
 	
 S p a m !
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -229,12 +239,12 @@ S p a m !
     \item korisničko ime u nekom računarskom sistemu: \\
       prvo slovo imena i prvih 7 slova prezimena
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 first = input("Unesite ime: ")
 last = input("Unesite prezime: ")
 
 username = first[0] + last[:7]
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -271,14 +281,14 @@ Apr & 4 & 9 \\
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # month.py
-#  Štampa skraćeno ime meseca za dati redni broj
+# Štampa skraćeno ime meseca za dati redni broj
 
 # ovde čuvamo nazive
 meseci = "JanFebMarAprMajJunJulAvgSepOktNovDec"
 
-n = eval(input("Unesite mesec (1-12): "))
+n = eval(raw_input("Unesite mesec (1-12): "))
 
 # izračunaj indeks u stringu
 pos = (n-1) * 3
@@ -288,7 +298,7 @@ mesecSkr = meseci[pos:pos+3]
 
 # ispiši rezultat
 print ("Skraćenica je", mesecSkr + ".")
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -315,7 +325,7 @@ Skraćenica je Dec.
     \item string je specijalni oblik sekvence
     \item string operacije postoje za sve sekvence!
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> [1,2] + [3,4]
 [1, 2, 3, 4]
 >>> [1,2]*3
@@ -327,7 +337,7 @@ Skraćenica je Dec.
 ['C', 'D']
 >>> len(grades)
 5
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -336,9 +346,9 @@ Skraćenica je Dec.
     \item string je uvek sekvenca znakova
     \item lista može da sadrži bilo kakve podatke -- \\ brojeve, stringove, ili oba
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 myList = [1, "Spam ", 4, "U"]
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -347,10 +357,10 @@ myList = [1, "Spam ", 4, "U"]
     \item string je uvek sekvenca znakova
     \item lista može da sadrži bilo kakve podatke -- \\ brojeve, stringove, ili oba
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
     "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item naredba dodele vrednosti se proteže preko dva reda
     \item Python zna da nije završena u prvom redu pa dalje čita tekst programa
@@ -362,32 +372,32 @@ meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
   \begin{itemize}
     \item sada se naziv meseca dobija ovako:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 mesecSkr = meseci[n-1]
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item umesto ovako:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 mesecSkr = meseci[pos:pos+3]
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Redni broj meseca u godini $\rightarrow$ troslovna oznaka $_6$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # month2.py
-#  Štampa skraćeno ime meseca za dati redni broj
+# Štampa skraćeno ime meseca za dati redni broj
 
 # ovde čuvamo nazive
 meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
     "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
 
-n = eval(input("Unesite mesec (1-12): "))
+n = eval(raw_input("Unesite mesec (1-12): "))
 
 # ispiši rezultat
 print ("Skraćenica je", meseci[n-1] + ".")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item pošto je indeks lako izračunati, nije nam neophodna pomoćna promenljiva
   \end{itemize}
@@ -398,11 +408,11 @@ print ("Skraćenica je", meseci[n-1] + ".")
   \begin{itemize}
     \item ova verzija programa se lako menja za rad sa punim nazivima
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", 
     "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", 
     "Decembar"]
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
@@ -412,7 +422,7 @@ meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun",
     \item string je sekvenca $\Rightarrow$ ne može se menjati
     \item lista se može menjati
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> myList = [34, 26, 15, 10]
 >>> myList[2]
 15
@@ -428,7 +438,7 @@ Traceback (most recent call last):
   File "<pyshell#16>", line 1, in -toplevel-
     myString[2] = "p"
 TypeError: object doesn't support item assignment
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \section{Kodiranje slova}
@@ -450,7 +460,7 @@ TypeError: object doesn't support item assignment
     \item funkcija \texttt{ord} vraća numerički kod za dato slovo
     \item funkcija \texttt{chr} vraća slovo za dati numerički kod
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> ord("A")
 65
 >>> ord("a")
@@ -459,7 +469,7 @@ TypeError: object doesn't support item assignment
 'a'
 >>> chr(65)
 'A'
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -476,16 +486,16 @@ TypeError: object doesn't support item assignment
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Primer: konverzija string $\leftrightarrow$ niz brojeva $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # text2numbers.py
-#     Konvertuje string u niz brojeva koristeći Unicode
-#     kodni raspored
+# Konvertuje string u niz brojeva koristeći Unicode
+# kodni raspored
 
 print("Konvertuje string u niz brojeva koristeći")
 print("Unicode kodni raspored.\n")
 
 # unesi tekst
-message = input("Unesite tekst za kodiranje: ")
+message = raw_input("Unesite tekst za kodiranje: ")
 
 print("\nOvo su Unicode kodovi:")
 
@@ -494,7 +504,7 @@ for ch in message:
     print(ord(ch),  end=" ")
 
 print()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -542,14 +552,14 @@ print()
   \begin{itemize}
     \item podeli string na podstringove, u odnosu na neki separator-znak
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> "Hello string methods!".split()
 ['Hello', 'string', 'methods!']
 
 >>> "32,24,25,57".split(",")
 ['32', '24', '25', '57']
 >>>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -557,24 +567,24 @@ print()
   \begin{itemize}
     \item konverzija string $\rightarrow$ broj pomoću funkcije \texttt{eval}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> numStr = "500"
 >>> eval(numStr)
 500
->>> x = eval(input("Enter a number "))
+>>> x = eval(raw_input("Enter a number "))
 Enter a number 3.14
 >>> print x
 3.14
 >>> type (x)
 <type 'float'>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Primer: konverzija niz brojeva $\leftrightarrow$ string $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # numbers2text.py
-#     Konvertuje niz Unicode brojeva u string
+# Konvertuje niz Unicode brojeva u string
 
 print("Konvertuje niz Unicode brojeva u string.\n")
 
@@ -590,7 +600,7 @@ for numStr in inString.split(" "):
     message = message + chr(codeNum) 
 
 print("\nDekodirana poruka je:", message)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
@@ -704,10 +714,10 @@ SyntaxError: invalid token
 
 \begin{frame}[fragile]
   \frametitle{Formatiranje stringova $_5$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 months = [“januar”, “februar”, ..., “decembar”]
 monthStr = months[int(monthStr) – 1]
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item indeks u listi počinje od nula, zato oduzimamo 1 od broja meseca
     \item ostaje još konkatenacija rezultujućeg stringa
@@ -716,10 +726,10 @@ monthStr = months[int(monthStr) – 1]
 
 \begin{frame}[fragile]
   \frametitle{Formatiranje stringova $_6$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 print ("Konvertovani datum je:", dayStr+".", 
     monthStr, yearStr+".")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item tačka je dodata na \texttt{dayStr} i \texttt{yearStr} konkatenacijom
   \end{itemize}
@@ -734,15 +744,15 @@ Konvertovani datum je: 15. oktobar 2011.
   \begin{itemize}
     \item za konverziju broj $\rightarrow$ string možemo da koristimo funkciju \texttt{str}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> str(500)
 '500'
 >>> value = 3.14
 >>> str(value)
 '3.14'
->>> print("The value is", str(value) + ".")
-The value is 3.14.
-\end{verbatim}
+>>> print("Vednost je", str(value) + ".")
+Vrednost je 3.14.
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=6]
@@ -753,8 +763,8 @@ The value is 3.14.
   \end{itemize}
 \begin{verbatim}
 >>> value = 3.14
->>> print("The value is", value + ".")
-The value is
+>>> print("Vrednost je", value + ".")
+Vrednost je
 
 Traceback (most recent call last):
   File "<pyshell#10>", line 1, in -toplevel-
@@ -867,12 +877,12 @@ print("Your change is ${0:0.2f}".format(total))
     \item poravnanje se može eksplicitno navesti pre \texttt{width}
   \end{itemize}
 \begin{verbatim}
->>> "left justification: {0:<5}.format("Hi!")
-'left justification: Hi!  '
->>> "right justification: {0:>5}.format("Hi!")
-'right justification:   Hi!'
->>> "centered: {0:^5}".format("Hi!")
-'centered:  Hi! '
+>>> "levo poravnato: {0:<5}.format("Hi!")
+'levo poravnato: Hi!  '
+>>> "desno poravnato: {0:>5}.format("Hi!")
+'desno poravnato:   Hi!'
+>>> "centrirano: {0:^5}".format("Hi!")
+'centrirano:  Hi! '
 \end{verbatim}
 \end{frame}
 
@@ -895,20 +905,20 @@ cents = total % 100
 
 \begin{frame}[fragile]
   \frametitle{Novčani iznosi $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # change2.py
 
 print ("Change Counter\n")
 print ("Please enter the count of each coin type.")
-quarters = eval(input("Quarters: "))
-dimes = eval(input("Dimes: "))
-nickels = eval(input("Nickels: "))
-pennies = eval(input("Pennies: "))
+quarters = eval(raw_input("Quarters: "))
+dimes = eval(raw_input("Dimes: "))
+nickels = eval(raw_input("Nickels: "))
+pennies = eval(raw_input("Pennies: "))
 total = quarters * 25 + dimes * 10 + nickels * 5 + pennies 
 
 print ("The total value of your change is ${0}.{1:0>2}"
     .format(total//100, total%100))
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=20]
@@ -1041,10 +1051,10 @@ Hello\nWorld\n\nGoodbye 32\n
     \item \texttt{name} je string koji predstavlja ime fajla na disku
     \item \texttt{mode} je \texttt{"r"} ili \texttt{"w"} zavisno od toga da li čitamo ili pišemo u fajl
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 infile = open("numbers.dat", "r")
 outfile = open("numbers2.dat", "w")
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1059,7 +1069,7 @@ outfile = open("numbers2.dat", "w")
 
 \begin{frame}[fragile]
   \frametitle{Primer operacija nad fajlom}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # printfile.py
 
 fname = input("Enter filename: ")
@@ -1067,7 +1077,7 @@ infile = open(fname,'r')
 data = infile.read()
 print(data)
 infile.close()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item[1] korisnik unosi ime fajla
     \item[2] fajl se otvara za čitanje
@@ -1081,13 +1091,13 @@ infile.close()
   \begin{itemize}
     \item \texttt{readline} se može upotrebiti za čitanje sledećeg reda iz fajla, uključujući i \texttt{\textbackslash n}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 infile = open(someFile, "r")
 for i in range(5):
     line = infile.readline()
     print(line[:-1])
 infile.close()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item čita prvih 5 redova iz fajla
     \item uklanjanje \texttt{\textbackslash n} se obavlja pomoću \texttt{split}
@@ -1100,12 +1110,12 @@ infile.close()
     \item drugi način je da pročitamo sve redove pomoću \texttt{readlines}
     \item i da u petlji prođemo kroz listu stringova
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 infile = open(someFile, "r")
 for line in infile.readlines():
     # uradi nešto sa tekućim redom
 infile.close()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 
@@ -1114,12 +1124,12 @@ infile.close()
   \begin{itemize}
     \item Python tretira fajl-objekat kao sekvencu redova!
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 infile = open(someFile, "r")
 for line in infile:
     # uradi nešto sa tekućim redom
 infile.close()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1129,10 +1139,10 @@ infile.close()
     \item ako se otvori postojeći fajl, njegov sadržaj će biti obrisan
     \item ako fajl prethodno ne postoji, biće kreiran novi fajl
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 outfile = open(someFile, "w")
 print(sadržaj, file=outfile)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1146,7 +1156,7 @@ print(sadržaj, file=outfile)
 
 \begin{frame}[fragile]
   \frametitle{Batch režim rada $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 infileName = input("Input file? ")
 outfileName = input("Output file? ")
 
@@ -1162,7 +1172,7 @@ infile.close()
 outfile.close()
 
 print("Written to", outfileName)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1172,6 +1182,5 @@ print("Written to", outfileName)
     \item funkcija \texttt{lower} je zgodna za konverziju imena fajlova u mala slova
   \end{itemize}
 \end{frame}
-
 
 \end{document}

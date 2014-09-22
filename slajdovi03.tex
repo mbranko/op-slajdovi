@@ -1,16 +1,26 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Rukovanje brojevima}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+% da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -74,7 +84,7 @@
   \begin{itemize}
     \item Python ima posebnu funkciju \texttt{type} koja vraća tip date vrednosti
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> type(3)
 <class 'int'>
 >>> type(3.1)
@@ -85,7 +95,7 @@
 >>> type(myInt)
 <class 'int'>
 >>>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -107,7 +117,7 @@
     \item operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove, osim \texttt{/}
     \item operacije nad \texttt{float}-ovima proizvode \texttt{float}-ove
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> 3.0+4.0
 7.0
 >>> 3+4
@@ -124,7 +134,7 @@
 3
 >>> 10.0 // 3.0
 3.0
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -180,18 +190,18 @@
 
 \begin{frame}[fragile,shrink=5]
   \frametitle{Korišćenje \texttt{math} paketa $_4$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # quadratic.py
-#    Izračunava realne korene kvadratne jednačine
-#    Ilustruje korišćenje math paketa
-#    Pažnja: program puca ako nema realnih korena
+# Izračunava realne korene kvadratne jednačine
+# Ilustruje korišćenje math paketa
+# Pažnja: program puca ako nema realnih korena
 
 import math  # čini funkcije iz paketa dostupnim
 
 print("Izračunavanje korena kvadratne jednačine")
 print()
 
-a, b, c = eval(input("Unesite koeficijente (a, b, c): "))
+a, b, c = eval(raw_input("Unesite koeficijente (a, b, c): "))
 
 root = math.sqrt(b * b - 4 * a * c)
 root1 = (-b + root) / (2 * a)
@@ -199,7 +209,7 @@ root2 = (-b - root) / (2 * a)
 
 print()
 print("Rešenja su:", root1, root2)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]
@@ -298,11 +308,11 @@ ValueError: math domain error
   \begin{itemize}
     \item trebaće nam petlja
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 fact = 1
 for i in (6,5,4,3,2,1):
     fact = fact * i
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item da probamo ovo ručno da izvršimo
   \end{itemize}
@@ -325,11 +335,11 @@ for i in (6,5,4,3,2,1):
   \begin{itemize}
     \item množenje je komutativno, možemo napisati program ovako:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 fact = 1
 for i in (2,3,4,5,6):
     fact = fact * i
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item šta ako želimo faktorijel nekog drugog broja?
   \end{itemize}
@@ -366,17 +376,17 @@ for i in (2,3,4,5,6):
   \begin{itemize}
     \item kompletan program za računanje faktorijela
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # factorial.py
-#    Program računa faktorijel datog broja
-#    Ilustruje petlju sa akumulatorom
+# Program računa faktorijel datog broja
+# Ilustruje petlju sa akumulatorom
 
-n = eval(input("Unesite prirodan broj: "))
+n = eval(raw_input("Unesite prirodan broj: "))
 fact = 1
 for i in range(n,1,-1): 
     fact = fact * i
 print("Faktorijel od", n, "je", fact)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -490,7 +500,7 @@ Faktorijel od 15 je 1.307674368e+012
 
 \begin{frame}[fragile]
   \frametitle{Konverzije tipova $_4$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> float(22//5)
 4.0
 >>> int(4.5)
@@ -501,7 +511,7 @@ Faktorijel od 15 je 1.307674368e+012
 4
 >>> round(3)
 3
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 
