@@ -1,16 +1,26 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Grananje u programu}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+% da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -50,16 +60,17 @@
   \begin{itemize}
     \item podsetimo se primera za konverziju temperature $^o$C $\rightarrow$ $^o$F
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # convert.py
 
 def main():
-    c = eval(input("What is the Celsius temperature? "))
-    f = 9/5 * c + 32
-    print("The temperature is", f, "degrees Fahrenheit.")
+    celsius = eval(raw_input("Unesite temperaturu C >> "))
+    fahrenheit = 9/5 * celsius + 32
+    print("Temperatura je ", fahrenheit, 
+        "stepeni Farenhajta.")
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -100,20 +111,20 @@ main()
 
 \begin{frame}[fragile]
   \frametitle{Primer: temperatura $_6$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # convert2.py
 
 def main():
-    c = eval(input("What is the Celsius temperature? "))
+    c = eval(raw_input("Unesite temperaturu u C: "))
     f = 9 / 5 * c + 32
-    print("The temperature is", f, "degrees fahrenheit.")
+    print("Temperatura je", f, "stepeni Farenhajta.")
     if f >= 90:
-        print("It's really hot out there, be careful!")
+        print("Baš je vrućina!")
     if f <= 30:
-        print("Brrrrr. Be sure to dress warmly")
+        print("Brrrrr. Dobro se obuci!")
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -234,21 +245,19 @@ True
   \begin{itemize}
     \item podsetimo se programa za rešavanje kvadratne jednačine
   \end{itemize}
-\begin{verbatim}
-# quadratic.py
-
+\begin{minted}[linenos=false]{python}
 import math
 
 def main():
-    a, b, c = eval(input(
-        "Please enter the coefficients (a, b, c): "))
+    a, b, c = eval(raw_input(
+        "Unesite koeficijente (a, b, c): "))
     discRoot = math.sqrt(b * b - 4 * a * c)
     root1 = (-b + discRoot) / (2 * a)
     root2 = (-b - discRoot) / (2 * a)
-    print("\nThe solutions are:", root1, root2) 
+    print("\nRešenja su:", root1, root2) 
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -257,7 +266,7 @@ main()
     \item ako je $b^2 - 4ac < 0$, program će pući
   \end{itemize}
 \begin{verbatim}
-Please enter the coefficients (a, b, c): 1,1,2
+Unesite koeficijente (a, b, c): 1,1,2
 
 Traceback (most recent call last):
   File "/home/branko/pajton/quadratic.py", line 13, in -toplevel-
@@ -273,22 +282,21 @@ ValueError: math domain error
   \begin{itemize}
     \item možemo da proverimo ovaj uslov; prvi pokušaj:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # quadratic2.py
-
 import math  
 
 def main():
-    a, b, c = eval(input(
-        "Please enter the coefficients (a, b, c): "))
+    a, b, c = eval(raw_input(
+        "Unesite koeficijente (a, b, c): "))
 
     discrim = b * b - 4 * a * c
     if discrim >= 0:
         discRoot = math.sqrt(discrim)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print("\nThe solutions are:", root1, root2)
-\end{verbatim}
+        print("\nRešenja su:", root1, root2)
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -306,7 +314,7 @@ def main():
   \begin{itemize}
     \item mogli bismo dodati još jedan \texttt{if} na kraj programa: \\
         \texttt{if discrim < 0:} \\
-        \texttt{\ \ \ \ print("This equation has no real roots!")}
+        \texttt{\ \ \ \ print("Nema realnih korena!")}
     \item ovo će raditi ali nije elegantno
     \item imamo dva uslova koji su \myblue{međusobno isključiva}
   \end{itemize}
@@ -344,39 +352,38 @@ def main():
 
 \begin{frame}[fragile,shrink=5]
   \frametitle{Primer: kvadratna jednačina}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # quadratic3.py
-
 import math 
 
 def main():
-    a, b, c = eval(input(
-        "Please enter the coefficients (a, b, c): "))
+    a, b, c = eval(raw_input(
+        "Unesite koeficijente (a, b, c): "))
     discrim = b * b - 4 * a * c
     if discrim < 0:
-        print("\nThe equation has no real roots!")
+        print("\nNema realnih korena!")
     else:
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print ("\nThe solutions are:", root1, root2 )
+        print ("\nRešenja su:", root1, root2)
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Primer: kvadratna jednačina $_2$}
 \begin{verbatim}
 >>> 
-Please enter the coefficients (a, b, c): 1,1,2
+Unesite koeficijente (a, b, c): 1,1,2
 
-The equation has no real roots!
+Nema realnih korena!
 
 >>> 
-Please enter the coefficients (a, b, c): 2, 5, 2
+Unesite koeficijente (a, b, c): 2, 5, 2
 
-The solutions are: -0.5 -2.0
+Rešenja su: -0.5 -2.0
 \end{verbatim}
 \end{frame}
 
@@ -388,9 +395,9 @@ The solutions are: -0.5 -2.0
     \item poslednji program i dalje ima problema!
   \end{itemize}
 \begin{verbatim}
-Please enter the coefficients (a, b, c): 1,2,1
+Unesite koeficijente (a, b, c): 1,2,1
 
-The solutions are: -1.0 -1.0
+Rešenja su: -1.0 -1.0
 \end{verbatim}
 \end{frame}
 
@@ -420,16 +427,16 @@ izračunaj vrednost diskriminante
 
 \begin{frame}[fragile]
   \frametitle{Višestruko grananje $_4$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if discrim < 0:
-    print("Nema realnih korena")
+    print("Nema realnih korena!")
 else:
     if discrim == 0:
         root = -b / (2 * a)
-        print("Ima jedan koren", root)
+        print("Ima jedan koren:", root)
     else:
         # odradi dva korena
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -471,24 +478,23 @@ else:
 
 \begin{frame}[fragile,shrink=5]
   \frametitle{Višestruko grananje $_8$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 import math 
-
 def main():
-    a, b, c = eval(input(
-        "Please enter the coefficients (a, b, c): "))
+    a, b, c = eval(raw_input(
+        "Unesite koeficijente (a, b, c): "))
     discrim = b * b - 4 * a * c
     if discrim < 0:
-        print("\nThe equation has no real roots!")
+        print("\nNema realnih korena!")
     elif discrim == 0:
         root = -b / (2 * a)
-        print("\nThere is a double root at", root)
+        print("\nIma jedan koren:", root)
     else:
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print("\nThe solutions are:", root1, root2 )
-\end{verbatim}
+        print("\nRešenja su:", root1, root2 )
+\end{minted}
 \end{frame}
 
 \section{Izuzeci}
@@ -528,32 +534,32 @@ def main():
     \item ,,izvrši ove naredbe, i ako se neki problem pojavi obradi ga ovako``
     \item ne treba nam eksplicitna provera podataka pri svakom koraku
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 try:
     # operacije koje mogu da
     # izazovu grešku
     # ...
 except ValueError:
     # obradi grešku ovako
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Primer: kvadratna jednačina}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 import math
 
 def main():
     try:
-        a, b, c = eval(input(
-            "Please enter the coefficients (a, b, c): "))
+        a, b, c = eval(raw_input(
+            "Unesite koeficijente (a, b, c): "))
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print("\nThe solutions are:", root1, root2)
+        print("\nRešenja su:", root1, root2)
     except ValueError:
-        print("\nNo real roots")
-\end{verbatim}
+        print("\nNema realnih korena")
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -584,47 +590,47 @@ ValueError: math domain error
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Obrada izuzetaka $_3$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 try:
-    a, b, c = eval(input(
-        "Please enter the coefficients (a, b, c): "))
+    a, b, c = eval(raw_input(
+        "Unesite koeficijente (a, b, c): "))
     discRoot = math.sqrt(b * b - 4 * a * c)
     root1 = (-b + discRoot) / (2 * a)
     root2 = (-b - discRoot) / (2 * a)
-    print("\nThe solutions are:", root1, root2 )
+    print("\nRešenja su:", root1, root2 )
 except ValueError as excObj:
     if str(excObj) == "math domain error":
-        print("No Real Roots")
+        print("Nema realnih korena!")
     else:
-        print("Wrong number of coefficients.")
+        print("Pogrešan broj koeficijenata.")
 except NameError:
-    print("You didn't enter three numbers.")
+    print("Niste uneli tri broja.")
 except TypeError:
-    print("Your inputs were not all numbers.")
+    print("Na ulazu nisu sve brojevi.")
 except SyntaxError:
-    print("Your input was not in the correct form. Missing comma?")
+    print("Unos je neispravan. Nedostaje zarez?")
 except:
-    print("Something went wrong, sorry!")
-\end{verbatim}
+    print("Nešto nije u redu!")
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Obrada izuzetaka $_2$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 except ValueError as excObj:
     if str(excObj) == "math domain error":
-        print("No Real Roots")
+        print("Nema realnih korena!")
     else:
-        print("Wrong number of coefficients.")
-\end{verbatim}
+        print("Pogrešan broj koeficijenata.")
+\end{minted}
   \begin{itemize}
     \item možemo dodeliti identifikator izuzetku (\texttt{as excObj})
     \item možemo koristiti tu promenljivu da se ,,raspitamo`` o greškama
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 except:
-    print("Something went wrong, sorry!")
-\end{verbatim}
+    print("Nešto nije u redu!")
+\end{minted}
   \begin{itemize}
     \item ovaj \texttt{except} može da obradi bilo koji izuzetak
     \item ako se on ne obradi nekim prethodnim \texttt{except}-om
@@ -638,12 +644,12 @@ except:
   \begin{itemize}
     \item treba nam program koji traži najveći od tri broja
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def main():
-    x1, x2, x3 = eval(input("Unesite tri broja: "))
-    # ovde nedostaje kod koji odredjuje najveći broj
+    x1, x2, x3 = eval(raw_input("Unesite tri broja: "))
+    # ovde nedostaje kod koji određuje najveći broj
     print("Najveća vrednost je", max)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -651,11 +657,11 @@ def main():
   \begin{itemize}
     \item ovo liči na trostruko grananje gde treba izvršiti jedno od ova tri:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 max = x1
 max = x2
 max = x3
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item samo nam treba pravi uslov za svaku od ovih naredbi
   \end{itemize}
@@ -666,10 +672,10 @@ max = x3
   \begin{itemize}
     \item slučaj kada je \texttt{x1} najveći
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if x1 >= x2 >= x3:
     max = x1
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item mnogi jezici ne dozvoljavaju ovakva višestruka poređenja
     \item Python to dozvoljava -- testira da li važi $x_1 \geq x_2 \geq x_3$
@@ -697,14 +703,14 @@ if x1 >= x2 >= x3:
   \begin{itemize}
     \item možemo da rastavimo ove uslove sa \texttt{and}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if x1 >= x2 and x1 >= x3:
     max = x1
 elif x2 >= x1 and x2 >=x3:
     max = x2
 else
     max = x3
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item poredimo svaku vrednost sa svima ostalima
   \end{itemize}
@@ -739,7 +745,7 @@ else
 
 \begin{frame}[fragile]
   \frametitle{Strategija 2: stablo odlučivanja}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if x1 >= x2:
    if x1 >= x3:
       max = x1
@@ -750,7 +756,7 @@ else:
       max = x2
    else
       max = x3
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -783,13 +789,13 @@ else:
   \begin{itemize}
     \item lako se prevodi u Python kod
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 max = x1
 if x2 > max:
     max = x2
 if x3 > max:
     max = x3
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -805,18 +811,18 @@ if x3 > max:
 
 \begin{frame}[fragile]
   \frametitle{Strategija 3: sekvencijalna obrada}
-\begin{verbatim}
-n = eval(input("Koliko ima brojeva? "))
+\begin{minted}[linenos=false]{python}
+n = eval(raw_input("Koliko ima brojeva? "))
 
-max = eval(input("Unesite broj >> "))
+max = eval(raw_input("Unesite broj >> "))
 
 for i in range(n-1): 
-    x = eval(input("Unesite broj >> "))
+    x = eval(raw_input("Unesite broj >> "))
     if x > max:
         max = x
 
 print("Najveći broj je", max)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -824,10 +830,10 @@ print("Najveći broj je", max)
   \begin{itemize}
     \item postoji funkcija \texttt{max} koja vraća najveći broj iz date liste
   \end{itemize}
-\begin{verbatim}
-x1, x2, x3 = eval(input("Unesite tri broja: "))
+\begin{minted}[linenos=false]{python}
+x1, x2, x3 = eval(raw_input("Unesite tri broja: "))
 print("Najveći broj je", max(x1, x2, x3))
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \section{Moduli}
@@ -855,7 +861,7 @@ print("Najveći broj je", max(x1, x2, x3))
 
 \begin{frame}[fragile]
   \frametitle{Python moduli $_3$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 # mojmodul.py
 
 def fun1():
@@ -869,15 +875,15 @@ def main():
 
 if __name__ == "__main__":
     main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Python moduli $_4$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if __name__ == "__main__":
     main()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ako smo ovaj fajl pokrenuli kao Python program: \\
     \texttt{\_\_name\_\_ == "\_\_main\_\_"}
