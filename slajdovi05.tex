@@ -1,16 +1,25 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Funkcije}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -68,13 +77,13 @@
   \begin{itemize}
     \item definicija funkcije
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def main():
     print("Happy birthday to you!" )
     print("Happy birthday to you!" )
     print("Happy birthday, dear Fred...")
     print("Happy birthday to you!")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item poziv funkcije
   \end{itemize}
@@ -94,10 +103,10 @@ Happy birthday to you!
       \texttt{print("Happy birthday to you!" )}
     \item možemo napisati funkciju koja ispisuje ovaj red:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def happy():
     print("Happy birthday to you!")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item sada možemo da skratimo naš program
   \end{itemize}
@@ -108,13 +117,13 @@ def happy():
   \begin{itemize}
     \item novi program
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def singFred():
     happy()
     happy()
     print("Happy birthday, dear Fred...")
     happy()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item rezultat je:
   \end{itemize}
@@ -134,13 +143,13 @@ Happy birthday to you!
     \item šta ako nam treba rođendan za Lucy?
     \item mogli bismo napisati funkciju za Lucy:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def singLucy():
     happy()
     happy()
     print("Happy birthday, dear Lucy...")
     happy()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
@@ -148,12 +157,12 @@ def singLucy():
   \begin{itemize}
     \item možemo napisati program za Freda i Lucy
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def main():
     singFred()
     print()
     singLucy()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item dobićemo ovaj rezultat
   \end{itemize}
@@ -185,13 +194,13 @@ Happy birthday to you!
   \begin{itemize}
     \item opštija funkcija \texttt{sing} 
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def sing(person):
     happy()
     happy()
     print("Happy birthday, dear", person + ".")
     happy()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ova funkcija ima \myblue{parametar} sa nazivom \texttt{person}
     \item parametar je promenljiva čija vrednost se definiše prilikom poziva funkcije
@@ -220,12 +229,12 @@ Happy birthday to you!
   \begin{itemize}
     \item novi glavni program glasi:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def main():
     sing("Fred")
     print()
     sing("Lucy")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item rezultat je sada sledeći:
   \end{itemize}
@@ -299,11 +308,11 @@ Happy birthday to you!
   \begin{itemize}
     \item prođimo kroz sledeći kod:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 sing("Fred")
 print()
 sing("Lucy")
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item kada Python naiđe na \texttt{sing("Fred")}, izvršavanje \texttt{main} se privremeno zaustavlja
     \item Python traži definiciju funkcije \texttt{sing} i vidi da ona ima jedan formalni parametar, \texttt{person}
@@ -316,9 +325,9 @@ sing("Lucy")
     \item formalni parametar dobija vrednost stvarnog parametra
     \item to je kao da smo izvršili sledeću naredbu
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 person = "Fred"
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item promenljiva \texttt{person} je upravo inicijalizovana
   \end{itemize}
@@ -411,10 +420,10 @@ person = "Fred"
   \begin{itemize}
     \item ova funkcija vraća kvadrat datog broja: \\
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def square(x):
-   return x*x
-\end{verbatim}
+    return x*x
+\end{minted}
   \begin{itemize}
     \item kada Python naiđe na \texttt{return} vraća se nazad iz funkcije i predaje kontrolu u tački gde je funkcija pozvana
     \item vrednost data u \texttt{return} naredbi se šalje nazad onome ko je pozvao funkciju
@@ -423,7 +432,7 @@ def square(x):
 
 \begin{frame}[fragile]
   \frametitle{Rezultat funkcije $_3$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> square(3)
 9
 >>> print(square(4))
@@ -434,7 +443,7 @@ def square(x):
 25
 >>> print(square(x) + square(3))
 34
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -442,11 +451,11 @@ def square(x):
   \begin{itemize}
     \item možemo da iskoristimo funkciju \texttt{square} da napravimo funkciju za rastojanje dve tačke $(x_1,y_1)$ i $(x_2,y_2)$
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def distance(x1, y1, x2, y2):
     dist = math.sqrt(square(x2 - x1) + square(y2 - y1))
     return dist
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -455,12 +464,12 @@ def distance(x1, y1, x2, y2):
     \item nekad funkcija mora da vrati više od jedne vrednosti
     \item rezultat funkcije može biti lista vrednosti
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def sumDiff(x, y):
     sum = x + y
     diff = x – y
     return sum, diff
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]
@@ -468,11 +477,11 @@ def sumDiff(x, y):
   \begin{itemize}
     \item kada se poziva ovakva funkcija, koristi se istovremena dodela više vrednosti
   \end{itemize}
-\begin{verbatim}
-num1, num2 = eval(input("Enter two numbers (num1, num2): "))
-s, d = sumDiff(num1, num2)
-print("The sum is", s, "and the difference is", d)
-\end{verbatim}
+\begin{minted}[linenos=false]{python}
+n1, n2 = eval(raw_input("Unesite dva broja (n1, n2): "))
+s, d = sumDiff(n1, n2)
+print("Zbir je", s, "a razlika je", d)
+\end{minted}
   \begin{itemize}
     \item vrednosti se dodeljuju prema poziciji
     \item \texttt{s} će dobiti prvu vrednost, a \texttt{d} drugu
@@ -510,11 +519,11 @@ print("The sum is", s, "and the difference is", d)
     \item treba nam funkcija koja dodaje kamatu na račun
     \item prva verzija funkcije
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -523,13 +532,13 @@ def addInterest(balance, rate):
     \item ideja je da se pomeni \texttt{balance} tako da se poveća za iznos kamate
     \item napišimo program za test:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def test():
     amount = 1000
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -537,10 +546,10 @@ def test():
   \begin{itemize}
     \item nadamo se da će 5\% biti dodato na račun i da će rezultat biti 1050
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 >>> test()
 1000
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item nema greške, sve je u redu!
   \end{itemize}
@@ -548,13 +557,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_5$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item prve dve linije u \texttt{test}-u kreiraju dve lokalne promenljive, \texttt{amount} i \texttt{rate}
-    \item one dobijaju vrednosti 1000 i 0.05
+    \item[1] prve dve linije u \texttt{test}-u kreiraju dve lokalne promenljive, \texttt{amount} i \texttt{rate}
+    \item[2] one dobijaju vrednosti 1000 i 0.05
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -564,20 +573,20 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_5$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item kontrola se dalje prenosi na funkciju \texttt{addInterest}
-    \item formalni parametri \texttt{balance} i \texttt{rate} dobijaju vrednosti stvarnih parametara \texttt{amount} i \texttt{rate}
-    \item iako \texttt{rate} postoji u obe funkcije, to su dve različite promenljive
+    \item[3] kontrola se dalje prenosi na funkciju \texttt{addInterest}
+    \item[4] formalni parametri \texttt{balance} i \texttt{rate} dobijaju vrednosti stvarnih parametara \texttt{amount} i \texttt{rate}
+    \item[5] iako \texttt{rate} postoji u obe funkcije, to su dve različite promenljive
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -587,18 +596,18 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_6$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item dodela vrednosti za parametre \texttt{balance} i \texttt{rate} funkcije \texttt{addInterest} koristi vrednosti \myblue{stvarnih} parametara
+    \item[6] dodela vrednosti za parametre \texttt{balance} i \texttt{rate} funkcije \texttt{addInterest} koristi vrednosti \myblue{stvarnih} parametara
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -608,7 +617,7 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -621,13 +630,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_8$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item izvršavanje prve linije u \texttt{addInterest} će kreirati novu promenljivu \texttt{newBalance}
-    \item u drugoj liniji će \texttt{balance} primiti vrednost od \texttt{newBalance}
+    \item[7] izvršavanje prve linije u \texttt{addInterest} će kreirati novu promenljivu \texttt{newBalance}
+    \item[8] u drugoj liniji će \texttt{balance} primiti vrednost od \texttt{newBalance}
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -637,19 +646,19 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_9$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item \texttt{balance} sada pokazuje na istu vrednost kao i \texttt{newBalance}
-    \item ali to nema uticaja na \texttt{amount} u \texttt{test}-u
+    \item[9] \texttt{balance} sada pokazuje na istu vrednost kao i \texttt{newBalance}
+    \item[10] ali to nema uticaja na \texttt{amount} u \texttt{test}-u
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -659,7 +668,7 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -672,13 +681,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_{11}$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item izvršavanje \texttt{addInterest} se završava i kontrola se vraća \texttt{test}-u
-    \item lokalne promenljive iz \texttt{addInterest} više ne postoje, ali \texttt{amount} i \texttt{rate} u \texttt{test}-u pokazuju i dalje na stare vrednosti
+    \item[10] izvršavanje \texttt{addInterest} se završava i kontrola se vraća \texttt{test}-u
+    \item[11] lokalne promenljive iz \texttt{addInterest} više ne postoje, ali \texttt{amount} i \texttt{rate} u \texttt{test}-u pokazuju i dalje na stare vrednosti
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     balance = newBalance
@@ -688,7 +697,7 @@ def test():
     rate = 0.05
     addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -718,7 +727,7 @@ def test():
     \item Python nema ovu mogućnost
     \item možemo izmeniti \texttt{addInterest} tako da vraća \texttt{newBalance}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balance, rate):
     newBalance = balance * (1 + rate)
     return newBalance
@@ -728,7 +737,7 @@ def test():
     rate = 0.05
     amount = addInterest(amount, rate)
     print(amount)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -739,16 +748,16 @@ def test():
     \item i kamatu dodavati na svaki račun u listi
     \item prvi račun bi se mogao menjati ovako:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 balances[0] = balances[0] * (1 + rate)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Izmena parametara $_{16}$}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 balances[0] = balances[0] * (1 + rate)
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ovo znači ,,pomnoži vrednost nultog elementa liste sa \texttt{1+rate} i to smesti nazad u nulti element liste``
     \item opštiji način da ovo uradimo bio bi pomoću petlje koja ide kroz listu sa indeksom 0, 1, ..., dužina-1
@@ -757,9 +766,7 @@ balances[0] = balances[0] * (1 + rate)
 
 \begin{frame}[fragile]
   \frametitle{Izmena parametara $_{17}$}
-\begin{verbatim}
-# addinterest3.py
-
+\begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
         balances[i] = balances[i] * (1+rate)
@@ -769,7 +776,7 @@ def test():
     rate = 0.05
     addInterest(amounts, 0.05)
     print(amounts)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -785,13 +792,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_{19}$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item prve dve linije u \texttt{test}-u inicijalizuju promenljive \texttt{amounts} i \texttt{rate}
-    \item vrednost promenljive \texttt{amounts} je lista koja sadrži 4 int vrednosti
+    \item[1] prve dve linije u \texttt{test}-u inicijalizuju promenljive \texttt{amounts} i \texttt{rate}
+    \item[2] vrednost promenljive \texttt{amounts} je lista koja sadrži 4 int vrednosti
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
         balances[i] = balances[i] * 
@@ -802,7 +809,7 @@ def test():
     rate = 0.05
     addInterest(amounts, 0.05)
     print(amounts)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -815,13 +822,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_{21}$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item izvršava se \texttt{addInterest}
-    \item petlja ide kroz listu 0, 1, 2, 3 i ažurira tu vrednost u \texttt{balances}
+    \item[3] izvršava se \texttt{addInterest}
+    \item[4] petlja ide kroz listu 0, 1, 2, 3 i ažurira tu vrednost u \texttt{balances}
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
         balances[i] = balances[i] * 
@@ -832,7 +839,7 @@ def test():
     rate = 0.05
     addInterest(amounts, 0.05)
     print(amounts)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -845,13 +852,13 @@ def test():
 
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_{23}$}
-\begin{tabular}{p{5cm}p{7cm}}
+\begin{tabular}{p{4cm}p{8cm}}
   \begin{itemize}
-    \item stare vrednosti na dijagramu nisu obrisane već su ostavljene da ,,vise`` da bismo naglasili da se nisu promenili brojevi u svojim kutijama, već su novi dodeljeni elementima postojeće liste
-    \item stare vrednosti će iz memorije osloboditi \myblue{garbage collection} mehanizam
+    \item[5] stare vrednosti na dijagramu nisu obrisane već su ostavljene da ,,vise`` da bismo naglasili da se nisu promenili brojevi u svojim kutijama, već su novi dodeljeni elementima postojeće liste
+    \item[6] stare vrednosti će iz memorije osloboditi \myblue{garbage collection} mehanizam
   \end{itemize}
 &
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
         balances[i] = balances[i] * 
@@ -862,7 +869,7 @@ def test():
     rate = 0.05
     addInterest(amounts, 0.05)
     print(amounts)
-\end{verbatim}
+\end{minted}
 \end{tabular}
 \end{frame}
 
@@ -894,6 +901,5 @@ def test():
     \item jedan način da se ovo reši je podela algoritma na manje potprograme gde je svaki od njih autonoman (ima smisla sam za sebe)
   \end{itemize}
 \end{frame}
-
 
 \end{document}
