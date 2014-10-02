@@ -431,7 +431,8 @@ Rezultat je 7
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def babezabe():
-    babe, zabe = eval(raw_input('Unesite broj baba i broj žaba: ')
+    babe, zabe = eval(raw_input(
+        'Unesite broj baba i broj žaba: '))
     print('Naručili ste', babe, 'baba i', zabe, 'žaba.')
 
 >>> babezabe()
@@ -563,7 +564,7 @@ for <var> in <sequence>:
       \item unesi početno stanje računa \\
         \texttt{principal = eval(raw\_input('Početni ulog: '))}
       \item unesi godišnju kamatu \\
-        \texttt{principal = eval(raw\_input('Unesite kamatu: '))}
+        \texttt{apr = eval(raw\_input('Unesite kamatu: '))}
       \item ponavljaj 10 puta \\
         \texttt{for i in range(10):}
       \item izračunaj principal \\
@@ -594,13 +595,13 @@ print ("Vrednost iznosi:", principal)
   \frametitle{Primer programa: obračun kamata $_6$}
 \begin{verbatim}
 $ python futval.py
-Vrednost 10-godisnjeg ulaganja.
-Unesite pocetni ulog: 100
+Vrednost 10-godišnjeg ulaganja.
+Početni ulog: 100
 Unesite kamatu: .03
 Vrednost iznosi: 134.391637934
 $ python futval.py
-Vrednost 10-godisnjeg ulaganja.
-Unesite pocetni ulog: 100
+Vrednost 10-godišnjeg ulaganja.
+Početni ulog: 100
 Unesite kamatu: .1
 Vrednost iznosi: 259.37424601
 \end{verbatim}
