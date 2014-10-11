@@ -60,7 +60,7 @@
 \begin{minted}[linenos=false]{python}
 >>> str1="Hello"
 >>> str2='spam'
->>> print(str1, str2)
+>>> print str1, str2
 Hello spam
 >>> type(str1)
 <class 'str'>
@@ -77,7 +77,7 @@ Hello spam
 \begin{minted}[linenos=false]{python}
 >>> firstName = raw_input("Please enter your name: ")
 Please enter your name: Žika
->>> print("Hello", firstName)
+>>> print "Hello", firstName
 Hello Žika
 \end{minted}
   \begin{itemize}
@@ -106,10 +106,10 @@ H & e & l & l & o & \  & B & o & b \\ \cline{1-9}
 >>> greet = "Hello Bob"
 >>> greet[0]
 'H'
->>> print(greet[0], greet[2], greet[4])
+>>> print greet[0], greet[2], greet[4]
 H l o
 >>> x = 8
->>> print(greet[x - 2])
+>>> print greet[x - 2]
 B
 \end{minted}
 \end{frame}
@@ -491,17 +491,17 @@ TypeError: object doesn't support item assignment
 # Konvertuje string u niz brojeva koristeći Unicode
 # kodni raspored
 
-print("Konvertuje string u niz brojeva koristeći")
-print("Unicode kodni raspored.\n")
+print "Konvertuje string u niz brojeva koristeći"
+print "Unicode kodni raspored.\n"
 
 # unesi tekst
 message = raw_input("Unesite tekst za kodiranje: ")
 
-print("\nOvo su Unicode kodovi:")
+print "\nOvo su Unicode kodovi:"
 
 # za svaki znak u stringu ispiši njegov kod
 for ch in message:
-    print(ord(ch),  end=" ")
+    print(ord(ch)),
 
 print()
 \end{minted}
@@ -586,7 +586,7 @@ Enter a number 3.14
 # numbers2text.py
 # Konvertuje niz Unicode brojeva u string
 
-print("Konvertuje niz Unicode brojeva u string.\n")
+print "Konvertuje niz Unicode brojeva u string.\n"
 
 # unesi poruku
 inString = raw_input("Unesite poruku kao Unicode niz: ")
@@ -599,7 +599,7 @@ for numStr in inString.split(" "):
     # dodaj znak na kraj rezultata
     message = message + chr(codeNum) 
 
-print("\nDekodirana poruka je:", message)
+print "\nDekodirana poruka je:", message
 \end{minted}
 \end{frame}
 
@@ -750,7 +750,7 @@ Konvertovani datum je: 15. oktobar 2011.
 >>> value = 3.14
 >>> str(value)
 '3.14'
->>> print("Vednost je", str(value) + ".")
+>>> print "Vrednost je", str(value) + "."
 Vrednost je 3.14.
 \end{minted}
 \end{frame}
@@ -763,7 +763,7 @@ Vrednost je 3.14.
   \end{itemize}
 \begin{verbatim}
 >>> value = 3.14
->>> print("Vrednost je", value + ".")
+>>> print "Vrednost je", value + "."
 Vrednost je
 
 Traceback (most recent call last):
@@ -810,7 +810,7 @@ The total value of your change is 1.5
     \item možemo da preradimo ispis rezultata ovako:
   \end{itemize}
 \begin{verbatim}
-print("Your change is ${0:0.2f}".format(total))
+print "Your change is ${0:0.2f}".format(total)
 \end{verbatim}
   \begin{itemize}
     \item sada ćemo dobiti nešto ovako:
@@ -832,7 +832,7 @@ The total value of your change is $1.50
 \begin{frame}[fragile]
   \frametitle{Funkcija \texttt{format} $_2$}
 \begin{verbatim}
-print("Your change is ${0:0.2f}".format(total))
+print "Your change is ${0:0.2f}".format(total)
 \end{verbatim}
   \begin{itemize}
     \item šablon sadrži jedno mesto sa opisom \texttt{0:0.2f}
@@ -1095,7 +1095,7 @@ infile.close()
 infile = open(someFile, "r")
 for i in range(5):
     line = infile.readline()
-    print(line[:-1])
+    print line[:-1]
 infile.close()
 \end{minted}
   \begin{itemize}
@@ -1141,7 +1141,7 @@ infile.close()
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 outfile = open(someFile, "w")
-print(sadržaj, file=outfile)
+outfile.write(sadržaj)
 \end{minted}
 \end{frame}
 
