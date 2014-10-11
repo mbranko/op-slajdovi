@@ -1,14 +1,21 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Petlje i logički izrazi}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
 
@@ -80,17 +87,17 @@
 
 \begin{frame}[fragile]
   \frametitle{Program za računanje proseka}
-\begin{verbatim}
+\begin{minted}{python}
 # average1.py
 
 def main():
-    n = eval(input("Koliko ima brojeva? "))
+    n = eval(raw_input("Koliko ima brojeva? "))
     sum = 0.0
     for i in range(n):
-        x = eval(input("Unesi broj >> "))
+        x = eval(raw_input("Unesi broj >> "))
         sum = sum + x
-    print("\nProsek je", sum / n)
-\end{verbatim}
+    print "\nProsek je", sum / n
+\end{minted}
   \begin{itemize}
     \item \texttt{sum} je inicijalizovan na 0.0 umesto na 0
     \item zato će \texttt{sum/n} biti \texttt{float} a ne \texttt{int}!
@@ -246,7 +253,7 @@ ispiši sum/count
 
 \begin{frame}[fragile]
   \frametitle{Interaktivna petlja $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 # average2.py
 
 def main():
@@ -254,13 +261,13 @@ def main():
     sum = 0.0
     count = 0
     while moredata == 'da':
-        x = eval(input("Unesite broj >> "))
+        x = eval(raw_input("Unesite broj >> "))
         sum = sum + x
         count = count + 1
-        moredata = input(
+        moredata = raw_input(
             "Ima još brojeva (da ili ne)? ")
-    print("\nProsek je", sum / count)
-\end{verbatim}
+    print "\nProsek je", sum / count
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -317,21 +324,21 @@ while podatak nije sentinel
 
 \begin{frame}[fragile]
   \frametitle{Sentinel i računanje proseka}
-\begin{verbatim}
+\begin{minted}{python}
 # average3.py
 
 def main():
     sum = 0.0
     count = 0
-    x = eval(input(
+    x = eval(raw_input(
         "Unesite broj (negativan za kraj) >> "))
     while x >= 0:
         sum = sum + x
         count = count + 1
-        x = eval(input(
+        x = eval(raw_input(
             "Unesite broj (negativan za kraj) >> "))
-    print("\nProsek je", sum / count)
-\end{verbatim}
+    print "\nProsek je", sum / count
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -384,22 +391,22 @@ ispiši sum / count
 
 \begin{frame}[fragile]
   \frametitle{Prazan string kao sentinel $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 # average4.py
 
 def main():
     sum = 0.0
     count = 0
-    xStr = input(
+    xStr = raw_input(
         "Unesite broj (<Enter> za kraj) >> ")
     while xStr != "":
         x = eval(xStr)
         sum = sum + x
         count = count + 1
-        xStr = input(
+        xStr = raw_input(
             "Unesite broj (<Enter> za kraj) >> ")
-    print("\nProsek je", sum / count)
-\end{verbatim}
+    print "\nProsek je", sum / count
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -430,19 +437,19 @@ Prosek je 3.38333333333
 
 \begin{frame}[fragile]
   \frametitle{Čitanje iz fajla u petlji}
-\begin{verbatim}
+\begin{minted}{python}
 # average5.py
 
 def main():
-    fileName = input("Unesite ime fajla >> ")
+    fileName = raw_input("Unesite ime fajla >> ")
     infile = open(fileName,'r')
     sum = 0.0
     count = 0
     for line in infile.readlines():
         sum = sum + eval(line)
         count = count + 1
-    print("\nProsek je", sum / count)
-\end{verbatim}
+    print "\nProsek je", sum / count
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -460,12 +467,12 @@ def main():
 
 \begin{frame}[fragile]
   \frametitle{Fajlovi i sentinel $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 line = infile.readline()
 while line != ""
     # obradi line
     line = infile.readline()
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item da li ovaj kod pravilno radi u slučaju kada postoji prazan red u fajlu?
     \item za prazan red readline vraća \texttt{"\textbackslash n"}
@@ -474,11 +481,11 @@ while line != ""
 
 \begin{frame}[fragile]
   \frametitle{Fajlovi i sentinel $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 # average6.py
 
 def main():
-    fileName = input("Unesite ime fajla >> ")
+    fileName = raw_input("Unesite ime fajla >> ")
     infile = open(fileName,'r')
     sum = 0.0
     count = 0
@@ -487,8 +494,8 @@ def main():
         sum = sum + eval(line)
         count = count + 1
         line = infile.readline()
-    print("\nProsek je", sum / count)
-\end{verbatim}
+    print "\nProsek je", sum / count
+\end{minted}
 \end{frame}
 
 \section[Ugnježdavanje]{Ugnježdene petlje}
@@ -507,15 +514,15 @@ def main():
   \begin{itemize}
     \item na najvišem nivou koristićemo petlju za obradu fajla koja računa \texttt{sum} i \texttt{count}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 sum = 0.0
 count = 0
 line = infile.readline()
 while line != "":
     # ažuriraj sum i count
     line = infile.readline()
-print("\nProsek je", sum/count)
-\end{verbatim}
+print "\nProsek je", sum/count
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -533,11 +540,11 @@ print("\nProsek je", sum/count)
 
 \begin{frame}[fragile]
   \frametitle{Ugnježdene petlje $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 for xStr in line.split(","):
-   sum = sum + eval(xStr)
-   count = count + 1
-\end{verbatim}
+    sum = sum + eval(xStr)
+    count = count + 1
+\end{minted}
   \begin{itemize}
     \item ova \texttt{for} petlja koristi \texttt{line}, što je promenljiva iz spoljne petlje
   \end{itemize}
@@ -545,14 +552,14 @@ for xStr in line.split(","):
 
 \begin{frame}[fragile,shrink=5]
   \frametitle{Ugnježdene petlje $_5$}
-\begin{verbatim}
+\begin{minted}{python}
 # average7.py
 
 import string
 
 def main():
-    fileName = input("Unesite ime fajla >> ")
-    infile = open(fileName,'r')
+    fileName = raw_input("Unesite ime fajla >> ")
+    infile = open(fileName, 'r')
     sum = 0.0
     count = 0
     line = infile.readline()
@@ -561,9 +568,9 @@ def main():
             sum = sum + eval(xStr)
             count = count + 1
         line = infile.readline()
-    print("\nProsek je", sum / count)
+    print "\nProsek je", sum / count
 
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -599,7 +606,7 @@ def main():
 
 \begin{frame}[fragile]
   \frametitle{Logički operatori $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 if x1 == x2:
     if y1 == y2:
         # tačke su jednake
@@ -607,7 +614,7 @@ if x1 == x2:
         # tačke nisu jednake
 else:
     # tačke nisu jednake
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ovakav test izgleda rogobatno
     \item možemo koristiti logičke operatore \texttt{and}, \texttt{or} i \texttt{not}
@@ -700,12 +707,12 @@ else:
   \begin{itemize}
     \item za poređenje 2D tačaka možemo koristiti \texttt{and}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if x1 == x2 and y1 == y2:
     # tačke su jednake
 else:
     # tačke nisu jednake
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ceo izraz će biti \texttt{True} samo kada su \myblue{oba} manja izraza \texttt{True}
   \end{itemize}
@@ -732,12 +739,12 @@ while not(scoreA == 15 or scoreB == 15):
   \begin{itemize}
     \item ako jedan igrač osvoji 7 poena dok drugi ne osvoji nijedan, igra se završava
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while not(scoreA == 15 or scoreB == 15 or 
   (scoreA == 7 and scoreB == 0) or 
   (scoreB == 7 and scoreA == 0):
     # nastavi da igraš
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -746,11 +753,11 @@ while not(scoreA == 15 or scoreB == 15 or
     \item jedan set se igra do 25 poena
     \item set se mora dobiti sa 2 poena razlike
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 (a >= 25 and a-b >= 2) or (b >= 25 and b-a >= 2)
 
 (a >= 25 or b >= 25) and abs(a-b) >= 2
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -795,24 +802,24 @@ while not(scoreA == 15 or scoreB == 15 or
   \begin{itemize}
     \item na osnovu ovih pravila možemo pojednostaviti neke izraze
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while not(scoreA == 15 or scoreB == 15):
     # nastavi da igraš
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item primenom De Morganovog zakona
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while (not scoreA == 15) and (not scoreB == 15):
     # nastavi da igraš
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item što se svodi na
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while scoreA != 15 and scoreB != 15:
     # nastavi da igraš
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -854,11 +861,11 @@ until number >= 0
     \item Python nema naredbu za ovakve petlje ali se ona može napraviti pomoću \texttt{while}
     \item pripremimo vrednosti tako da uslov bude uvek ispunjen pre prvog ciklusa petlje
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 number = -1
 while number < 0:
     # uradi nešto
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -868,12 +875,12 @@ while number < 0:
     \item \texttt{break} služi za momentalno iskakanje iz petlje
     \item može i za iskakanje iz beskonačne petlje
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while True:
-    number = eval(input("Unesite broj >> "))
+    number = eval(raW_input("Unesite broj >> "))
     if number >= 0: 
         break # izađi iz petlje ako je broj ispravan
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item bilo bi lepo da program ispiše upozorenje da broj nije ispravan
   \end{itemize}
@@ -884,13 +891,13 @@ while True:
   \begin{itemize}
     \item u verziji sa \texttt{while} petljom ovo je rogobatno
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 number = -1
 while number < 0:
-    number = eval(input("Unesite pozitivan broj "))
+    number = eval(raw_input("Unesite pozitivan broj: "))
     if number < 0:
-        print("Uneti broj nije pozitivan!")
-\end{verbatim}
+        print "Uneti broj nije pozitivan!"
+\end{minted}
   \begin{itemize}
     \item vršimo proveru na dva mesta -- nije elegantno
   \end{itemize}
@@ -901,14 +908,14 @@ while number < 0:
   \begin{itemize}
     \item verzija sa \texttt{break} samo još dodaje \texttt{else} klauzulu
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while True:
-    number = eval(input("Unesite pozitivan broj "))
+    number = eval(raw_input("Unesite pozitivan broj: "))
     if number >= 0:
         break
     else:
-        print("Uneti broj nije pozitivan!")
-\end{verbatim}
+        print "Uneti broj nije pozitivan!"
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -916,13 +923,13 @@ while True:
   \begin{itemize}
     \item nešto elegantnija verzija
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 while True:
-    number = eval(input("Unesite pozitivan broj "))
+    number = eval(raw_input("Unesite pozitivan broj: "))
     if number >= 0: 
         break
-    print("Uneti broj nije pozitivan!")
-\end{verbatim}
+    print "Uneti broj nije pozitivan!"
+\end{minted}
   \begin{itemize}
     \item izlaz iz petlje je u sredini tela petlje
     \item $\rightarrow$ ,,\myblue{petlja ipo}``
@@ -994,7 +1001,7 @@ while True:
     \item za liste: prazna lista je \texttt{False}, neprazna je \texttt{True}
     \item za stringove: prazan string je \texttt{False}, neprazan je \texttt{True}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> bool(0)
 False
 >>> bool(1)
@@ -1009,7 +1016,7 @@ False
 True
 >>> bool([])
 False
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1066,13 +1073,13 @@ False
 
 \begin{frame}[fragile]
   \frametitle{Izračunavanje logičkih izraza: primer 2}
-\begin{verbatim}
+\begin{minted}{python}
 ans = input("Koji sladoled želite [vanila]: ")
 if ans:
     flavor = ans
 else:
     flavor = "vanila"
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ako korisnik samo pritisne Enter, \texttt{ans} će biti prazan string
     \item prazan string se tretira kao \texttt{False}
@@ -1084,16 +1091,16 @@ else:
   \begin{itemize}
     \item ovo može još sažetije!
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 ans = input("Koji sladoled želite [vanila]: ")
 flavor = ans or "vanila"
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ili još kraće:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 flavor = input("Koji sladoled želite [vanila]: ") or "vanila"
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
