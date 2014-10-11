@@ -75,7 +75,7 @@ Hello spam
     \item unos stringa sa tastature
   \end{itemize}
 \begin{minted}[linenos=false]{python}
->>> firstName = input("Please enter your name: ")
+>>> firstName = raw_input("Please enter your name: ")
 Please enter your name: Žika
 >>> print("Hello", firstName)
 Hello Žika
@@ -677,7 +677,7 @@ Dekodirana poruka je: Pajton je zakon
   \frametitle{Formatiranje stringova $_2$}
   \begin{itemize}
     \item prva dva reda su jednostavna: \\
-      \texttt{dateStr = input('Unesite datum (dd.mm.gggg.): ')} \\
+      \texttt{dateStr = raw\_input('Unesite datum (dd.mm.gggg.): ')} \\
       \texttt{dayStr, monthStr, yearStr, x = dateStr.split('.')} \\ \ \\ %
     \item datum se učita kao string, pa se podeli oko tačke na 4 dela
     \item prva tri dela upišemo u bitne promenljive
@@ -727,8 +727,8 @@ monthStr = months[int(monthStr) – 1]
 \begin{frame}[fragile]
   \frametitle{Formatiranje stringova $_6$}
 \begin{minted}[linenos=false]{python}
-print ("Konvertovani datum je:", dayStr+".", 
-    monthStr, yearStr+".")
+print "Konvertovani datum je:", dayStr+".", 
+    monthStr, yearStr+"."
 \end{minted}
   \begin{itemize}
     \item tačka je dodata na \texttt{dayStr} i \texttt{yearStr} konkatenacijom
@@ -1072,8 +1072,8 @@ outfile = open("numbers2.dat", "w")
 \begin{minted}[linenos=false]{python}
 # printfile.py
 
-fname = input("Enter filename: ")
-infile = open(fname,'r')
+fname = raw_input("Enter filename: ")
+infile = open(fname, 'r')
 data = infile.read()
 print(data)
 infile.close()
@@ -1157,8 +1157,8 @@ print(sadržaj, file=outfile)
 \begin{frame}[fragile]
   \frametitle{Batch režim rada $_2$}
 \begin{minted}[linenos=false]{python}
-infileName = input("Input file? ")
-outfileName = input("Output file? ")
+infileName = raw_input("Ulazni fajl: ")
+outfileName = raw_input("Izlazni fajl: ")
 
 infile = open(infileName, 'r')
 outfile = open(outfileName, 'w')
@@ -1166,12 +1166,12 @@ outfile = open(outfileName, 'w')
 for line in infile:
     first, last = line.split()
     uname = (first[0]+last[:7]).lower()
-    print(uname, file=outfile)
+    outfile.write(outfile + "\n")
 
 infile.close()
 outfile.close()
 
-print("Written to", outfileName)
+print "Sacuvan fajl:", outfileName
 \end{minted}
 \end{frame}
 
