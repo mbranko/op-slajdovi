@@ -1,16 +1,26 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Simulacija sistema i dizajn programa}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+% da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -130,6 +140,13 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Slučajni i pseudoslučajni brojevi}
+  \begin{center}
+    \includegraphics[width=8cm]{pic31.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
   \frametitle{Generisanje pseudoslučajnih brojeva}
   \begin{itemize}
     \item generator pseudoslučajnih brojeva funkcioniše na sličan način
@@ -168,7 +185,7 @@
   \begin{itemize}
     \item svaki poziv \texttt{randrange} proizvodi jedan pseudoslučajan \texttt{int}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> from random import randrange
 >>> randrange(1,6)
 5
@@ -184,7 +201,7 @@
 5
 >>> randrange(1,6)
 4
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}
@@ -207,7 +224,7 @@
 
 \begin{frame}[fragile]
   \frametitle{Funkcija \texttt{random} $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 >>> from random import random
 >>> random()
 0.79432800912898816
@@ -223,7 +240,7 @@
 0.23903583712127141
 >>> random()
 0.72918328843408919
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -232,10 +249,10 @@
     \item simulacija racquetball partije koristi funkciju \texttt{random}
     \item ako je verovatnoća osvajanja poena za igrača 70\% odnosno 0.7
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if <igrač dobije na svoj servis>:
     score = score + 1
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item treba nam izraz koji vraća \texttt{True} u 70\% slučajeva
   \end{itemize}
@@ -258,10 +275,10 @@ if <igrač dobije na svoj servis>:
     \item ako \texttt{prob} predstavlja verovatnoću za igrača
     \item uslov \texttt{random() < prob} će biti zadovoljen sa traženom verovatnoćom
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if random() < prob:
     score = score + 1
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \section[Top-down]{Top-down dizajn}
@@ -336,11 +353,11 @@ ispiši rezultate simulacije
       \item broj partija koje je dobio B
     \end{itemize}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 printIntro()
 probA, probB, n = getInputs()
 winsA, winsB = simGames(n, probA, probB)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -363,7 +380,7 @@ printSummary(winsA, winsB)
 
 \begin{frame}[fragile]
   \frametitle{Kompletan program}
-\begin{verbatim}
+\begin{minted}{python}
 def main():
     printIntro()
     probA, probB, n = getInputs()
@@ -371,7 +388,7 @@ def main():
     printSummary(winsA, winsB)
 
 main()
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}
@@ -433,13 +450,13 @@ main()
     \item ponavljamo top-down pristup za svaki od podproblema koje smo već definisali
     \item funkcija \texttt{printIntro} treba da ispiše uvodnu poruku
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def printIntro():
-    print("Ovaj program simulira racquetball partije između igrača")
-    print('zvanih "A" i "B".  Sposobnost svakog igrača je određena')
-    print("verovatnoćom (broj između 0 i 1) da igrač osvoji poen")
-    print("na svoj servis. Igrač A uvek servira prvi.\n")
-\end{verbatim}
+    print "Ovaj program simulira racquetball partije između igrača"
+    print 'zvanih "A" i "B".  Sposobnost svakog igrača je određena'
+    print "verovatnoćom (broj između 0 i 1) da igrač osvoji poen"
+    print "na svoj servis. Igrač A uvek servira prvi.\n"
+\end{minted}
   \begin{itemize}
     \item u drugoj liniji string je dat u jednostrukim navodnicima zato što želimo da ispišemo dvostruke navodnike
     \item nema novih funkcija $\rightarrow$ nema novih dijagrama
@@ -451,13 +468,13 @@ def printIntro():
   \begin{itemize}
     \item funkcija \texttt{getInputs} unosimo tri broja koja vraćamo kao rezultat funkcije
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def getInputs():
-    a = eval(input("Verovatnoća da A osvoji poen na servis >> "))
-    b = eval(input("Verovatnoća da B osvoji poen na servis >> "))
-    n = eval(input("Broj partija za simulaciju >> "))
+    a = eval(raw_input("Verovatnoća da A osvoji poen na servis >> "))
+    b = eval(raw_input("Verovatnoća da B osvoji poen na servis >> "))
+    n = eval(raw_input("Broj partija za simulaciju >> "))
     return a, b, n
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -483,22 +500,22 @@ ponovi n puta
   \begin{itemize}
     \item već imamo signaturu funkcije \texttt{simGames}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def simNGames(n, probA, probB):
     # simulira n racquetball partija između igrača A i B
     # vraća broj pobeda A, broj pobeda B
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item početak je lak:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def simNGames(n, probA, probB):
     # simulira n racquetball partija između igrača A i B
     # vraća broj pobeda A, broj pobeda B
     winsA = 0
     winsB = 0
     for i in range(n):
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -516,7 +533,7 @@ def simNGames(n, probA, probB):
 
 \begin{frame}[fragile]
   \frametitle{Dizajn na drugom nivou: \texttt{simGames} $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 def simNGames(n, probA, probB):
     # simulira n racquetball partija između igrača A i B
     # vraća broj pobeda A, broj pobeda B
@@ -528,7 +545,7 @@ def simNGames(n, probA, probB):
         else:
             winsB = winsB + 1
     return winsA, winsB
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -550,13 +567,13 @@ def simNGames(n, probA, probB):
 
 \begin{frame}[fragile]
   \frametitle{Dizajn na trećem nivou: \texttt{simOneGame} $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 def simOneGame(probA, probB):
     scoreA = 0
     scoreB = 0
     serving = "A"
     while <uslov>:
-\end{verbatim}
+\end{minted}
 \begin{itemize}
   \item šta će biti \texttt{uslov}?
   \item neka prosledimo rezultat(e) funkciji koja vraća \texttt{True} ako je partija gotova
@@ -585,13 +602,13 @@ def simOneGame(probA, probB):
   \item ako servira igrač A onda koristimo \texttt{probA}, 
   \item zavisno od rezultata ili povećamo poene za A ili servis preuzima B
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if serving == "A":
     if random() < probA:
         scoreA = scoreA + 1
     else:
         serving = "B"
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -599,7 +616,7 @@ if serving == "A":
 \begin{itemize}
   \item ako servira B, radimo isto kao i u prethodnom slučaju, samo sa zamenjenim ulogama
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if serving == "A":
     if random() < probA:
         scoreA = scoreA + 1
@@ -610,12 +627,12 @@ else:
         scoreB = scoreB + 1
     else:
         serving = "A"
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]
   \frametitle{Cela funkcija \texttt{simOneGame}}
-\begin{verbatim}
+\begin{minted}{python}
 def simOneGame(probA, probB):
     serving = "A"
     scoreA = 0
@@ -632,7 +649,7 @@ def simOneGame(probA, probB):
             else:
                 serving = "A"
     return scoreA, scoreB
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -640,39 +657,39 @@ def simOneGame(probA, probB):
 \begin{itemize}
   \item za sada imamo signaturu funkcije \texttt{gameOver}
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def gameOver(a,b):
     # a i b su poeni igrača
     # vraća True ako je partija gotova, inače vraća False
-\end{verbatim}
+\end{minted}
 \begin{itemize}
   \item igra je gotova kada bilo koji igrač osvoji 15 poena:
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 a == 15 or b == 15
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Cela funkcija \texttt{gameOver}}
-\begin{verbatim}
+\begin{minted}{python}
 def gameOver(a,b):
     # a i b su poeni igrača
     # vraća True ako je partija gotova, inače vraća False
     return a == 15 or b == 15
-\end{verbatim}
+\end{minted}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile,shrink=10]
   \frametitle{Cela funkcija \texttt{printSummary}}
-\begin{verbatim}
+\begin{minted}{python}
 def printSummary(winsA, winsB):
     # Ispisuje rezultate simulacije
     n = winsA + winsB
     print "\nSimulirano partija:", n
     print "Pobede A: {0} ({1:0.1%})".format(winsA, winsA/n)
     print "Pobede B: {0} ({1:0.1%})".format(winsB, winsB/n)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}
@@ -720,7 +737,7 @@ def printSummary(winsA, winsB):
 \begin{itemize}
   \item možemo početi od funkcije \texttt{gameOver}
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> import rball
 >>> rball.gameOver(0,0)
 False
@@ -730,7 +747,7 @@ False
 True
 >>> rball.gameOver(3,15)
 True
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}
@@ -748,7 +765,7 @@ True
 \begin{itemize}
   \item sada možemo preći na testiranje funkcije \texttt{simOneGame}
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> simOneGame(.5, .5)
 (11, 15)
 >>> simOneGame(.5, .5)
@@ -769,7 +786,7 @@ True
 (10, 15)
 >>> simOneGame(.4, .6)
 (9, 15)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}
@@ -799,7 +816,7 @@ True
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]
-  \frametitle{Testiranje funkcije \texttt{simOneGame}}
+  \frametitle{Testiranje celog programa}
 \begin{verbatim}
 Ovaj program simulira racquetball partije između igrača
 zvanih "A" i "B".  Sposobnost svakog igrača je određena
