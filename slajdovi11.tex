@@ -1,16 +1,26 @@
 \documentclass[utf8,compress]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
+\usepackage{url}
+\usepackage{fontspec} % zahteva paket euenc
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{minted}
+\usepackage{xcolor,colortbl}
+\usepackage{textcomp}
+\usepackage{unicode-math}
 
 \title{Dizajn algoritama i rekurzija}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2011.}
+\date{2014.}
 
 \begin{document}
+
+% da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
+\expandafter\def\csname PY@tok@err\endcsname{}
 
 \frame{\titlepage}
 
@@ -43,21 +53,21 @@
   \begin{itemize}
     \item funkcija za pretragu
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def search(x, nums):
     # nums je lista brojeva, x je broj koji se traži
     # vraća indeks u listi gde se nalazi x,
     # ako x nije u listi vraća -1
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item primeri upotrebe:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> search(4, [3, 1, 4, 2, 5])
 2
 >>> search(7, [3, 1, 4, 2, 5])
 -1
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -65,18 +75,18 @@ def search(x, nums):
   \begin{itemize}
     \item testiranje da li se \texttt{x} nalazi u sekvenci: operator \texttt{in}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if x in nums:
     # uradi nešto
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item pozicija \texttt{x} u listi pomoću funkcije \texttt{index}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> nums = [3, 1, 4, 2, 5]
 >>> nums.index(4)
 2
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -87,13 +97,13 @@ if x in nums:
     \item mogli bismo napraviti naš \texttt{search} tako da koristi \texttt{index},
     \item hvata izuzetak i vraća -1 u tom slučaju
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{pyton}
 def search(x, nums):
     try:
         return nums.index(x)
     except:
         return -1
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -125,13 +135,13 @@ def search(x, nums):
     \item \myblue{linearna pretraga}: prolazimo redom kroz sve elemente liste
     \item prekidamo pretragu kad nađemo podatak ili kada dođemo do kraja liste
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def search(x, nums):
     for i in range(len(nums)):
         if nums[i] == x: # pronađen
             return i
     return -1  # došli do kraja, nije pronađen
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item jednostavan algoritam
     \item pristojne performanse za male (kratke) liste
@@ -214,7 +224,7 @@ def search(x, nums):
 
 \begin{frame}[fragile]
   \frametitle{Binarna pretraga $_5$}
-\begin{verbatim}
+\begin{minted}{python}
 def search(x, nums):
     low = 0
     high = len(nums) - 1
@@ -228,7 +238,7 @@ def search(x, nums):
         else:                 # x je u gornjoj polovini
             low = mid + 1
     return -1                 # nismo našli x
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \section[Poređenje]{Poređenje algoritama}
@@ -329,7 +339,7 @@ def search(x, nums):
   \begin{itemize}
     \item koliko elemenata se testira za listu dužine $n$?
     \item treba rešiti $n = 2^i$ po $i$, odnosno
-    \item $i = \log_2 n$ \\ \ \\
+    \item $i = log_2 n$ \\ \ \\
     \item binarna pretaga ima \myblue{logaritamsku} vremensku zavisnost
     \item vreme potrebno za pronalaženje raste sa logaritmom dužine liste
   \end{itemize}
@@ -340,7 +350,7 @@ def search(x, nums):
   \begin{itemize}
     \item telefonski imenik Njujorka: 12 miliona imena
     \item pronalaženje datog imena u imeniku: 
-    \item najviše $\log_2 12000000 = 24$ pokušaja! \\ \ \\
+    \item najviše $log_2 12000000 = 24$ pokušaja! \\ \ \\
     \item za linearnu pretragu treba u proseku 6000000 pokušaja
   \end{itemize}
 \end{frame}
@@ -384,7 +394,7 @@ def search(x, nums):
 
 \begin{frame}[fragile]
   \frametitle{Podeli i vladaj: binarna pretraga $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 def search(x, nums, low, high):
     if low > high:
         return -1
@@ -395,7 +405,7 @@ def search(x, nums, low, high):
         search(x, nums, low, mid-1)
     else:
         search(x, nums, mid+1, high)
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item ova verzija nema petlju!
     \item poziva samu sebe!
@@ -455,13 +465,13 @@ def search(x, nums, low, high):
     \item ranije smo napravili faktorijel pomoću akumulatora
     \item sada pomoću rekurzije:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def fact(n):
     if n == 0:
         return 1
     else:
         return n * fact(n-1)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -498,10 +508,10 @@ def fact(n):
 
 \begin{frame}[fragile]
   \frametitle{Primer: obrtanje redosleda znakova u stringu $_3$}
-\begin{verbatim}
+\begin{minted}{python}
 def reverse(s):
     return reverse(s[1:]) + s[0]
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item isečak \texttt{s[1:]} vraća sve osim prvog znaka
     \item okrenemo ovaj isečak i dodamo prvi znak \texttt{s[0]} na kraj 
@@ -510,12 +520,12 @@ def reverse(s):
 
 \begin{frame}[fragile]
   \frametitle{Primer: obrtanje redosleda znakova u stringu $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 >>> reverse("Hello")
 ...
   File "<stdin>", line 2, in reverse
 RuntimeError: maximum recursion depth exceeded
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item šta se desilo?
     \item funkcija ne sadrži osnovni slučaj koji se ne oslanja na rekurziju
@@ -535,7 +545,7 @@ RuntimeError: maximum recursion depth exceeded
 
 \begin{frame}[fragile]
   \frametitle{Primer: obrtanje redosleda znakova u stringu $_6$}
-\begin{verbatim}
+\begin{minted}{python}
 def reverse(s):
     if s == "":
         return s
@@ -544,7 +554,7 @@ def reverse(s):
 
 >>> reverse("Hello")
 'olleH'
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -574,7 +584,7 @@ def reverse(s):
   \begin{itemize}
     \item i u ovom primeru prazan string može poslužiti kao osnovni slučaj za rekurziju
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def anagrams(s):
     if s == "":
         return [s]
@@ -584,7 +594,7 @@ def anagrams(s):
             for pos in range(len(w)+1):
                 ans.append(w[:pos]+s[0]+w[pos:])
         return ans
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -612,10 +622,10 @@ w[:pos]+ s[0] + w[pos:]
 
 \begin{frame}[fragile]
   \frametitle{Primer: anagrami $_5$}
-\begin{verbatim}
+\begin{minted}{python}
 >>> anagrams("abc")
 ['abc', 'bac', 'bca', 'acb', 'cab', 'cba']
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item broj različitih anagrama jednak je faktorijelu dužine stringa
   \end{itemize}
@@ -627,13 +637,13 @@ w[:pos]+ s[0] + w[pos:]
     \item jedan način da izračunamo $a^n$ je da pomnožimo $a$ ukupno $n$ puta
     \item ovo se može lako napraviti pomoću akumulatorske petlje:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def loopPower(a, n):
     ans = 1
     for i in range(n):
         ans = ans * a
     return ans
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -676,7 +686,7 @@ def loopPower(a, n):
 
 \begin{frame}[fragile]
   \frametitle{Primer: brzo stepenovanje $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 def recPower(a, n):
     if n ==  0:
         return 1
@@ -686,7 +696,7 @@ def recPower(a, n):
             return factor * factor
         else:           # n je neparan
             return factor * factor * a
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item \myblue{privremena promenljiva} \texttt{factor} je uvedena da ne bismo dva puta morali da izračunavamo $a^{n//2}$ više od jedanput
   \end{itemize}
@@ -704,7 +714,7 @@ def recPower(a, n):
 
 \begin{frame}[fragile]
   \frametitle{Primer: binarna pretraga $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 def recBinSearch(x, nums, low, high):
     if low > high:   # nema više gde da se traži
         return -1
@@ -716,10 +726,7 @@ def recBinSearch(x, nums, low, high):
         return recBinSearch(x, nums, low, mid-1)
     else:            # traži u gornjoj polovini
         return recBinSearch(x, nums, mid+1, high)
-\end{verbatim}
-  \begin{itemize}
-    \item \myblue{privremena promenljiva} \texttt{factor} je uvedena da ne bismo dva puta morali da izračunavamo $a^{n//2}$ više od jedanput
-  \end{itemize}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -727,10 +734,10 @@ def recBinSearch(x, nums, low, high):
   \begin{itemize}
     \item da bi se prethodna funkcija lakše koristila možemo napraviti novu funkciju koja ,,sakriva`` parametre \texttt{low} i \texttt{high}
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def search(x, nums):
     return recBinSearch(x, nums, 0, len(nums)-1)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -780,14 +787,14 @@ def search(x, nums):
 
 \begin{frame}[fragile]
   \frametitle{Fibonacci iterativno $_2$}
-\begin{verbatim}
+\begin{minted}{python}
 def loopfib(n):
     curr = 1
     prev = 1
     for i in range(n-2):
         curr, prev = curr+prev, curr
     return curr
-\end{verbatim}
+\end{minted}
   \begin{itemize}
     \item iskoristili smo dvostruku dodelu
     \item petlja izvršava $n-2$ ciklusa jer prva dva broja već imamo
@@ -805,13 +812,13 @@ $$ fib(n) = \left\{
   \begin{itemize}
     \item lako je napisati funkciju na osnovu ovakve definicije:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def fib(n):
     if n < 3:
         return 1
     else:
         return fib(n-1)+fib(n-2)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -908,7 +915,7 @@ def fib(n):
 
 \begin{frame}[fragile]
   \frametitle{Selection sort $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 def selectionSort(nums):
     n = len(nums)
     for bottom in range(n-1):
@@ -919,7 +926,7 @@ def selectionSort(nums):
 
         # zameni mesta
         nums[bottom], nums[mp] = nums[mp], nums[bottom]
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -979,7 +986,7 @@ def selectionSort(nums):
 
 \begin{frame}[fragile]
   \frametitle{Merge sort $_4$}
-\begin{verbatim}
+\begin{minted}{python}
 def merge(lst1, lst2, lst3):
     # indeksi tekućih pozicija u svakoj od lista
     i1, i2, i3 = 0, 0, 0  # svi počinju od početka
@@ -994,12 +1001,12 @@ def merge(lst1, lst2, lst3):
             lst3[i3] = lst2[i2] # kopiraj ga u lst3 na kraj
             i2 = i2 + 1
         i3 = i3 + 1             # pomeri indeks za lst3
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Merge sort $_5$}
-\begin{verbatim}
+\begin{minted}{python}
 # Sada smo ispraznili lst1 ili lst2. Iskopiraj ostatak iz
 # liste koja nije prazna u lst3.
 
@@ -1014,7 +1021,7 @@ def merge(lst1, lst2, lst3):
         lst3[i3] = lst2[i2]
         i2 = i2 + 1
         i3 = i3 + 1
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1036,18 +1043,18 @@ def merge(lst1, lst2, lst3):
     \item ta lista je sortirana!
     \item da skiciramo rekurziju:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 if len(nums) > 1:
     podeli listu na dva dela
     mergeSort(prva polovina)
     mergeSort(druga polovina)
     spoj dve liste u jednu
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Merge sort $_8$}
-\begin{verbatim}
+\begin{minted}{python}
 def mergeSort(nums):
     n = len(nums)
     if n > 1:
@@ -1056,7 +1063,7 @@ def mergeSort(nums):
         mergeSort(nums1)
         mergeSort(nums2)
         merge(nums1, nums2, nums)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1229,15 +1236,15 @@ def mergeSort(nums):
     \item \texttt{n} je visina kule
     \item \texttt{source}, \texttt{dest}, \texttt{temp} su tri stuba
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def moveTower(n, source, dest, temp):
     if n == 1:
-        print("Premesti disk sa", source, "na", dest+".")
+        print "Premesti disk sa", source, "na", dest+"."
     else:
         moveTower(n-1, source, temp, dest)
         moveTower(1, source, dest, temp)
         moveTower(n-1, temp, dest, source)
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1245,7 +1252,7 @@ def moveTower(n, source, dest, temp):
   \begin{itemize}
     \item napravimo funkciju koja započinje postupak
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 def hanoi(n):
     moveTower(n, "A", "C", "B")
 
@@ -1257,7 +1264,7 @@ Premesti disk sa A na C.
 Premesti disk sa B na A.
 Premesti disk sa B na C.
 Premesti disk sa A na C.
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1343,22 +1350,22 @@ Premesti disk sa A na C.
     \item pretpostavimo da postoji algoritam koji može da odredi da li se neki program završava za date ulazne podatke
     \item ako postoji, možemo ga zapisati kao funkciju:
   \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 # turing.py
 
 def terminates(program, inputData):
     # program i inputData su stringovi
     # vraća True ako će se program zaustaviti kada mu se
     # daju inputData kao ulazni podaci
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Problem zaustavljanja $_6$}
-\begin{verbatim}
+\begin{minted}{python}
 def main():
     lines = []
-    print("Ukucaj program ('done' za kraj).")
+    print "Ukucaj program ('done' za kraj)."
     line = input("")
     while line != "done":
         lines.append(line)
@@ -1370,7 +1377,7 @@ def main():
     if terminates(testProg, testProg):
         while True:
             pass        # pass naredba ne radi ništa
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -1436,6 +1443,5 @@ def main():
     \item najvažniji kompjuter koji programer ima je onaj između ušiju
   \end{itemize}
 \end{frame}
-
 
 \end{document}
