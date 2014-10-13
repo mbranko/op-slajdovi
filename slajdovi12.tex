@@ -376,4 +376,61 @@ class Student:
 \end{minted}
 \end{frame}
 
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Primer: studentska služba $_2$}
+\begin{minted}{python}
+class Student:
+    ...
+    def to_string(self):
+        return "|".join(s.indeks, s.ime, s.prezime, 
+            s.roditelj, s.jmbg, s.adresa, s.telefon, 
+            s.email, s.godina')
+    
+    def from_string(line):
+        # Ovo je statička metoda: nije potreban objekat 
+        # da bi se pozvala
+        s = Student()
+        s.indeks, s.ime, s.prezime, s.roditelj, s.jmbg, 
+            s.adresa, s.telefon, s.email, s.godina = \
+            line.split("|")
+        return s
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: studentska služba $_3$}
+\begin{minted}{python}
+# učitavanje studenata iz fajla
+studenti = []
+for line in open('studenti.txt', 'r'):
+    s = Student.from_string(line[:-1])
+    studenti.append(s)
+\end{minted}
+  \begin{itemize}
+    \item gde staviti operacije nad listom studenata?
+    \item $\Rightarrow$ klasa \texttt{StudentInformationService}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer: studentska služba $_4$}
+\begin{minted}{python}
+class StudentInformationService:
+    def __init__(self):
+        self.studenti = []
+
+    def load(filename):
+        studenti = []
+        with open(filename, 'r') as student_file:
+            for line in student_file.readlines():
+                s = Student.from_string(line[:-1])
+                self.studenti.append(s)
+
+    def upis_naredne_godine():
+        for s in self.studenti:
+            if s.ima_uslov():
+                s.upisi_narednu_godinu()
+\end{minted}
+\end{frame}
+
 \end{document}
