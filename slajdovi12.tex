@@ -290,6 +290,19 @@ class LineSegment(Shape):
 \end{minted}
 \end{frame}
 
+\begin{frame}[fragile,shrink]
+  \frametitle{Primer: tačka, duž, krug $_6$}
+\begin{minted}{python}
+class Point(Shape):
+    def __init__(self):
+        # poziv roditeljskog konstruktora
+        super(Point, self).__init__()
+        
+    def draw(self):
+        # crtanje tacke
+\end{minted}
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Polimorfizam}
 \begin{minted}{python}
