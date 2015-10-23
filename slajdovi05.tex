@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[compress]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2015.}
 
 \begin{document}
 
@@ -902,5 +902,187 @@ def test():
     \item jedan način da se ovo reši je podela algoritma na manje potprograme gde je svaki od njih autonoman (ima smisla sam za sebe)
   \end{itemize}
 \end{frame}
+
+\section[Dekoratori]{Dekoratori}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija kao parametar}
+  \begin{itemize}
+    \item funkcija -- ne poziv funkcije! -- se može proslediti kao parametar
+    \item taj parametar se može iskoristiti za poziv dobijene funkcije
+    \item ne znamo koja funkcija će biti pozvana u trenutku pisanja tog koda!
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def greeter():
+    print "Hello"
+
+def repeater(func, times):
+    for i in range(times):
+        func()
+
+repeater(greeter, 3)
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija kao parametar}
+\begin{minted}[linenos=false]{python}
+def greeter():
+    print "Hello"
+
+def repeater(func, times):
+    for i in range(times):
+        func()
+
+repeater(greeter, 3)
+\end{minted}
+  \begin{itemize}
+    \item \texttt{greeter()} je poziv funkcije
+    \item \texttt{greeter} je ime funkcije, koje se moze proslediti kao parametar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija kao parametar}
+  \begin{itemize}
+    \item primer: \texttt{sort()} ume da sortira, ali će za poređenje elemenata pozivati
+    \item \texttt{compare()} koja se može proslediti kao parametar
+    \item $\Rightarrow$ možemo da menjamo logiku poređenja, dok algoritam za sortiranje ostaje isti
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcija u funkciji}
+  \begin{itemize}
+    \item funkcija definisana unutar funkcije je vidljiva samo u toj funkciji
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def print_integers(values):
+    def is_integer(value):
+        if type(value) is int:
+            return True
+        else:
+            return False
+
+    for v in values:
+        if is_integer(v):
+            print(v)
+
+
+print_integers([1,2,3,"4","tekst", 3.14])
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Obmotavanje funkcije}
+  \begin{itemize}
+    \item možemo ,,obmotati`` funkciju drugom funkcijom
+    \item time dodati ponašanje funkciji nakon što je napisana
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def print_call(fn):
+    # funkcija prima bilo kakve argumente
+    def fn_wrap(*args, **kwargs):
+        print "Pozivam %s" % fn.__name__
+        # prosledi bilo kakve argumente funkciji fn
+        return fn(*args, **kwargs) 
+    
+    return fn_wrap  # rezultat funkcije je funkcija!
+
+suma = print_call(sum)  # sum je ugradjena funkcija
+print suma([1, 2, 3, 4])
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer obmotane funkcije}
+\begin{minted}[linenos=false]{python}
+def print_call(fn):
+    def fn_wrap(*args, **kwargs):
+        print "Pozivam %s" % fn.__name__
+        retval = fn(*args, **kwargs) 
+        print "Zavrsen poziv"
+        return retval
+    
+    return fn_wrap  # rezultat funkcije je funkcija!
+
+def greeter(name):
+    return "Hello, %s" % name
+
+greeter = print_call(greeter)  # zadrzavamo staro ime
+print greeter("Branko")
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dekorator}
+  \begin{itemize}
+    \item \myblue{dekorator} je funkcija koja prima funkciju i vraća funkciju
+    \item u našem primeru \texttt{print\_call} je dekorator
+    \item dodavanje dekoratora na drugu funkciju je lako:
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+@print_call
+def neka_funkcija(a, b, c):
+    ...
+\end{minted}
+  \begin{itemize}
+    \item ovo je isto što i
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def neka_funkcija(a, b, c):
+    ...
+neka_funkcija = print_call(neka_funkcija)
+\end{minted}
+\end{frame}
+
+\section[Closure]{Zatvaranje}
+
+\begin{frame}[fragile,shrink=10]
+  \frametitle{Zatvaranje (closure)}
+  \begin{itemize}
+    \item funkcija ,,vidi`` promenljive iz opsega u kome se nalazi
+    \item ali ne može da ih menja
+    \end{itemize}
+\begin{minted}[linenos=false]{python}
+>>> a = 0
+>>> def get_a():
+...   return a
+...
+>>> def set_a(val):
+...   a = val
+...
+>>> get_a()
+0
+>>> a = 3
+>>> get_a()
+3
+>>> set_a(4)
+>>> a
+3
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Primer zatvaranja}
+  \begin{itemize}
+    \item funkcija \texttt{nth\_power} je \textit{zatvorena} nad promenljivom \texttt{n}
+    \item ima pristup ovoj promenljivoj nakon što izvršavanje programa napusti funkciju \texttt{generate\_power\_func}
+    \end{itemize}
+\begin{minted}[linenos=false]{python}
+def generate_power_func(n):
+    def nth_power(x):
+        return x**n
+    return nth_power
+
+raised_to_4 = generate_power_func(4)
+del generate_power_func  # ukloni definiciju ove funkcije
+print raised_to_4(2)
+
+# vrednost n je sacuvana za funkciju raised_to_4
+print raised_to_4.__closure__[0].cell_contents  
+\end{minted}
+\end{frame}
+
 
 \end{document}
