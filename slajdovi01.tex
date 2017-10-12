@@ -6,7 +6,7 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2017.}
 
 \begin{document}
 
@@ -313,15 +313,15 @@ Type "help", "copyright", "credits" or "license" for more information.
 \begin{itemize}
   \item znaci \texttt{>}\texttt{>}\texttt{>} predstavljaju \myblue{prompt} -- Python je spreman da primi naredbu
 \end{itemize}
-\begin{minted}[linenos=false]{python}
->>> print("Hello, world")
+\begin{verbatim}
+>>> print "Hello, world"
 Hello, world
->>> print(2+3)
+>>> print 2+3
 5
->>> print("2+3=", 2+3)
+>>> print "2+3=", 2+3
 2+3= 5
 >>>
-\end{minted}
+\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -330,22 +330,22 @@ Hello, world
   \item često nam je potrebno da izvršimo nekoliko naredbi odjednom da bismo rešili neki problem
   \item jedan način da to uradimo je da napravimo \myblue{funkciju}:
 \end{itemize}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> def zdravo():
-        print("Zdravo")
-        print("Kako si?")
-\end{minted}
+        print "Zdravo"
+        print "Kako si?"
+\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Python $_4$}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> def zdravo():
-        print("Zdravo")
-        print("Kako si?")
+        print "Zdravo"
+        print "Kako si?"
         
 >>>
-\end{minted}
+\end{verbatim}
 \begin{itemize}
   \item prva linija kaže da definišemo funkciju koja se zove \texttt{zdravo}
   \item naredne linije su uvučene da pokažu da su deo funkcije \texttt{zdravo}
@@ -355,24 +355,24 @@ Hello, world
 
 \begin{frame}[fragile]
 \frametitle{Python $_5$}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> def zdravo():
-        print("Zdravo")
-        print("Kako si?")
+        print "Zdravo"
+        print "Kako si?"
         
 >>>
-\end{minted}
+\end{verbatim}
 \begin{itemize}
   \item ništa se do sada nije desilo!
   \item definisali smo funkciju ali nismo rekli Pythonu da je izvrši
   \item funkcija se \myblue{poziva} po imenu:
 \end{itemize}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> zdravo()
 Zdravo
 Kako si?
 >>>
-\end{minted}
+\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -381,13 +381,13 @@ Kako si?
   \item čemu služe zagrade?
   \item funkcije mogu zavisiti od nekih podataka koje zovemo \myblue{parametri} koje navodimo između ( i )
 \end{itemize}
-\begin{minted}[linenos=false]{python}
+\begin{verbatim}
 >>> def greet(person):
-        print("Hello", person)
-        print("How are you?")
+        print "Hello", person
+        print "How are you?"
 
 >>>
-\end{minted}
+\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -421,13 +421,13 @@ How are you?
 \frametitle{Python $_9$}
 \begin{minted}[linenos=false]{python}
 # chaos.py
-# Ovaj program simulira haotično ponašanje
+# Ovaj program simulira haoticno ponasanje
 
-print("Ovaj program simulira haotično ponašanje")
-x = eval(raw_input("Unesite broj između 0 i 1: "))
+print "Ovaj program simulira haoticno ponasanje"
+x = eval(raw_input("Unesite broj izmedju 0 i 1: "))
 for i in range(10):
     x = 3.9 * x * (1 - x)
-    print(x)
+    print x
 \end{minted}
 \begin{itemize}
   \item snimićemo fajl sa ekstenzijom \texttt{.py} da označimo Python program
@@ -458,7 +458,7 @@ Unesite broj između 0 i 1: 0.5
 \frametitle{Analiza Python programa}
 \begin{minted}[linenos=false]{python}
 # chaos.py
-# Ovaj program ilustruje haotično ponašanje.
+# Ovaj program ilustruje haoticno ponasanje.
 \end{minted}
 \begin{itemize}
   \item redovi koji počinju sa \texttt{\#} su \myblue{komentari}
@@ -470,7 +470,7 @@ Unesite broj između 0 i 1: 0.5
 \begin{frame}[fragile]
 \frametitle{Analiza Python programa $_2$}
 \begin{minted}[linenos=false]{python}
-print("Ovaj program ilustruje haotično ponašanje")
+print "Ovaj program ilustruje haoticno ponasanje"
 \end{minted}
 \begin{itemize}
   \item ovaj red kaže Pythonu da ispiše poruku koja opisuje program
@@ -506,7 +506,7 @@ for i in range(10):
 \frametitle{Analiza Python programa $_5$}
 \begin{minted}[linenos=false]{python}
   x = 3.9 * x * (1 - x)
-  print(x)
+  print x
 \end{minted}
 \begin{itemize}
   \item ovi redovi predstavljaju \myblue{telo petlje}
@@ -525,30 +525,30 @@ for i in range(10):
 \begin{minted}[linenos=false]{python}
 for i in range(10):
   x = 3.9 * x * (1 - x)
-  print(x)
+  print x
 \end{minted}
 &
 \begin{minted}[linenos=false]{python}
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 x = 3.9 * x * (1 - x)
-print(x)
+print x
 \end{minted}
 \end{tabular}
 \end{frame}
@@ -574,7 +574,7 @@ def main():
     x = eval(raw_input("Unesite broj između 0 i 1: "))
     for i in range(10):
         x = 3.9 * x * (1 - x)
-        print(x)
+        print x
 
 main()
 \end{minted}

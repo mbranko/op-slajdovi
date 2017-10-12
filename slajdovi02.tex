@@ -6,7 +6,7 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2017.}
 
 \begin{document}
 
@@ -169,8 +169,8 @@
 
 def main():
     celsius = eval(raw_input("Unesite temperaturu C >> "))
-    fahrenheit = 9/5 * celsius + 32
-    print("Temperatura je ", fahrenheit, "stepeni Farenhajta.")
+    fahrenheit = 9.0/5 * celsius + 32
+    print "Temperatura je ", fahrenheit, "stepeni Farenhajta."
 
 main()
 \end{minted}
@@ -287,12 +287,12 @@ NameError: name 'spam' is not defined
 \begin{tabular}{p{6cm}p{6cm}}
 program & ispis \\ \hline
 \begin{minted}[linenos=false]{python}
-print(3+4)
-print(3,4,3+4)
-print()
-print(3,4,end=' ')
-print(3 + 4)
-print('Rezultat je', 3+4)
+print 3+4
+print 3,4,3+4
+print
+print 3,4,
+print 3 + 4
+print 'Rezultat je', 3+4
 \end{minted}
 &
 \begin{verbatim}
@@ -318,7 +318,7 @@ Rezultat je 7
   \frametitle{Dodela vrednosti $_2$}
   \begin{itemize}
     \item \texttt{x = 3.9 * x * (1-x)}
-    \item \texttt{fahrenheit = 9/5 * celsius + 32}
+    \item \texttt{fahrenheit = 9.0/5 * celsius + 32}
     \item \texttt{x = 5}
   \end{itemize}
 }
@@ -432,12 +432,12 @@ Rezultat je 7
 \begin{minted}[linenos=false]{python}
 def babezabe():
     babe, zabe = eval(raw_input(
-        'Unesite broj baba i broj žaba: '))
-    print('Naručili ste', babe, 'baba i', zabe, 'žaba.')
+        'Unesite broj baba i broj zaba: '))
+    print('Narucili ste', babe, 'baba i', zabe, 'zaba.')
 
 >>> babezabe()
 Unesite broj baba i žaba: 3, 2
-Naručili ste 3 baba i 2 žaba.
+Narucili ste 3 baba i 2 zaba.
 \end{minted}
 \end{frame}
 
@@ -547,7 +547,7 @@ for <var> in <sequence>:
       \item ispiši uvodnu poruku
       \item unesi početno stanje računa (\texttt{principal})
       \item unesi godišnju kamatu (\texttt{apr})
-      \item ponavljaj 10 puta: \texttt{pricipal = principal*(1+apr)}
+      \item ponavljaj 10 puta: \texttt{principal = principal*(1+apr)}
       \item ispiši stanje računa
     \end{itemize}
   \end{itemize}
@@ -560,9 +560,9 @@ for <var> in <sequence>:
     \begin{itemize}
       \item svaki red specifikacije se preslikava na jedan red u Pythonu (u ovom primeru!)
       \item ispiši uvodnu poruku \\
-        \texttt{print('Vrednost 10-godišnjeg ulaganja.')}
+        \texttt{print 'Vrednost 10-godišnjeg ulaganja.'}
       \item unesi početno stanje računa \\
-        \texttt{principal = eval(raw\_input('Početni ulog: '))}
+        \texttt{principal = eval(raw\_input('Pocetni ulog: '))}
       \item unesi godišnju kamatu \\
         \texttt{apr = eval(raw\_input('Unesite kamatu: '))}
       \item ponavljaj 10 puta \\
@@ -570,7 +570,7 @@ for <var> in <sequence>:
       \item izračunaj principal \\
         \texttt{principal = principal*(1+apr)}
       \item ispiši vrednost principal-a nakon 10 godina \\
-        \texttt{print('Vrednost iznosi:', principal)}
+        \texttt{print 'Vrednost iznosi:', principal}
     \end{itemize}
   \end{itemize}
 }
@@ -582,12 +582,12 @@ for <var> in <sequence>:
 # Program racuna vrednost investicije
 # 10 godina nakon ulaganja
 
-print("Vrednost 10-godišnjeg ulaganja.")
-principal = eval(raw_input("Početni ulog: "))
+print "Vrednost 10-godisnjeg ulaganja."
+principal = eval(raw_input("Pocetni ulog: "))
 apr = eval(raw_input("Unesite kamatu: "))
 for i in range(10):
     principal = principal * (1 + apr)
-print ("Vrednost iznosi:", principal)
+print "Vrednost iznosi:", principal
 \end{minted}
 \end{frame}
 

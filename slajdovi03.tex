@@ -6,7 +6,7 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
@@ -114,8 +114,10 @@
 \begin{frame}[fragile,shrink=5]
   \frametitle{Numerički tipovi podataka $_7$}
   \begin{itemize}
-    \item operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove, osim \texttt{/}
     \item operacije nad \texttt{float}-ovima proizvode \texttt{float}-ove
+    \item operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove
+    \item Python 3: deljenje dva \texttt{int}-a proizvodi \texttt{float}
+    \item Python 3: operator za celobrojno deljenje je \texttt{//}
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 >>> 3.0+4.0
@@ -140,7 +142,7 @@
 \frame{
   \frametitle{Numerički tipovi podataka $_8$}
   \begin{itemize}
-    \item celobrojno deljenje proizvodi ceo broj: \texttt{10//3 = 3}
+    \item (Python 3) celobrojno deljenje proizvodi ceo broj: \texttt{10//3 = 3}
     \item ostatak pri deljenju: \texttt{10\%3 = 1}
     \item \texttt{a = (a//b)*b + a\%b}
   \end{itemize}
@@ -385,7 +387,7 @@ n = eval(raw_input("Unesite prirodan broj: "))
 fact = 1
 for i in range(n,1,-1): 
     fact = fact * i
-print("Faktorijel od", n, "je", fact)
+print "Faktorijel od", n, "je", fact
 \end{minted}
 \end{frame}
 
@@ -395,7 +397,7 @@ print("Faktorijel od", n, "je", fact)
     \item koliko je 100! ?
   \end{itemize}
 \begin{verbatim}
-$ python factorial.py
+$ python3 factorial.py
 Unesite prirodan broj: 100
 Faktorijel od 100 je 93326215443944152681699238856266700
 49071596826438162146859296389521759999322991560894146397
@@ -501,16 +503,21 @@ Faktorijel od 15 je 1.307674368e+012
 \begin{frame}[fragile]
   \frametitle{Konverzije tipova $_4$}
 \begin{minted}[linenos=false]{python}
->>> float(22//5)
+>>> float(22/5)
 4.0
->>> int(4.5)
-4
 >>> int(3.9)
 3
 >>> round(3.9)
-4
->>> round(3)
-3
+4.0
+>>> import math
+>>> math.floor(3.9)
+3.0
+>>> math.floor(-3.9)
+-4.0
+>>> math.ceil(3.9)
+4.0
+>>> math.ceil(-3.9)
+-3.0
 \end{minted}
 \end{frame}
 

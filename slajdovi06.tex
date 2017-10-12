@@ -6,7 +6,7 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2017.}
 
 \begin{document}
 
@@ -65,7 +65,7 @@
 
 def main():
     celsius = eval(raw_input("Unesite temperaturu C >> "))
-    fahrenheit = 9/5 * celsius + 32
+    fahrenheit = 9.0/5 * celsius + 32
     print "Temperatura je ", fahrenheit, 
         "stepeni Farenhajta."
 
@@ -116,7 +116,7 @@ main()
 
 def main():
     c = eval(raw_input("Unesite temperaturu u C: "))
-    f = 9 / 5 * c + 32
+    f = 9.0 / 5 * c + 32
     print "Temperatura je", f, "stepeni Farenhajta."
     if f >= 90:
         print "Baš je vrućina!"
@@ -452,7 +452,7 @@ else:
     \item ako nam treba petostruko grananje, imali bismo ugnježdene if-else naredbe na četiri nivoa!
     \item umesto rogobatnog uvlačenja, možemo koristiti \texttt{if-elif-else} naredbu
   \end{itemize}
-\begin{verbatim}
+\begin{minted}[linenos=false]{python}
 if <uslov1>:
    <naredbe>
 elif <uslov2>:
@@ -462,7 +462,7 @@ elif <uslov3>:
 ...
 else:
    <naredbe>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]

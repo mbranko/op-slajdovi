@@ -6,7 +6,7 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage{minted}
+\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2017.}
 
 \begin{document}
 
@@ -1074,7 +1074,7 @@ False
 \begin{frame}[fragile]
   \frametitle{Izračunavanje logičkih izraza: primer 2}
 \begin{minted}{python}
-ans = input("Koji sladoled želite [vanila]: ")
+ans = raw_input("Koji sladoled želite [vanila]: ")
 if ans:
     flavor = ans
 else:
@@ -1092,14 +1092,14 @@ else:
     \item ovo može još sažetije!
   \end{itemize}
 \begin{minted}{python}
-ans = input("Koji sladoled želite [vanila]: ")
+ans = raw_input("Koji sladoled želite [vanila]: ")
 flavor = ans or "vanila"
 \end{minted}
   \begin{itemize}
     \item ili još kraće:
   \end{itemize}
 \begin{minted}{python}
-flavor = input("Koji sladoled želite [vanila]: ") or "vanila"
+flavor = raw_input("Koji sladoled [vanila]: ") or "vanila"
 \end{minted}
 \end{frame}
 
