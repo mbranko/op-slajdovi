@@ -62,6 +62,13 @@
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Instalacija PyQt}
+\begin{minted}{bash}
+pip install pyqt5 pyqt5-tools
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Struktura GUI aplikacije}
   \begin{itemize}
     \item bez obzira na izabranu GUI biblioteku, svaki program ima sličnu strukturu
@@ -82,12 +89,12 @@
   \frametitle{Prva GUI aplikacija}
 \begin{minted}{python}
 import sys
-from PyQt4 import QtGui
+from PyQt5 import QtGui, QtWidgets
 
 def main():
     # inicijalizacija
-    app = QtGui.QApplication(sys.argv)
-    w = QtGui.QWidget()
+    app = QtWidgets.QApplication(sys.argv)
+    w = QtWidgets.QWidget()
     w.resize(250, 150)
     w.move(300, 300)
     w.setWindowTitle('Prvi GUI program')
@@ -116,7 +123,7 @@ if __name__ == '__main__':
 \begin{frame}[fragile]
   \frametitle{Dodajemo status bar}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         self.initUI()
@@ -129,7 +136,7 @@ class Example(QtGui.QMainWindow):
         self.show()
 
 def main():    
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
 \end{minted}
@@ -149,12 +156,12 @@ def main():
 \begin{frame}[fragile]
   \frametitle{Dodajemo meni}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):                       
-        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
+        exitAction = QtWidgets.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
-        exitAction.triggered.connect(QtGui.qApp.quit)
+        exitAction.triggered.connect(QtWidgets.qApp.quit)
 
         self.statusBar().showMessage('Ready')
         menubar = self.menuBar()
@@ -180,7 +187,7 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile]
   \frametitle{Dodajemo toolbar}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
         ...
         self.toolbar = self.addToolBar('Exit')
@@ -205,14 +212,14 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile]
   \frametitle{Apsolutno pozicioniranje}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
         ...
-        lbl1 = QtGui.QLabel('Apsolutno', self)
+        lbl1 = QtWidgets.QLabel('Apsolutno', self)
         lbl1.move(15, 10)
-        lbl2 = QtGui.QLabel('pozicioniranje', self)
+        lbl2 = QtWidgets.QLabel('pozicioniranje', self)
         lbl2.move(35, 40)
-        lbl3 = QtGui.QLabel('komponenti', self)
+        lbl3 = QtWidgets.QLabel('komponenti', self)
         lbl3.move(55, 70)        
         self.show()
 \end{minted}
@@ -235,16 +242,16 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile]
   \frametitle{Pozicioniranje komponenti: Box Layout}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
         ...
-        okButton = QtGui.QPushButton("OK")
-        cancelButton = QtGui.QPushButton("Cancel")
-        hbox = QtGui.QHBoxLayout()
+        okButton = QtWidgets.QPushButton("OK")
+        cancelButton = QtWidgets.QPushButton("Cancel")
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addStretch(1)
         hbox.addWidget(okButton)
         hbox.addWidget(cancelButton)
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(hbox)
         self.setLayout(vbox)    
@@ -275,10 +282,10 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile,shrink=8]
   \frametitle{Pozicioniranje komponenti: QGridLayout}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
         ...
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         self.setLayout(grid)
         names = ['Cls', 'Bck', '', 'Close',
                  '7', '8', '9', '/',
@@ -289,7 +296,7 @@ class Example(QtGui.QMainWindow):
         for position, name in zip(positions, names):
             if name == '':
                 continue
-            button = QtGui.QPushButton(name)
+            button = QtWidgets.QPushButton(name)
             grid.addWidget(button, *position)
 \end{minted}
 \end{frame}
@@ -313,10 +320,10 @@ class Example(QtGui.QMainWindow):
 class Example(QtGui.QMainWindow):
     def initUI(self):
         ...
-        title = QtGui.QLabel('Title'); author = QtGui.QLabel('Author')
-        review = QtGui.QLabel('Review'); titleEdit = QtGui.QLineEdit()
-        authorEdit = QtGui.QLineEdit(); reviewEdit = QtGui.QTextEdit()
-        grid = QtGui.QGridLayout()
+        title = QtWidgets.QLabel('Title'); author = QtWidgets.QLabel('Author')
+        review = QtWidgets.QLabel('Review'); titleEdit = QtWidgets.QLineEdit()
+        authorEdit = QtWidgets.QLineEdit(); reviewEdit = QtWidgets.QTextEdit()
+        grid = QtWidgets.QGridLayout()
         grid.setSpacing(10)
         grid.addWidget(title, 1, 0)
         grid.addWidget(titleEdit, 1, 1)
@@ -363,12 +370,12 @@ button.clicked.connect(self.onClick)
 \begin{frame}[fragile,shrink]
   \frametitle{Signal/slot primer}
 \begin{minted}{python}
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     def initUI(self):
         ...
-        lcd = QtGui.QLCDNumber(self)
-        sld = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        vbox = QtGui.QVBoxLayout()
+        lcd = QtWidgets.QLCDNumber(self)
+        sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(lcd)
         vbox.addWidget(sld)
         self.setLayout(vbox)
@@ -389,7 +396,7 @@ class Example(QtGui.QWidget):
 \begin{frame}[fragile]
   \frametitle{Redefinisanje postojeće obrade događaja}
 \begin{minted}{python}
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     # nasleđena metoda, poziva se na pritisak tastera
     # redefinišemo je u našem nasledniku QWidget-a
     def keyPressEvent(self, e):
@@ -401,11 +408,11 @@ class Example(QtGui.QWidget):
 \begin{frame}[fragile]
   \frametitle{Informacije o izvoru događaja}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):      
-        btn1 = QtGui.QPushButton("Button 1", self)
+        btn1 = QtWidgets.QPushButton("Button 1", self)
         btn1.move(30, 50)
-        btn2 = QtGui.QPushButton("Button 2", self)
+        btn2 = QtWidgets.QPushButton("Button 2", self)
         btn2.move(150, 50)
         btn1.clicked.connect(self.buttonClicked)            
         btn2.clicked.connect(self.buttonClicked)
@@ -429,7 +436,7 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile]
   \frametitle{Definisanje nove vrste događaja}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     # closeApp je novi signal
     closeApp = QtCore.pyqtSignal() 
 
@@ -450,9 +457,9 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile]
   \frametitle{QCheckBox}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
-        cb = QtGui.QCheckBox('Prikazi naslov', self)
+        cb = QtWidgets.QCheckBox('Prikazi naslov', self)
         cb.move(20, 20)
         cb.toggle()
         cb.stateChanged.connect(self.changeTitle)
@@ -476,15 +483,15 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile,shrink]
   \frametitle{QPushButton}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
-        redb = QtGui.QPushButton('Red', self)
+        redb = QtWidgets.QPushButton('Red', self)
         redb.setCheckable(True)  # dugme sa dva stanja!
         redb.move(10, 10)
         # signal prenosi bool parametar!
         redb.clicked[bool].connect(self.setColor)
         ...
-        self.square = QtGui.QFrame(self)
+        self.square = QtWidgets.QFrame(self)
         self.square.setGeometry(150, 20, 100, 100)
         ...
     def setColor(self, pressed):
@@ -504,15 +511,15 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile,shrink]
   \frametitle{QSlider}
 \begin{minted}{python}
-class Example(QtGui.QMainWindow):
+class Example(QtWidgets.QMainWindow):
     def initUI(self):
-        sld = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
         sld.setFocusPolicy(QtCore.Qt.NoFocus)
         sld.setGeometry(30, 40, 100, 30)
         # signal prenosi int parametar!
         sld.valueChanged[int].connect(self.changeValue)
         ...
-        self.label = QtGui.QLabel(self)
+        self.label = QtWidgets.QLabel(self)
         self.label.setPixmap(QtGui.QPixmap('mute.png'))
         self.label.setGeometry(160, 40, 80, 30)
         ...
@@ -538,11 +545,11 @@ class Example(QtGui.QMainWindow):
 \begin{frame}[fragile,shrink]
   \frametitle{QProgressBar}
 \begin{minted}{python}
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     def initUI(self):
-        self.pbar = QtGui.QProgressBar(self)
+        self.pbar = QtWidgets.QProgressBar(self)
         self.pbar.setGeometry(30, 40, 200, 25)
-        self.btn = QtGui.QPushButton('Start', self)
+        self.btn = QtWidgets.QPushButton('Start', self)
         self.btn.move(40, 80)
         self.btn.clicked.connect(self.doAction)
         self.timer = QtCore.QBasicTimer()
@@ -576,10 +583,10 @@ class Example(QtGui.QWidget):
 \begin{frame}[fragile,shrink]
   \frametitle{QComboBox}
 \begin{minted}{python}
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     def initUI(self):
-        self.lbl = QtGui.QLabel("Ubuntu", self)
-        combo = QtGui.QComboBox(self)
+        self.lbl = QtWidgets.QLabel("Ubuntu", self)
+        combo = QtWidgets.QComboBox(self)
         combo.addItem("Ubuntu")
         combo.addItem("Mandriva")
         combo.addItem("Fedora")
@@ -603,7 +610,7 @@ class Example(QtGui.QWidget):
 \begin{frame}[fragile,shrink]
   \frametitle{Pravljenje sopstvene komponente}
 \begin{minted}{python}
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     def initUI(self):
         self.text = u'\u041b\u0435...'
 
