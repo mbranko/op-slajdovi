@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2014.}
+\date{2018.}
 
 \begin{document}
 
@@ -142,7 +142,7 @@
 \frame{
   \frametitle{Numerički tipovi podataka $_8$}
   \begin{itemize}
-    \item (Python 3) celobrojno deljenje proizvodi ceo broj: \texttt{10//3 = 3}
+    \item celobrojno deljenje proizvodi ceo broj: \texttt{10//3 = 3}
     \item ostatak pri deljenju: \texttt{10\%3 = 1}
     \item \texttt{a = (a//b)*b + a\%b}
   \end{itemize}
@@ -203,7 +203,7 @@ import math  # čini funkcije iz paketa dostupnim
 print("Izračunavanje korena kvadratne jednačine")
 print()
 
-a, b, c = eval(raw_input("Unesite koeficijente (a, b, c): "))
+a, b, c = eval(input("Unesite koeficijente (a, b, c): "))
 
 root = math.sqrt(b * b - 4 * a * c)
 root1 = (-b + root) / (2 * a)
@@ -383,11 +383,11 @@ for i in (2,3,4,5,6):
 # Program računa faktorijel datog broja
 # Ilustruje petlju sa akumulatorom
 
-n = eval(raw_input("Unesite prirodan broj: "))
+n = eval(input("Unesite prirodan broj: "))
 fact = 1
 for i in range(n,1,-1): 
     fact = fact * i
-print "Faktorijel od", n, "je", fact
+print("Faktorijel od", n, "je", fact)
 \end{minted}
 \end{frame}
 
@@ -504,7 +504,7 @@ Faktorijel od 15 je 1.307674368e+012
   \frametitle{Konverzije tipova $_4$}
 \begin{minted}[linenos=false]{python}
 >>> float(22/5)
-4.0
+4.4
 >>> int(3.9)
 3
 >>> round(3.9)

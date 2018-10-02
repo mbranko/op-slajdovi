@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -168,9 +168,9 @@
 # Konvertuje temperaturu Celzijus -> Farenhajt
 
 def main():
-    celsius = eval(raw_input("Unesite temperaturu C >> "))
+    celsius = eval(input("Unesite temperaturu C >> "))
     fahrenheit = 9.0/5 * celsius + 32
-    print "Temperatura je ", fahrenheit, "stepeni Farenhajta."
+    print("Temperatura je", fahrenheit, "stepeni Farenhajta.")
 
 main()
 \end{minted}
@@ -287,12 +287,12 @@ NameError: name 'spam' is not defined
 \begin{tabular}{p{6cm}p{6cm}}
 program & ispis \\ \hline
 \begin{minted}[linenos=false]{python}
-print 3+4
-print 3,4,3+4
-print
-print 3,4,
-print 3 + 4
-print 'Rezultat je', 3+4
+print(3+4)
+print(3,4,3+4)
+print()
+print(3,4, end='')
+print(3 + 4)
+print('Rezultat je', 3+4)
 \end{minted}
 &
 \begin{verbatim}
@@ -369,7 +369,7 @@ Rezultat je 7
   \frametitle{Čitanje ulaza}
   \begin{itemize}
     \item svrha \texttt{input} funkcije je da očita podatak koji unosi korisnik i smesti ga u promenljivu
-    \item \texttt{<variable> = eval(raw\_input(<prompt>))}
+    \item \texttt{<variable> = eval(input(<prompt>))}
   \end{itemize}
 }
 
@@ -415,10 +415,10 @@ Rezultat je 7
 \begin{minted}[linenos=false]{python}
 >>> x = 3
 >>> y = 4
->>> print x, y
+>>> print(x, y)
 3 4
 >>> x, y = y, x
->>> print x, y
+>>> print(x, y)
 4 3
 \end{minted}
 \end{frame}
@@ -431,7 +431,7 @@ Rezultat je 7
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def babezabe():
-    babe, zabe = eval(raw_input(
+    babe, zabe = eval(input(
         'Unesite broj baba i broj zaba: '))
     print('Narucili ste', babe, 'baba i', zabe, 'zaba.')
 
@@ -468,7 +468,7 @@ for <var> in <sequence>:
   \frametitle{Konačna petlja $_3$}
 \begin{minted}[linenos=false]{python}
 >>> for i in [0,1,2,3]:
-      print (i)
+      print(i)
 
 0
 1
@@ -560,17 +560,17 @@ for <var> in <sequence>:
     \begin{itemize}
       \item svaki red specifikacije se preslikava na jedan red u Pythonu (u ovom primeru!)
       \item ispiši uvodnu poruku \\
-        \texttt{print 'Vrednost 10-godišnjeg ulaganja.'}
+        \texttt{print('Vrednost 10-godišnjeg ulaganja.')}
       \item unesi početno stanje računa \\
-        \texttt{principal = eval(raw\_input('Pocetni ulog: '))}
+        \texttt{principal = eval(input('Pocetni ulog: '))}
       \item unesi godišnju kamatu \\
-        \texttt{apr = eval(raw\_input('Unesite kamatu: '))}
+        \texttt{apr = eval(input('Unesite kamatu: '))}
       \item ponavljaj 10 puta \\
         \texttt{for i in range(10):}
       \item izračunaj principal \\
         \texttt{principal = principal*(1+apr)}
       \item ispiši vrednost principal-a nakon 10 godina \\
-        \texttt{print 'Vrednost iznosi:', principal}
+        \texttt{print('Vrednost iznosi:', principal)}
     \end{itemize}
   \end{itemize}
 }
@@ -583,8 +583,8 @@ for <var> in <sequence>:
 # 10 godina nakon ulaganja
 
 print "Vrednost 10-godisnjeg ulaganja."
-principal = eval(raw_input("Pocetni ulog: "))
-apr = eval(raw_input("Unesite kamatu: "))
+principal = eval(input("Pocetni ulog: "))
+apr = eval(input("Unesite kamatu: "))
 for i in range(10):
     principal = principal * (1 + apr)
 print "Vrednost iznosi:", principal
@@ -595,12 +595,12 @@ print "Vrednost iznosi:", principal
   \frametitle{Primer programa: obračun kamata $_6$}
 \begin{verbatim}
 $ python futval.py
-Vrednost 10-godišnjeg ulaganja.
+Vrednost 10-godisnjeg ulaganja.
 Početni ulog: 100
 Unesite kamatu: .03
 Vrednost iznosi: 134.391637934
 $ python futval.py
-Vrednost 10-godišnjeg ulaganja.
+Vrednost 10-godisnjeg ulaganja.
 Početni ulog: 100
 Unesite kamatu: .1
 Vrednost iznosi: 259.37424601
