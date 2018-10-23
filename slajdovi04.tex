@@ -297,7 +297,7 @@ pos = (n-1) * 3
 mesecSkr = meseci[pos:pos+3]
 
 # ispiši rezultat
-print "Skraćenica je", mesecSkr + "."
+print("Skraćenica je", mesecSkr + ".")
 \end{minted}
 \end{frame}
 
@@ -396,7 +396,7 @@ meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
 n = eval(raw_input("Unesite mesec (1-12): "))
 
 # ispiši rezultat
-print "Skraćenica je", meseci[n-1] + "."
+print("Skraćenica je", meseci[n-1] + ".")
 \end{minted}
   \begin{itemize}
     \item pošto je indeks lako izračunati, nije nam neophodna pomoćna promenljiva
@@ -676,7 +676,7 @@ Dekodirana poruka je: Pajton je zakon
   \frametitle{Formatiranje stringova $_2$}
   \begin{itemize}
     \item prva dva reda su jednostavna: \\
-      \texttt{dateStr = raw\_input('Unesite datum (dd.mm.gggg.): ')} \\
+      \texttt{dateStr = input('Unesite datum (dd.mm.gggg.): ')} \\
       \texttt{dayStr, monthStr, yearStr, x = dateStr.split('.')} \\ \ \\ %
     \item datum se učita kao string, pa se podeli oko tačke na 4 dela
     \item prva tri dela upišemo u bitne promenljive
@@ -726,8 +726,8 @@ monthStr = months[int(monthStr) – 1]
 \begin{frame}[fragile]
   \frametitle{Formatiranje stringova $_6$}
 \begin{minted}[linenos=false]{python}
-print "Konvertovani datum je:", dayStr+".", 
-    monthStr, yearStr+"."
+print("Konvertovani datum je:", dayStr+".", 
+    monthStr, yearStr+".")
 \end{minted}
   \begin{itemize}
     \item tačka je dodata na \texttt{dayStr} i \texttt{yearStr} konkatenacijom
@@ -749,7 +749,7 @@ Konvertovani datum je: 15. oktobar 2011.
 >>> value = 3.14
 >>> str(value)
 '3.14'
->>> print "Vrednost je", str(value) + "."
+>>> print("Vrednost je", str(value) + ".")
 Vrednost je 3.14.
 \end{minted}
 \end{frame}
@@ -762,7 +762,7 @@ Vrednost je 3.14.
   \end{itemize}
 \begin{verbatim}
 >>> value = 3.14
->>> print "Vrednost je", value + "."
+>>> print("Vrednost je", value + ".")
 Vrednost je
 
 Traceback (most recent call last):
@@ -809,7 +809,7 @@ The total value of your change is 1.5
     \item možemo da preradimo ispis rezultata ovako:
   \end{itemize}
 \begin{verbatim}
-print "Your change is ${0:0.2f}".format(total)
+print("Your change is ${0:0.2f}".format(total))
 \end{verbatim}
   \begin{itemize}
     \item sada ćemo dobiti nešto ovako:
@@ -831,7 +831,7 @@ The total value of your change is $1.50
 \begin{frame}[fragile]
   \frametitle{Funkcija \texttt{format} $_2$}
 \begin{verbatim}
-print "Your change is ${0:0.2f}".format(total)
+print("Your change is ${0:0.2f}".format(total))
 \end{verbatim}
   \begin{itemize}
     \item šablon sadrži jedno mesto sa opisom \texttt{0:0.2f}
@@ -867,7 +867,7 @@ print "Your change is ${0:0.2f}".format(total)
 \begin{frame}[fragile]
   \frametitle{Funkcija \texttt{format} $_4$}
   \begin{itemize}
-    \item ako je \texttt{width} veči nego što je potrebno
+    \item ako je \texttt{width} veći nego što je potrebno
     \begin{itemize}
       \item podrazumevano poravnanje:
       \item numerički podaci se poravnavaju po desnoj strani
@@ -907,17 +907,17 @@ cents = total % 100
 \begin{minted}[linenos=false]{python}
 # change2.py
 
-print "Change Counter\n"
-print "Please enter the count of each coin type."
-quarters = eval(raw_input("Quarters: "))
-dimes = eval(raw_input("Dimes: "))
-nickels = eval(raw_input("Nickels: "))
-pennies = eval(raw_input("Pennies: "))
+print("Change Counter\n")
+print("Please enter the count of each coin type.")
+quarters = eval(input("Quarters: "))
+dimes = eval(input("Dimes: "))
+nickels = eval(input("Nickels: "))
+pennies = eval(input("Pennies: "))
 total = quarters * 25 + dimes * 10 + nickels * 5 + pennies 
 
-print "The total value of your change is ${0}.{1:0>2}"
-    .format(total/100, total%100)
-# Python 3: total//100
+print("The total value of your change is ${0}.{1:0>2}")
+    .format(total//100, total%100)
+# Python 2: total/100
 \end{minted}
 \end{frame}
 
@@ -1166,12 +1166,12 @@ outfile = open(outfileName, 'w')
 for line in infile:
     first, last = line.split()
     uname = (first[0]+last[:7]).lower()
-    outfile.write(outfile + "\n")
+    outfile.write(uname + "\n")
 
 infile.close()
 outfile.close()
 
-print "Sacuvan fajl:", outfileName
+print("Sacuvan fajl:", outfileName)
 \end{minted}
 \end{frame}
 

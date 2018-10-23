@@ -167,12 +167,10 @@
 # convert.py
 # Konvertuje temperaturu Celzijus -> Farenhajt
 
-def main():
-    celsius = eval(input("Unesite temperaturu C >> "))
-    fahrenheit = 9.0/5 * celsius + 32
-    print("Temperatura je", fahrenheit, "stepeni Farenhajta.")
+celsius = eval(input("Unesite temperaturu C >> "))
+fahrenheit = 9.0/5 * celsius + 32
+print("Temperatura je", fahrenheit, "stepeni Farenhajta.")
 
-main()
 \end{minted}
 \end{frame}
 
@@ -182,16 +180,16 @@ main()
   \item kada napišemo program, treba ga testirati
 \end{itemize}
 \begin{verbatim}
->>> main() 
+$ python3 convert.py
 Unesite temperaturu u C >> 0
 Temperatura je  32.0  stepeni Farenhajta.
->>> main()
+$ python3 convert.py
 Unesite temperaturu u C >> 100
 Temperatura je  212.0  stepeni Farenhajta.
->>> main()
+$ python3 convert.py
 Unesite temperaturu u C >> -40
 Temperatura je  -40.0  stepeni Farenhajta.
->>>
+$
 \end{verbatim}
 \end{frame}
 
