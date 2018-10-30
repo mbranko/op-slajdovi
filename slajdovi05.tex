@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -80,10 +80,10 @@
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def main():
-    print "Happy birthday to you!"
-    print "Happy birthday to you!"
-    print "Happy birthday, dear Fred..."
-    print "Happy birthday to you!"
+    print("Happy birthday to you!")
+    print("Happy birthday to you!")
+    print("Happy birthday, dear Fred...")
+    print("Happy birthday to you!")
 \end{minted}
   \begin{itemize}
     \item poziv funkcije
@@ -101,7 +101,7 @@ Happy birthday to you!
   \frametitle{Primer funkcija $_2$}
   \begin{itemize}
     \item imamo ponavljanje u kodu: \\
-      \texttt{print("Happy birthday to you!" )}
+      \texttt{print("Happy birthday to you!")}
     \item možemo napisati funkciju koja ispisuje ovaj red:
   \end{itemize}
 \begin{minted}[linenos=false]{python}
@@ -122,7 +122,7 @@ def happy():
 def singFred():
     happy()
     happy()
-    print "Happy birthday, dear Fred..."
+    print("Happy birthday, dear Fred...")
     happy()
 \end{minted}
   \begin{itemize}
@@ -148,7 +148,7 @@ Happy birthday to you!
 def singLucy():
     happy()
     happy()
-    print "Happy birthday, dear Lucy..."
+    print("Happy birthday, dear Lucy...")
     happy()
 \end{minted}
 \end{frame}
@@ -199,7 +199,7 @@ Happy birthday to you!
 def sing(person):
     happy()
     happy()
-    print "Happy birthday, dear", person + "."
+    print("Happy birthday, dear", person + ".")
     happy()
 \end{minted}
   \begin{itemize}
@@ -468,7 +468,7 @@ def distance(x1, y1, x2, y2):
 \begin{minted}[linenos=false]{python}
 def sumDiff(x, y):
     sum = x + y
-    diff = x – y
+    diff = x - y
     return sum, diff
 \end{minted}
 \end{frame}
@@ -479,9 +479,9 @@ def sumDiff(x, y):
     \item kada se poziva ovakva funkcija, koristi se istovremena dodela više vrednosti
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-n1, n2 = eval(raw_input("Unesite dva broja (n1, n2): "))
+n1, n2 = eval(input("Unesite dva broja (n1, n2): "))
 s, d = sumDiff(n1, n2)
-print "Zbir je", s, "a razlika je", d
+print("Zbir je", s, "a razlika je", d)
 \end{minted}
   \begin{itemize}
     \item vrednosti se dodeljuju prema poziciji
@@ -914,7 +914,7 @@ def test():
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def greeter():
-    print "Hello"
+    print("Hello")
 
 def repeater(func, times):
     for i in range(times):
@@ -928,7 +928,7 @@ repeater(greeter, 3)
   \frametitle{Funkcija kao parametar}
 \begin{minted}[linenos=false]{python}
 def greeter():
-    print "Hello"
+    print("Hello")
 
 def repeater(func, times):
     for i in range(times):
@@ -983,7 +983,7 @@ print_integers([1,2,3,"4","tekst", 3.14])
 def print_call(fn):
     # funkcija prima bilo kakve argumente
     def fn_wrap(*args, **kwargs):
-        print "Pozivam %s" % fn.__name__
+        print("Pozivam %s" % fn.__name__)
         # prosledi bilo kakve argumente funkciji fn
         return fn(*args, **kwargs) 
     
@@ -999,9 +999,9 @@ print suma([1, 2, 3, 4])
 \begin{minted}[linenos=false]{python}
 def print_call(fn):
     def fn_wrap(*args, **kwargs):
-        print "Pozivam %s" % fn.__name__
+        print("Pozivam %s" % fn.__name__)
         retval = fn(*args, **kwargs) 
-        print "Zavrsen poziv"
+        print("Zavrsen poziv")
         return retval
     
     return fn_wrap  # rezultat funkcije je funkcija!
