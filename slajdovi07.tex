@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -91,15 +91,15 @@
 # average1.py
 
 def main():
-    n = eval(raw_input("Koliko ima brojeva? "))
+    n = eval(input("Koliko ima brojeva? "))
     sum = 0.0
     for i in range(n):
-        x = eval(raw_input("Unesi broj >> "))
+        x = eval(input("Unesi broj >> "))
         sum = sum + x
-    print "\nProsek je", sum / n
+    print("\nProsek je", sum / n)
 \end{minted}
   \begin{itemize}
-    \item \texttt{sum} je inicijalizovan na 0.0 umesto na 0
+    \item \textbf{Python 2:} \texttt{sum} je inicijalizovan na 0.0 umesto na 0
     \item zato će \texttt{sum/n} biti \texttt{float} a ne \texttt{int}!
   \end{itemize}
 \end{frame}
@@ -261,12 +261,12 @@ def main():
     sum = 0.0
     count = 0
     while moredata == 'da':
-        x = eval(raw_input("Unesite broj >> "))
+        x = eval(input("Unesite broj >> "))
         sum = sum + x
         count = count + 1
-        moredata = raw_input(
+        moredata = input(
             "Ima još brojeva (da ili ne)? ")
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 \end{minted}
 \end{frame}
 
@@ -330,14 +330,14 @@ while podatak nije sentinel
 def main():
     sum = 0.0
     count = 0
-    x = eval(raw_input(
+    x = eval(input(
         "Unesite broj (negativan za kraj) >> "))
     while x >= 0:
         sum = sum + x
         count = count + 1
-        x = eval(raw_input(
+        x = eval(input(
             "Unesite broj (negativan za kraj) >> "))
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 \end{minted}
 \end{frame}
 
@@ -397,15 +397,15 @@ ispiši sum / count
 def main():
     sum = 0.0
     count = 0
-    xStr = raw_input(
+    xStr = input(
         "Unesite broj (<Enter> za kraj) >> ")
     while xStr != "":
         x = eval(xStr)
         sum = sum + x
         count = count + 1
-        xStr = raw_input(
+        xStr = input(
             "Unesite broj (<Enter> za kraj) >> ")
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 \end{minted}
 \end{frame}
 
@@ -441,14 +441,14 @@ Prosek je 3.38333333333
 # average5.py
 
 def main():
-    fileName = raw_input("Unesite ime fajla >> ")
+    fileName = input("Unesite ime fajla >> ")
     infile = open(fileName,'r')
     sum = 0.0
     count = 0
     for line in infile.readlines():
         sum = sum + eval(line)
         count = count + 1
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 \end{minted}
 \end{frame}
 
@@ -485,7 +485,7 @@ while line != ""
 # average6.py
 
 def main():
-    fileName = raw_input("Unesite ime fajla >> ")
+    fileName = input("Unesite ime fajla >> ")
     infile = open(fileName,'r')
     sum = 0.0
     count = 0
@@ -494,7 +494,7 @@ def main():
         sum = sum + eval(line)
         count = count + 1
         line = infile.readline()
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 \end{minted}
 \end{frame}
 
@@ -521,7 +521,7 @@ line = infile.readline()
 while line != "":
     # ažuriraj sum i count
     line = infile.readline()
-print "\nProsek je", sum/count
+print("\nProsek je", sum/count)
 \end{minted}
 \end{frame}
 
@@ -558,7 +558,7 @@ for xStr in line.split(","):
 import string
 
 def main():
-    fileName = raw_input("Unesite ime fajla >> ")
+    fileName = input("Unesite ime fajla >> ")
     infile = open(fileName, 'r')
     sum = 0.0
     count = 0
@@ -568,7 +568,7 @@ def main():
             sum = sum + eval(xStr)
             count = count + 1
         line = infile.readline()
-    print "\nProsek je", sum / count
+    print("\nProsek je", sum / count)
 
 \end{minted}
 \end{frame}
@@ -877,7 +877,7 @@ while number < 0:
   \end{itemize}
 \begin{minted}{python}
 while True:
-    number = eval(raW_input("Unesite broj >> "))
+    number = eval(input("Unesite broj >> "))
     if number >= 0: 
         break # izađi iz petlje ako je broj ispravan
 \end{minted}
@@ -894,9 +894,9 @@ while True:
 \begin{minted}{python}
 number = -1
 while number < 0:
-    number = eval(raw_input("Unesite pozitivan broj: "))
+    number = eval(input("Unesite pozitivan broj: "))
     if number < 0:
-        print "Uneti broj nije pozitivan!"
+        print("Uneti broj nije pozitivan!")
 \end{minted}
   \begin{itemize}
     \item vršimo proveru na dva mesta -- nije elegantno
@@ -910,11 +910,11 @@ while number < 0:
   \end{itemize}
 \begin{minted}{python}
 while True:
-    number = eval(raw_input("Unesite pozitivan broj: "))
+    number = eval(input("Unesite pozitivan broj: "))
     if number >= 0:
         break
     else:
-        print "Uneti broj nije pozitivan!"
+        print("Uneti broj nije pozitivan!")
 \end{minted}
 \end{frame}
 
@@ -925,10 +925,10 @@ while True:
   \end{itemize}
 \begin{minted}{python}
 while True:
-    number = eval(raw_input("Unesite pozitivan broj: "))
+    number = eval(input("Unesite pozitivan broj: "))
     if number >= 0: 
         break
-    print "Uneti broj nije pozitivan!"
+    print("Uneti broj nije pozitivan!")
 \end{minted}
   \begin{itemize}
     \item izlaz iz petlje je u sredini tela petlje
@@ -1074,7 +1074,7 @@ False
 \begin{frame}[fragile]
   \frametitle{Izračunavanje logičkih izraza: primer 2}
 \begin{minted}{python}
-ans = raw_input("Koji sladoled želite [vanila]: ")
+ans = input("Koji sladoled želite [vanila]: ")
 if ans:
     flavor = ans
 else:
@@ -1092,14 +1092,14 @@ else:
     \item ovo može još sažetije!
   \end{itemize}
 \begin{minted}{python}
-ans = raw_input("Koji sladoled želite [vanila]: ")
+ans = input("Koji sladoled želite [vanila]: ")
 flavor = ans or "vanila"
 \end{minted}
   \begin{itemize}
     \item ili još kraće:
   \end{itemize}
 \begin{minted}{python}
-flavor = raw_input("Koji sladoled [vanila]: ") or "vanila"
+flavor = input("Koji sladoled [vanila]: ") or "vanila"
 \end{minted}
 \end{frame}
 

@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -64,10 +64,10 @@
 # convert.py
 
 def main():
-    celsius = eval(raw_input("Unesite temperaturu C >> "))
+    celsius = eval(input("Unesite temperaturu C >> "))
     fahrenheit = 9.0/5 * celsius + 32
-    print "Temperatura je ", fahrenheit, 
-        "stepeni Farenhajta."
+    print("Temperatura je ", fahrenheit, 
+        "stepeni Farenhajta.")
 
 main()
 \end{minted}
@@ -115,13 +115,13 @@ main()
 # convert2.py
 
 def main():
-    c = eval(raw_input("Unesite temperaturu u C: "))
+    c = eval(input("Unesite temperaturu u C: "))
     f = 9.0 / 5 * c + 32
-    print "Temperatura je", f, "stepeni Farenhajta."
+    print("Temperatura je", f, "stepeni Farenhajta.")
     if f >= 90:
-        print "Baš je vrućina!"
+        print("Baš je vrućina!")
     if f <= 30:
-        print "Brrrrr. Dobro se obuci!"
+        print("Brrrrr. Dobro se obuci!")
 
 main()
 \end{minted}
@@ -249,12 +249,12 @@ True
 import math
 
 def main():
-    a, b, c = eval(raw_input(
+    a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
     discRoot = math.sqrt(b * b - 4 * a * c)
     root1 = (-b + discRoot) / (2 * a)
     root2 = (-b - discRoot) / (2 * a)
-    print "\nRešenja su:", root1, root2
+    print("\nRešenja su:", root1, root2)
 
 main()
 \end{minted}
@@ -287,7 +287,7 @@ ValueError: math domain error
 import math  
 
 def main():
-    a, b, c = eval(raw_input(
+    a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
 
     discrim = b * b - 4 * a * c
@@ -295,7 +295,7 @@ def main():
         discRoot = math.sqrt(discrim)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print "\nRešenja su:", root1, root2
+        print("\nRešenja su:", root1, root2)
 \end{minted}
 \end{frame}
 
@@ -314,7 +314,7 @@ def main():
   \begin{itemize}
     \item mogli bismo dodati još jedan \texttt{if} na kraj programa: \\
         \texttt{if discrim < 0:} \\
-        \texttt{\ \ \ \ print "Nema realnih korena!"}
+        \texttt{\ \ \ \ print("Nema realnih korena!"})
     \item ovo će raditi ali nije elegantno
     \item imamo dva uslova koji su \myblue{međusobno isključiva}
   \end{itemize}
@@ -357,16 +357,16 @@ def main():
 import math 
 
 def main():
-    a, b, c = eval(raw_input(
+    a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
     discrim = b * b - 4 * a * c
     if discrim < 0:
-        print "\nNema realnih korena!"
+        print("\nNema realnih korena!")
     else:
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print "\nRešenja su:", root1, root2
+        print("\nRešenja su:", root1, root2)
 
 main()
 \end{minted}
@@ -429,11 +429,11 @@ izračunaj vrednost diskriminante
   \frametitle{Višestruko grananje $_4$}
 \begin{minted}[linenos=false]{python}
 if discrim < 0:
-    print "Nema realnih korena!"
+    print("Nema realnih korena!")
 else:
     if discrim == 0:
         root = -b / (2 * a)
-        print "Ima jedan koren:", root
+        print("Ima jedan koren:", root)
     else:
         # odradi dva korena
 \end{minted}
@@ -481,19 +481,19 @@ else:
 \begin{minted}[linenos=false]{python}
 import math 
 def main():
-    a, b, c = eval(raw_input(
+    a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
     discrim = b * b - 4 * a * c
     if discrim < 0:
-        print "\nNema realnih korena!"
+        print("\nNema realnih korena!")
     elif discrim == 0:
         root = -b / (2 * a)
-        print "\nIma jedan koren:", root
+        print("\nIma jedan koren:", root)
     else:
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print "\nRešenja su:", root1, root2
+        print("\nRešenja su:", root1, root2)
 \end{minted}
 \end{frame}
 
@@ -551,14 +551,14 @@ import math
 
 def main():
     try:
-        a, b, c = eval(raw_input(
+        a, b, c = eval(input(
             "Unesite koeficijente (a, b, c): "))
         discRoot = math.sqrt(b * b - 4 * a * c)
         root1 = (-b + discRoot) / (2 * a)
         root2 = (-b - discRoot) / (2 * a)
-        print "\nRešenja su:", root1, root2
+        print("\nRešenja su:", root1, root2)
     except ValueError:
-        print "\nNema realnih korena"
+        print("\nNema realnih korena")
 \end{minted}
 \end{frame}
 
@@ -592,25 +592,25 @@ ValueError: math domain error
   \frametitle{Obrada izuzetaka $_3$}
 \begin{minted}[linenos=false]{python}
 try:
-    a, b, c = eval(raw_input(
+    a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
     discRoot = math.sqrt(b * b - 4 * a * c)
     root1 = (-b + discRoot) / (2 * a)
     root2 = (-b - discRoot) / (2 * a)
-    print "\nRešenja su:", root1, root2
+    print("\nRešenja su:", root1, root2)
 except ValueError as excObj:
     if str(excObj) == "math domain error":
-        print "Nema realnih korena!"
+        print("Nema realnih korena!")
     else:
-        print "Pogrešan broj koeficijenata."
+        print("Pogrešan broj koeficijenata.")
 except NameError:
-    print "Niste uneli tri broja."
+    print("Niste uneli tri broja.")
 except TypeError:
-    print "Na ulazu nisu sve brojevi."
+    print("Na ulazu nisu sve brojevi.")
 except SyntaxError:
-    print "Unos je neispravan. Nedostaje zarez?"
+    print("Unos je neispravan. Nedostaje zarez?")
 except:
-    print "Nešto nije u redu!"
+    print("Nešto nije u redu!")
 \end{minted}
 \end{frame}
 
@@ -619,9 +619,9 @@ except:
 \begin{minted}[linenos=false]{python}
 except ValueError as excObj:
     if str(excObj) == "math domain error":
-        print "Nema realnih korena!"
+        print("Nema realnih korena!")
     else:
-        print "Pogrešan broj koeficijenata."
+        print("Pogrešan broj koeficijenata.")
 \end{minted}
   \begin{itemize}
     \item možemo dodeliti identifikator izuzetku (\texttt{as excObj})
@@ -629,7 +629,7 @@ except ValueError as excObj:
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 except:
-    print "Nešto nije u redu!"
+    print("Nešto nije u redu!")
 \end{minted}
   \begin{itemize}
     \item ovaj \texttt{except} može da obradi bilo koji izuzetak
@@ -646,9 +646,9 @@ except:
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def main():
-    x1, x2, x3 = eval(raw_input("Unesite tri broja: "))
+    x1, x2, x3 = eval(input("Unesite tri broja: "))
     # ovde nedostaje kod koji određuje najveći broj
-    print "Najveća vrednost je", max
+    print("Najveća vrednost je", maks)
 \end{minted}
 \end{frame}
 
@@ -658,9 +658,9 @@ def main():
     \item ovo liči na trostruko grananje gde treba izvršiti jedno od ova tri:
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-max = x1
-max = x2
-max = x3
+maks = x1
+maks = x2
+maks = x3
 \end{minted}
   \begin{itemize}
     \item samo nam treba pravi uslov za svaku od ovih naredbi
@@ -674,7 +674,7 @@ max = x3
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 if x1 >= x2 >= x3:
-    max = x1
+    maks = x1
 \end{minted}
   \begin{itemize}
     \item mnogi jezici ne dozvoljavaju ovakva višestruka poređenja
@@ -705,11 +705,11 @@ if x1 >= x2 >= x3:
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 if x1 >= x2 and x1 >= x3:
-    max = x1
+    maks = x1
 elif x2 >= x1 and x2 >=x3:
-    max = x2
+    maks = x2
 else
-    max = x3
+    maks = x3
 \end{minted}
   \begin{itemize}
     \item poredimo svaku vrednost sa svima ostalima
@@ -748,14 +748,14 @@ else
 \begin{minted}[linenos=false]{python}
 if x1 >= x2:
    if x1 >= x3:
-      max = x1
+      maks = x1
    else:
-      max = x3
+      maks = x3
 else:
    if x2 >= x3:
-      max = x2
+      maks = x2
    else
-      max = x3
+      maks = x3
 \end{minted}
 \end{frame}
 
@@ -790,11 +790,11 @@ else:
     \item lako se prevodi u Python kod
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-max = x1
-if x2 > max:
-    max = x2
-if x3 > max:
-    max = x3
+maks = x1
+if x2 > maks:
+    maks = x2
+if x3 > maks:
+    maks = x3
 \end{minted}
 \end{frame}
 
@@ -803,8 +803,8 @@ if x3 > max:
   \begin{itemize}
     \item ovaj postupak se ponavlja i lako se predstavlja petljom
     \item unesemo broj
-    \item uporedimo ga sa trenutnim \texttt{max}
-    \item ako je veći, ažuriramo \texttt{max}
+    \item uporedimo ga sa trenutnim \texttt{maks}
+    \item ako je veći, ažuriramo \texttt{maks}
     \item ponavljamo dok ima brojeva
   \end{itemize}
 \end{frame}
@@ -812,16 +812,16 @@ if x3 > max:
 \begin{frame}[fragile]
   \frametitle{Strategija 3: sekvencijalna obrada}
 \begin{minted}[linenos=false]{python}
-n = eval(raw_input("Koliko ima brojeva? "))
+n = eval(input("Koliko ima brojeva? "))
 
-max = eval(raw_input("Unesite broj >> "))
+maks = eval(input("Unesite broj >> "))
 
 for i in range(n-1): 
-    x = eval(raw_input("Unesite broj >> "))
-    if x > max:
-        max = x
+    x = eval(input("Unesite broj >> "))
+    if x > maks:
+        maks = x
 
-print "Najveći broj je", max
+print("Najveći broj je", maks)
 \end{minted}
 \end{frame}
 
@@ -831,8 +831,8 @@ print "Najveći broj je", max
     \item postoji funkcija \texttt{max} koja vraća najveći broj iz date liste
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-x1, x2, x3 = eval(raw_input("Unesite tri broja: "))
-print "Najveći broj je", max(x1, x2, x3)
+x1, x2, x3 = eval(input("Unesite tri broja: "))
+print("Najveći broj je", max(x1, x2, x3))
 \end{minted}
 \end{frame}
 
