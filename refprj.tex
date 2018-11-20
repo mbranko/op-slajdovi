@@ -17,7 +17,7 @@
 \setlength{\belowcaptionskip}{0pt}
 
 \title{Primer projektnog zadatka: studentska služba}
-\date{2017.}
+\date{2018.}
 \author{Branko Milosavljević}
 
 \begin{document}
@@ -103,8 +103,8 @@ datoteke biće razdvojeni vertikalnom crtom (\texttt{'|'}).
 
 \begin{minted}{python}
 def ref2str(ref):
-    return '|'.join([ref['ime'], ref['prezime'], ref['username'],
-ref['password']])
+    return '|'.join([ref['ime'], ref['prezime'], ref['username'], \
+        ref['password']])
 
 def str2ref(line):
     if line[-1] == '\n':
@@ -505,10 +505,10 @@ funkcijama iz drugih modula.
 
 \begin{minted}{python}
 def main():
-    print
-    print "Evidencija studenata"
-    print "===================="
-    print
+    print()
+    print("Evidencija studenata")
+    print("====================")
+    print()
     if not login():
         print("\nNiste uneli postojece ime i lozinku!")
         return
@@ -537,9 +537,9 @@ ponavljati u slučaju da je uneta vrednost koja nije unapred predviđena.
 \begin{minted}{python}
 def menu():
     printMenu()
-    command = raw_input(">> ")
+    command = input(">> ")
     while command.upper() not in ('1', '2', '3', '4', '5', '6', 'X'):
-        print "\nUneli ste pogresnu komandu.\n"
+        print("\nUneli ste pogresnu komandu.\n")
         printMenu()
         command = input(">> ")
     return command.upper()
@@ -549,14 +549,14 @@ Funkcija \texttt{printMenu} će ispisati sadržaj menija na ekranu.
 
 \begin{minted}{python}
 def printMenu():
-    print "\nIzaberite opciju:"
-    print "  1 - pronalazenje studenta"
-    print "  2 - pretrazivanje studenata"
-    print "  3 - pregled svih studenata"
-    print "  4 - izmena podataka o studentu"
-    print "  5 - upis novog studenta"
-    print "  6 - upis nove godine studija"
-    print "  x - izlaz iz programa"
+    print("\nIzaberite opciju:")
+    print("  1 - pronalazenje studenta")
+    print("  2 - pretrazivanje studenata")
+    print("  3 - pregled svih studenata")
+    print("  4 - izmena podataka o studentu")
+    print("  5 - upis novog studenta")
+    print("  6 - upis nove godine studija")
+    print("  x - izlaz iz programa")
 \end{minted}
 
 Funkcija \texttt{login} će zatražiti od korisnika da unese korisničko ime i
@@ -566,8 +566,8 @@ preuzet od funkcije \texttt{login} iz modula \texttt{referenti}.
 
 \begin{minted}{python}
 def login():
-    username = raw_input("Korisnicko ime >> ")
-    password = raw_input("Lozinka >> ")
+    username = input("Korisnicko ime >> ")
+    password = input("Lozinka >> ")
     return referenti.login(username, password)
 \end{minted}
 
@@ -580,14 +580,14 @@ ispisuju u tabelarnoj formi onako kako je to definisano funkcijama
 
 \begin{minted}{python}
 def findStudent():
-    print "[1] Pronalazenje studenta\n"
-    indeks = raw_input("Unesite broj indeksa >> ")
+    print("[1] Pronalazenje studenta\n")
+    indeks = input("Unesite broj indeksa >> ")
     stud = studenti.findStudent(indeks)
     if stud != None:
-        print studenti.formatHeader()
-        print studenti.formatStudent(stud)
+        print(studenti.formatHeader())
+        print(studenti.formatStudent(stud))
     else:
-        print "Nije pronadjen student sa brojem indeksa", indeks
+        print("Nije pronadjen student sa brojem indeksa", indeks)
 \end{minted}
 
 Funkcija \texttt{searchStudents} će od korisnika zatražiti da unese prezime
@@ -599,15 +599,15 @@ je bilo studenata sa traženim prezimenom.
 
 \begin{minted}{python}
 def searchStudents():
-    print "[2] Pretrazivanje studenata\n"
-    prezime = raw_input("Unesite prezime >> ")
+    print("[2] Pretrazivanje studenata\n")
+    prezime = input("Unesite prezime >> ")
     studList = studenti.searchStudents('prezime', prezime)
     if len(studList) == 0:
-        print "\nNema trazenih studenata."
+        print("\nNema trazenih studenata.")
     else:
-        print '\n'
-        print studenti.formatHeader()
-        print studenti.formatStudents(studList)
+        print('\n')
+        print(studenti.formatHeader())
+        print(studenti.formatStudents(studList))
 \end{minted}
 
 Funkcija \texttt{listStudents} će obaviti sortiranje svih studenata po prezimenu
@@ -616,10 +616,10 @@ celu listu studenata u tabelarnom formatu.
 
 \begin{minted}{python}
 def listStudents():
-    print "[3] Pregled svih studenata sortiranih po prezimenu\n"
+    print("[3] Pregled svih studenata sortiranih po prezimenu\n")
     studenti.sortStudents('prezime')
-    print studenti.formatHeader()
-    print studenti.formatAllStudents()
+    print(studenti.formatHeader())
+    print(studenti.formatAllStudents())
 \end{minted}
 
 Funkcija \texttt{updateStudent} će obaviti ažuriranje adrese, telefona i emaila
@@ -633,17 +633,17 @@ u datoteku.
 
 \begin{minted}{python}
 def updateStudent():
-    print "[4] Izmena podataka o studentu\n"
-    indeks = raw_input("Unesite broj indeksa >> ")
+    print("[4] Izmena podataka o studentu\n")
+    indeks = nput("Unesite broj indeksa >> ")
     stud = studenti.findStudent(indeks)
     if stud == None:
-        print "Ne postoji student sa datim brojem indeksa."
+        print("Ne postoji student sa datim brojem indeksa.")
     else:
-        print studenti.formatHeader()
-        print studenti.formatStudent(stud)
-        stud['adresa'] = raw_input("Unesite adresu studenta >> ")
-        stud['telefon'] = raw_input("Unesite telefon studenta >> ")
-        stud['email'] = raw_input("Unesite e-mail studenta >> ")
+        print(studenti.formatHeader())
+        print(studenti.formatStudent(stud))
+        stud['adresa'] = input("Unesite adresu studenta >> ")
+        stud['telefon'] = input("Unesite telefon studenta >> ")
+        stud['email'] = input("Unesite e-mail studenta >> ")
         studenti.saveStudents()
 \end{minted}
 
@@ -655,17 +655,17 @@ postojećih studenata (poziv funkcije \texttt{addStudent} iz modula
 
 \begin{minted}{python}
 def addStudent():
-    print "[5] Upis novog studenta\n"
+    print("[5] Upis novog studenta\n")
     stud = {}
-    stud['indeks'] = raw_input("Unesite indeks >> ")
-    stud['ime'] = raw_input("Unesite ime >> ")
-    stud['prezime'] = raw_input("Unesite prezime >> ")
-    stud['roditelj'] = raw_input("Unesite ime roditelja >> ")
-    stud['datum'] = raw_input("Unesite datum rodjenja >> ")
-    stud['jmbg'] = raw_input("Unesite JMBG >> ")
-    stud['adresa'] = raw_input("Unesite adresu >> ")
-    stud['telefon'] = raw_input("Unesite telefon >> ")
-    stud['email'] = raw_input("Unesite e-mail >> ")
+    stud['indeks'] = input("Unesite indeks >> ")
+    stud['ime'] = input("Unesite ime >> ")
+    stud['prezime'] = input("Unesite prezime >> ")
+    stud['roditelj'] = input("Unesite ime roditelja >> ")
+    stud['datum'] = input("Unesite datum rodjenja >> ")
+    stud['jmbg'] = input("Unesite JMBG >> ")
+    stud['adresa'] = input("Unesite adresu >> ")
+    stud['telefon'] = input("Unesite telefon >> ")
+    stud['email'] = input("Unesite e-mail >> ")
     stud['godina'] = '1'
     studenti.addStudent(stud)
     studenti.saveStudents()
@@ -680,16 +680,16 @@ studenata snima u datoteku.
 
 \begin{minted}[fontsize=\small]{python}
 def advanceStudents():
-    print "[6] Upis studenata u narednu godinu studija\n"
-    indeks = raw_input("Unesite indeks studenta koji upisuje narednu godinu (<Enter> za kraj) >> ")
+    print("[6] Upis studenata u narednu godinu studija\n")
+    indeks = input("Unesite indeks studenta koji upisuje narednu godinu (<Enter> za kraj) >> ")
     while indeks != '':
         stud = studenti.findStudent(indeks)
         if stud == None:
-            print "Ne postoji student sa datim brojem indeksa."
+            print("Ne postoji student sa datim brojem indeksa.")
         else:
             studenti.advanceStudent(stud)
-            print "Student", indeks, "je upisan u narednu godinu."
-        indeks = raw_input("Unesite indeks studenta koji upisuje narednu godinu (<Enter> za kraj) >> ")
+            print("Student", indeks, "je upisan u narednu godinu.")
+        indeks = input("Unesite indeks studenta koji upisuje narednu godinu (<Enter> za kraj) >> ")
     studenti.saveStudents()
 \end{minted}
 
