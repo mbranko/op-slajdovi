@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -1239,7 +1239,7 @@ def mergeSort(nums):
 \begin{minted}{python}
 def moveTower(n, source, dest, temp):
     if n == 1:
-        print "Premesti disk sa", source, "na", dest+"."
+        print("Premesti disk sa", source, "na", dest+".")
     else:
         moveTower(n-1, source, temp, dest)
         moveTower(1, source, dest, temp)
@@ -1365,7 +1365,7 @@ def terminates(program, inputData):
 \begin{minted}{python}
 def main():
     lines = []
-    print "Ukucaj program ('done' za kraj)."
+    print("Ukucaj program ('done' za kraj).")
     line = input("")
     while line != "done":
         lines.append(line)

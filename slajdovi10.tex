@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2017.}
+\date{2018.}
 
 \begin{document}
 
@@ -452,10 +452,10 @@ main()
   \end{itemize}
 \begin{minted}{python}
 def printIntro():
-    print "Ovaj program simulira racquetball partije između igrača"
-    print 'zvanih "A" i "B".  Sposobnost svakog igrača je određena'
-    print "verovatnoćom (broj između 0 i 1) da igrač osvoji poen"
-    print "na svoj servis. Igrač A uvek servira prvi.\n"
+    print("Ovaj program simulira racquetball partije između igrača")
+    print('zvanih "A" i "B".  Sposobnost svakog igrača je određena')
+    print("verovatnoćom (broj između 0 i 1) da igrač osvoji poen")
+    print("na svoj servis. Igrač A uvek servira prvi.\n")
 \end{minted}
   \begin{itemize}
     \item u drugoj liniji string je dat u jednostrukim navodnicima zato što želimo da ispišemo dvostruke navodnike
@@ -470,9 +470,9 @@ def printIntro():
   \end{itemize}
 \begin{minted}{python}
 def getInputs():
-    a = eval(raw_input("Verovatnoća da A osvoji poen na servis >> "))
-    b = eval(raw_input("Verovatnoća da B osvoji poen na servis >> "))
-    n = eval(raw_input("Broj partija za simulaciju >> "))
+    a = eval(input("Verovatnoća da A osvoji poen na servis >> "))
+    b = eval(input("Verovatnoća da B osvoji poen na servis >> "))
+    n = eval(input("Broj partija za simulaciju >> "))
     return a, b, n
 \end{minted}
 \end{frame}
@@ -686,9 +686,9 @@ def gameOver(a,b):
 def printSummary(winsA, winsB):
     # Ispisuje rezultate simulacije
     n = winsA + winsB
-    print "\nSimulirano partija:", n
-    print "Pobede A: {0} ({1:0.1%})".format(winsA, winsA/n)
-    print "Pobede B: {0} ({1:0.1%})".format(winsB, winsB/n)
+    print("\nSimulirano partija:", n)
+    print("Pobede A: {0} ({1:0.1%})".format(winsA, winsA/n))
+    print("Pobede B: {0} ({1:0.1%})".format(winsB, winsB/n))
 \end{minted}
 \end{frame}
 
