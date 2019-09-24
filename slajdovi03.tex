@@ -6,10 +6,17 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage[cache=false]{minted}
+
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
+
+\usepackage[cache=false]{minted}
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+
+\usepackage{hyperref}
+\hypersetup{pdfstartview=Fit}
 
 \title{Rukovanje brojevima}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
@@ -114,8 +121,8 @@
 \begin{frame}[fragile,shrink=5]
   \frametitle{Numerički tipovi podataka $_7$}
   \begin{itemize}
-    \item operacije nad \texttt{float}-ovima proizvode \texttt{float}-ove
-    \item operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove
+    \item Python 2: operacije nad \texttt{float}-ovima proizvode \texttt{float}-ove
+    \item Python 2: operacije nad \texttt{int}-ovima proizvode \texttt{int}-ove
     \item Python 3: deljenje dva \texttt{int}-a proizvodi \texttt{float}
     \item Python 3: operator za celobrojno deljenje je \texttt{//}
   \end{itemize}
@@ -464,7 +471,7 @@ Faktorijel od 15 je 1.307674368e+012
   \begin{itemize}
     \item \texttt{float}-ovi su aproksimacije
     \item pomoću njih možemo prikazati veći opseg brojeva, ali sa manjom preciznošću
-    \item (noviji) Python ima rešenje -- prošireni \texttt{int}-ovi
+    \item Python 3 ima rešenje -- prošireni \texttt{int}-ovi
     \item fleksibilnost na račun brzine i potrošnje memorije
   \end{itemize}
 }
