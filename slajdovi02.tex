@@ -566,19 +566,12 @@ for <var> in <sequence>:
   \draw [arrows=-Stealth] 
       (A-1) edge["početak petlje"]  (A-2)
       (A-2) edge["da"]              (A-3)
-      (A-3) edge[""]                (A-4)
-      (A-4) (A-1)
-      % (A-4) edge["no"]            (A-5)
-      % (A-5) edge["exit"]          (A-6)
-      % (A-4) edge["yes"']          (A-7)       % <-- by ' is swapped label position
-      % (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
-      %       -| ([xshift=7mm] A-3.north)
-      ;
+      (A-3) edge[""]                (A-4);
+  \draw (A-4) -| ([xshift=-30]A-2.west);
+  \draw[arrows=-Stealth] ([xshift=-30]A-2.west) edge[""] (A-2.west);
+  \draw[arrows=-Stealth] (A-2.east) -| ([xshift=30,yshift=-130]A-2.east);
   \end{tikzpicture}
 \end{center}
-  % \begin{center}
-  %   \includegraphics[width=3cm]{pic03}
-  % \end{center}
 }
 
 \section{Primer 2}
@@ -633,7 +626,7 @@ for <var> in <sequence>:
       \item ispiši uvodnu poruku \\
         \texttt{print('Vrednost 10-godišnjeg ulaganja.')}
       \item unesi početno stanje računa \\
-        \texttt{principal = eval(input('Pocetni ulog: '))}
+        \texttt{principal = eval(input('Početni ulog: '))}
       \item unesi godišnju kamatu \\
         \texttt{apr = eval(input('Unesite kamatu: '))}
       \item ponavljaj 10 puta \\
@@ -653,8 +646,8 @@ for <var> in <sequence>:
 # Program racuna vrednost investicije
 # 10 godina nakon ulaganja
 
-print "Vrednost 10-godisnjeg ulaganja."
-principal = eval(input("Pocetni ulog: "))
+print "Vrednost 10-godišnjeg ulaganja."
+principal = eval(input("Početni ulog: "))
 apr = eval(input("Unesite kamatu: "))
 for i in range(10):
     principal = principal * (1 + apr)
@@ -666,12 +659,12 @@ print "Vrednost iznosi:", principal
   \frametitle{Primer programa: obračun kamata $_6$}
 \begin{verbatim}
 $ python futval.py
-Vrednost 10-godisnjeg ulaganja.
+Vrednost 10-godišnjeg ulaganja.
 Početni ulog: 100
 Unesite kamatu: .03
 Vrednost iznosi: 134.391637934
 $ python futval.py
-Vrednost 10-godisnjeg ulaganja.
+Vrednost 10-godišnjeg ulaganja.
 Početni ulog: 100
 Unesite kamatu: .1
 Vrednost iznosi: 259.37424601
