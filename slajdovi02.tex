@@ -11,11 +11,36 @@
 \usepackage{textcomp}
 \usepackage{unicode-math}
 
+\usepackage{minted}
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+
+\usepackage{hyperref}
+\hypersetup{pdfstartview=Fit}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  arrows.meta,
+  petri,
+  topaths,
+  automata,
+  calc,
+  chains,
+  shapes.geometric,
+  shapes.multipart,
+  shapes.gates.logic.US,
+  quotes,
+  positioning
+}
+\usepackage{tkz-berge}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+
 \title{Elementi Python programa}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2019.}
 
 \begin{document}
 
@@ -241,7 +266,7 @@ $
 
 \begin{frame}[fragile,shrink=10]
 \frametitle{NameError}
-\begin{verbatim}
+\begin{minted}{python}
 >>> x = 5
 >>> x
 5
@@ -254,7 +279,7 @@ Traceback (most recent call last):
     print spam
 NameError: name 'spam' is not defined
 >>>
-\end{verbatim}
+\end{minted}
 \begin{itemize}
   \item \texttt{NameError} je greška koju pravimo kada koristimo promenljivu kojoj nismo prethodno dodelili vrednost
 \end{itemize}
@@ -326,7 +351,7 @@ Rezultat je 7
 \begin{itemize}
   \item promenljivoj možemo dodeliti vrednost više puta!
 \end{itemize}
-\begin{verbatim}
+\begin{minted}{python}
 >>> myVar = 0
 >>> myVar
 0
@@ -337,7 +362,7 @@ Rezultat je 7
 >>> myVar
 8
 >>>
-\end{verbatim}
+\end{minted}
 \end{frame}
 
 \frame{
@@ -346,9 +371,16 @@ Rezultat je 7
     \item promenljiva je skadište (,,kutija``) u koju smeštamo podatak
     \item kada se promenljiva menja, stara vrednost se briše a nova se upisuje
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=5cm]{pic01}
-  \end{center}
+  \begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale=1,transform shape,every text node part/.style={align=left}]
+    \node[rectangle,draw=black,fill=white,label={[label distance=5]180:x}] (0) at (0,0) {$10$};
+    \node[rectangle,draw=black,fill=white,label={[label distance=5]180:x}] (1) at (5,0) {$11$};
+    \node[fill=white] (2) at (2,1) {\texttt{x = x + 1}};
+    \node (3) at (0,1) {Pre};
+    \node (4) at (5,1) {Posle};
+  \end{tikzpicture}
+  \end{figure}
 }
 
 \frame{
@@ -358,9 +390,21 @@ Rezultat je 7
     \item Python ne briše stare podatke
     \item dodela vrednosti je više kao stavljanje oznake na neku vrednost, govoreći ,,ovo je \texttt{x}``
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=6cm]{pic02}
-  \end{center}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1,transform shape,every text node part/.style={align=left}]
+      \node[rectangle,draw=black,fill=white] (0) at (0,0) {x};
+      \node[rectangle,draw=black,fill=white] (5) at (1,0) {$10$};
+      \draw[->] (0) -- (5);
+      \node[rectangle,draw=black,fill=white] (1) at (5,0) {x};
+      \node[rectangle,draw=black,fill=white] (6) at (6,0) {$10$};
+      \node[rectangle,draw=black,fill=white] (7) at (6,-1) {$11$};
+      \draw[->] (1) -- (7);
+      \node[fill=white] (2) at (3,1) {\texttt{x = x + 1}};
+      \node (3) at (0,1) {Pre};
+      \node (4) at (5,1) {Posle};
+    \end{tikzpicture}
+  \end{figure}
 }
 
 \frame{
@@ -504,8 +548,37 @@ for <var> in <sequence>:
     \item predstavlja deo struktura za \myblue{kontrolu toka programa}
   \end{itemize}
   \begin{center}
-    \includegraphics[width=3cm]{pic03}
-  \end{center}
+    \begin{tikzpicture}[scale=0.8,transform shape,
+      node distance = 8mm and 16mm,
+      start chain = A going below,
+      base/.style = {draw, minimum width=32mm, minimum height=8mm,
+                       align=center, on chain=A},
+      startstop/.style = {base, rectangle, rounded corners},
+      process/.style = {base, rectangle},
+      io/.style = {base, trapezium, trapezium left angle=70, trapezium right angle=110},
+      decision/.style = {base, diamond, fill=white},
+      every edge quotes/.style = {auto=right}]
+  \node [startstop]       {Start};       % <-- A-1
+  \node [decision]        {ima još?};    % <-- A-2
+  \node [process]         {var = sledeći element};
+  \node [process]         {telo petlje}; % <-- A-4
+  
+  \draw [arrows=-Stealth] 
+      (A-1) edge["početak petlje"]  (A-2)
+      (A-2) edge["da"]              (A-3)
+      (A-3) edge[""]                (A-4)
+      (A-4) (A-1)
+      % (A-4) edge["no"]            (A-5)
+      % (A-5) edge["exit"]          (A-6)
+      % (A-4) edge["yes"']          (A-7)       % <-- by ' is swapped label position
+      % (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
+      %       -| ([xshift=7mm] A-3.north)
+      ;
+  \end{tikzpicture}
+\end{center}
+  % \begin{center}
+  %   \includegraphics[width=3cm]{pic03}
+  % \end{center}
 }
 
 \section{Primer 2}
