@@ -6,16 +6,33 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
+
+\usepackage[cache=false]{minted}
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+
+\usepackage{hyperref}
+\hypersetup{pdfstartview=Fit}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  arrows.meta,
+  shapes.geometric,
+  shapes.multipart,
+  quotes,
+  positioning,
+  tikzmark
+}
 
 \title{Funkcije}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2019.}
 
 \begin{document}
 
@@ -332,9 +349,17 @@ person = "Fred"
   \begin{itemize}
     \item promenljiva \texttt{person} je upravo inicijalizovana
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=8cm]{pic04}
-  \end{center}
+\begin{minted}[escapeinside=??,linenos=false,fontsize=\footnotesize]{python}
+                                def sing(person):
+def main():                         ?\tikzmark{end1}?happy()
+    sing("Fred")?\tikzmark{start1}?                    happy()
+    print()                         print("Happy birthday, dear", 
+    sing("Lucy")                          person + ".")
+                                    happy()
+\end{minted}
+\begin{tikzpicture}[remember picture]
+\draw[overlay,->,red,line width=2pt,sloped] (pic cs:start1) -- (pic cs:end1) node[midway,above] {\footnotesize{\texttt{person="Fred"}}};
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -349,22 +374,42 @@ person = "Fred"
 
 \begin{frame}[fragile]
   \frametitle{Poziv funkcije $_5$}
-  \begin{center}
-    \includegraphics[width=10cm]{pic05}
-  \end{center}
-  \begin{itemize}
-    \item izvršavanje se nastavlja sa još dva poziva funkcije \texttt{happy}
-    \item kada Python dođe do kraja funkcije \texttt{sing}, vraća kontrolu nazad funkciji \texttt{main}
-    \item tamo nastavlja izvršavanje odmah posle poziva funkcije \texttt{sing}
-  \end{itemize}
+\begin{minted}[escapeinside=??,linenos=false,fontsize=\scriptsize]{python}
+def main():             def sing(person):           def happy():
+    sing("Fred")?\tikzmark{start2}?            ?\tikzmark{end2}?happy()?\tikzmark{start3}?                     ?\tikzmark{end3}?print("Happy birthday to you!")
+    print()                 happy()                     ?\tikzmark{start4}?
+    sing("Lucy")            print("dear", person)
+                            happy()
+\end{minted}
+\begin{tikzpicture}[remember picture]
+  \draw[overlay,->,red,line width=1pt,sloped] (pic cs:start2) -- ([xshift=-5]pic cs:end2) node[midway,above] {\tiny{\texttt{person="Fred"}}};
+  \draw[overlay,->,red,line width=1pt,sloped] (pic cs:start3) -- ([xshift=-5]pic cs:end3);
+  \draw[overlay,->,red,line width=1pt,sloped] ([xshift=-5]pic cs:end3) -- ([xshift=-5]pic cs:start4);
+  \draw[overlay,->,red,line width=1pt,sloped] ([xshift=-5]pic cs:start4) -- (pic cs:start3);
+\end{tikzpicture}
+\begin{itemize}
+  \item izvršavanje se nastavlja sa još dva poziva funkcije \texttt{happy}
+  \item kada Python dođe do kraja funkcije \texttt{sing}, vraća kontrolu nazad funkciji \texttt{main}
+  \item tamo nastavlja izvršavanje odmah posle poziva funkcije \texttt{sing}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Poziv funkcije $_6$}
-  \begin{center}
-    \includegraphics[width=10cm]{pic06}
-  \end{center}
-  \begin{itemize}
+\begin{minted}[escapeinside=??,linenos=false,fontsize=\footnotesize]{python}
+                            def sing(person):
+def main():                         ?\tikzmark{end5}?happy()
+    sing("Fred")?\tikzmark{start5}?                    happy()
+    print()                         print("Happy birthday, dear", 
+    sing("Lucy")                          person + ".")
+                                    ?\tikzmark{start6}?happy()
+\end{minted}
+\begin{tikzpicture}[remember picture]
+  \draw[overlay,->,red,line width=1pt,sloped] (pic cs:start5) -- ([xshift=-5]pic cs:end5) node[midway,above] {\footnotesize{\texttt{person="Fred"}}};
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:end5) -- ([xshift=-5]pic cs:start6);
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:start6) -- (pic cs:start5);
+\end{tikzpicture}
+\begin{itemize}
     \item promenljiva \texttt{person} u funkciji \texttt{sing} nije vidljiva!
     \item memorija koju zauzimaju lokalne promenljive dok se funkcija izvršava se oslobađa nakon završetka funkcije
     \item lokalne promenljive ne čuvaju vrednost između dva poziva funkcije
@@ -378,25 +423,46 @@ person = "Fred"
     \item Python nailazi na još jedan poziv funkcije \texttt{sing}
     \item prenosi kontrolu na funkciju \texttt{sing}, a parametar ima vrednost \texttt{"Lucy"}
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=10cm]{pic07}
-  \end{center}
+\begin{minted}[escapeinside=??,linenos=false,fontsize=\footnotesize]{python}
+                            def sing(person):
+def main():                         ?\tikzmark{pin04}?happy()
+    ?\tikzmark{pin01}?sing("Fred")                    happy()
+    print()                         print("Happy birthday, dear", 
+    ?\tikzmark{pin02}?sing("Lucy")?\tikzmark{pin03}?                          person + ".")
+                                    happy()
+\end{minted}
+\begin{tikzpicture}[remember picture]
+  \draw[overlay,->,red,line width=1pt,sloped] (pic cs:pin03) -- (pic cs:pin04) node[midway,above] {\footnotesize{\texttt{person="Lucy"}}};
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:pin01) -- ([xshift=-5]pic cs:pin02);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Poziv funkcije $_7$}
+  \frametitle{Poziv funkcije $_8$}
   \begin{itemize}
     \item telo funkcije \texttt{sing} sada se izvršava sa parametrom \texttt{"Lucy"}
     \item to uključuje tri poziva funkcije \texttt{happy}
     \item na kraju se kontrola prenosi nazad u \texttt{main}
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=10cm]{pic08}
-  \end{center}
+\begin{minted}[escapeinside=??,linenos=false,fontsize=\footnotesize]{python}
+                            def sing(person):
+def main():                         ?\tikzmark{pin08}?happy()
+    ?\tikzmark{pin05}?sing("Fred")                    happy()
+    print()                         print("Happy birthday, dear", 
+    ?\tikzmark{pin06}?sing("Lucy")?\tikzmark{pin07}?                          person + ".")
+                                    ?\tikzmark{pin09}?happy()
+\end{minted}
+\begin{tikzpicture}[remember picture]
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:pin05) -- ([xshift=-5]pic cs:pin06);
+  \draw[overlay,->,red,line width=1pt] (pic cs:pin07) -- ([xshift=-5]pic cs:pin08);
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:pin08) -- ([xshift=-5]pic cs:pin09);
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:pin09) -- ([xshift=5]pic cs:pin07);
+  \draw[overlay,->,red,line width=1pt] ([xshift=-5,yshift=-5]pic cs:pin06) -- ([xshift=-5,yshift=-15]pic cs:pin06);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Poziv funkcije $_8$}
+  \frametitle{Poziv funkcije $_9$}
   \begin{itemize}
     \item prosleđivanje parametara je mehanizam za inicijalizaciju promenljivih u funkciji
     \item parametri predstavljaju \myblue{ulazne} podatke za funkciju

@@ -6,16 +6,22 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage{polyglossia}
-\usepackage[cache=false]{minted}
 \usepackage{xcolor,colortbl}
 \usepackage{textcomp}
 \usepackage{unicode-math}
+
+\usepackage[cache=false]{minted}
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+
+\usepackage{hyperref}
+\hypersetup{pdfstartview=Fit}
 
 \title{Sekvence: stringovi, liste, fajlovi}
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2019.}
 
 \begin{document}
 
@@ -1171,7 +1177,7 @@ for line in infile:
 infile.close()
 outfile.close()
 
-print("Sacuvan fajl:", outfileName)
+print("Sačuvan fajl:", outfileName)
 \end{minted}
 \end{frame}
 
