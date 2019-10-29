@@ -123,7 +123,7 @@ Happy birthday to you!
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def happy():
-    print "Happy birthday to you!"
+    print("Happy birthday to you!")
 \end{minted}
   \begin{itemize}
     \item sada možemo da skratimo naš program
@@ -410,7 +410,7 @@ def main():                         ?\tikzmark{end5}?happy()
   \draw[overlay,->,red,line width=1pt] ([xshift=-5]pic cs:start6) -- (pic cs:start5);
 \end{tikzpicture}
 \begin{itemize}
-    \item promenljiva \texttt{person} u funkciji \texttt{sing} nije vidljiva!
+    \item promenljiva \texttt{person} u funkciji \texttt{main} nije vidljiva!
     \item memorija koju zauzimaju lokalne promenljive dok se funkcija izvršava se oslobađa nakon završetka funkcije
     \item lokalne promenljive ne čuvaju vrednost između dva poziva funkcije
   \end{itemize}
@@ -529,7 +529,7 @@ def distance(x1, y1, x2, y2):
   \frametitle{Rezultat funkcije $_5$}
   \begin{itemize}
     \item nekad funkcija mora da vrati više od jedne vrednosti
-    \item rezultat funkcije može biti lista vrednosti
+    \item rezultat funkcije može biti lista ili sekvenca vrednosti
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def sumDiff(x, y):
