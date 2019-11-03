@@ -957,16 +957,60 @@ def test():
   \end{itemize}
 \end{frame}
 
-\section{Strukturiranje programa}
+\section{*args i **kwargs}
 
 \begin{frame}[fragile]
-  \frametitle{Modularni programi}
+  \frametitle{Funkcije sa promenljivim brojem parametara}
+\begin{minted}[linenos=false]{python}
+def my_sum(*args):
+    result = 0
+    # parametrima pristupamo kao elementima sekvence
+    for x in args:
+        result += x
+    return result
+
+print(my_sum(1, 2, 3))
+\end{minted}
   \begin{itemize}
-    \item do sada smo funkcije koristili kao sredstvo da sprečimo ponavljanje koda
-    \item drugi razlog za upotrebu funkcija je pisanje \myblue{modularnih} programa
-    \item kako algoritmi koje kreiramo postaju sve složeniji, sve je teže čitati programski kod \\ \ \\
-    \item jedan način da se ovo reši je podela algoritma na manje potprograme gde je svaki od njih autonoman (ima smisla sam za sebe)
+    \item ime \texttt{args} nije obavezno -- može bilo koje drugo
+    \item obavezno je navesti \texttt{*} -- \textit{unpacking operator}
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije sa promenljivim brojem parametara}
+  \begin{itemize}
+    \item \texttt{*args} mora doći posle obaveznih parametara
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def print_greeting(greeting, *names):
+    for name in names:
+        print(greeting + " " + name)
+
+print_greeting("Happy birthday, dear", 
+               "Joey", "Johnny", "Dee Dee", "Tommy")
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Funkcije sa imenovanim parametrima}
+  \begin{itemize}
+    \item \texttt{**kwargs} predstavlja imenovane parametre
+    \item nepoznate u momentu pisanja funkcije
+  \end{itemize}
+\begin{minted}[linenos=false]{python}
+def concatenate(**kwargs):
+    result = ""
+    for arg in kwargs:
+        result += arg
+    result += " "
+    for arg in kwargs.values():
+        result += arg
+    return result
+
+print(concatenate(a="Real", b="Python", c="Is", d="Great", e="!"))
+>>> abcde RealPythonIsGreat!
+\end{minted}
 \end{frame}
 
 \section[Dekoratori]{Dekoratori}
@@ -1148,6 +1192,18 @@ print raised_to_4(2)
 # vrednost n je sacuvana za funkciju raised_to_4
 print raised_to_4.__closure__[0].cell_contents  
 \end{minted}
+\end{frame}
+
+\section{Strukturiranje programa}
+
+\begin{frame}[fragile]
+  \frametitle{Modularni programi}
+  \begin{itemize}
+    \item do sada smo funkcije koristili kao sredstvo da sprečimo ponavljanje koda
+    \item drugi razlog za upotrebu funkcija je pisanje \myblue{modularnih} programa
+    \item kako algoritmi koje kreiramo postaju sve složeniji, sve je teže čitati programski kod \\ \ \\
+    \item jedan način da se ovo reši je podela algoritma na manje potprograme gde je svaki od njih autonoman (ima smisla sam za sebe)
+  \end{itemize}
 \end{frame}
 
 \end{document}
