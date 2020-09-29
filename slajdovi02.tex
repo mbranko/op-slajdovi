@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -488,7 +488,7 @@ Narucili ste 3 baba i 2 zaba.
   \begin{itemize}
     \item \myblue{konačna petlja} izvršava svoje \myblue{telo} određeni broj puta
     \item kada petlja počne zna se tačno koliko će \myblue{iteracija} biti
-    \item \texttt{for <var> in <sequence>:}\\ 
+    \item \texttt{for <var> in <sequence>:}\\
       \texttt{\ \ <body>}
     \item telo petlje se određuje uvlačenjem redova teksta u programu
   \end{itemize}
@@ -562,8 +562,8 @@ for <var> in <sequence>:
   \node [decision]        {ima još?};    % <-- A-2
   \node [process]         {var = sledeći element};
   \node [process]         {telo petlje}; % <-- A-4
-  
-  \draw [arrows=-Stealth] 
+
+  \draw [arrows=-Stealth]
       (A-1) edge["početak petlje"]  (A-2)
       (A-2) edge["da"]              (A-3)
       (A-3) edge[""]                (A-4);
