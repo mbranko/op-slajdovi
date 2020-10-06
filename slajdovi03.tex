@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -22,7 +22,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2019.}
+\date{2020.}
 
 \begin{document}
 
@@ -392,7 +392,7 @@ for i in (2,3,4,5,6):
 
 n = eval(input("Unesite prirodan broj: "))
 fact = 1
-for i in range(n,1,-1): 
+for i in range(n,1,-1):
     fact = fact * i
 print("Faktorijel od", n, "je", fact)
 \end{minted}
@@ -493,7 +493,7 @@ Faktorijel od 15 je 1.307674368e+012
   \frametitle{Konverzije tipova $_2$}
   \begin{itemize}
     \item morali bismo ili konvertovati 5.0 u 5 i obaviti \texttt{int}-sabiranje
-    \item ili konvertovati 2 u 2.0 i obaviti \texttt{float}-sabiranje 
+    \item ili konvertovati 2 u 2.0 i obaviti \texttt{float}-sabiranje
     \item kovertovanje \texttt{float} u \texttt{int} (u opštem slučaju) nosi gubitak podataka
     \item \texttt{int}-ovi se lako konvertuju u \texttt{float} dodavanjem .0
   \end{itemize}

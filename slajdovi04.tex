@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -21,7 +21,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2019.}
+\date{2020.}
 
 \begin{document}
 
@@ -364,7 +364,7 @@ myList = [1, "Spam ", 4, "U"]
     \item lista može da sadrži bilo kakve podatke -- \\ brojeve, stringove, ili oba
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
+meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
     "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
 \end{minted}
   \begin{itemize}
@@ -396,7 +396,7 @@ mesecSkr = meseci[pos:pos+3]
 # Štampa skraćeno ime meseca za dati redni broj
 
 # ovde čuvamo nazive
-meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", 
+meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
     "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
 
 n = eval(raw_input("Unesite mesec (1-12): "))
@@ -415,8 +415,8 @@ print("Skraćenica je", meseci[n-1] + ".")
     \item ova verzija programa se lako menja za rad sa punim nazivima
   \end{itemize}
 \begin{minted}[linenos=false]{python}
-meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", 
-    "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", 
+meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun",
+    "Jul", "Avgust", "Septembar", "Oktobar", "Novembar",
     "Decembar"]
 \end{minted}
 \end{frame}
@@ -602,7 +602,7 @@ for numStr in inString.split(" "):
     # konvertuj podstring u broj
     codeNum = eval(numStr)
     # dodaj znak na kraj rezultata
-    message = message + chr(codeNum) 
+    message = message + chr(codeNum)
 
 print("\nDekodirana poruka je:", message)
 \end{minted}
@@ -732,7 +732,7 @@ monthStr = months[int(monthStr) – 1]
 \begin{frame}[fragile]
   \frametitle{Formatiranje stringova $_6$}
 \begin{minted}[linenos=false]{python}
-print("Konvertovani datum je:", dayStr+".", 
+print("Konvertovani datum je:", dayStr+".",
     monthStr, yearStr+".")
 \end{minted}
   \begin{itemize}
@@ -919,7 +919,7 @@ quarters = eval(input("Quarters: "))
 dimes = eval(input("Dimes: "))
 nickels = eval(input("Nickels: "))
 pennies = eval(input("Pennies: "))
-total = quarters * 25 + dimes * 10 + nickels * 5 + pennies 
+total = quarters * 25 + dimes * 10 + nickels * 5 + pennies
 
 print("The total value of your change is ${0}.{1:0>2}")
     .format(total//100, total%100)
