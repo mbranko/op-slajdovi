@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 
@@ -88,7 +88,7 @@
 \begin{frame}
   \frametitle{Ulazni podaci}
   \begin{itemize}
-    \item verovatnoće osvajanja poena za igrače A i B; 
+    \item verovatnoće osvajanja poena za igrače A i B;
     \item broj partija koje će odigrati A i B
   \end{itemize}
 \end{frame}
@@ -310,7 +310,7 @@ ispiši rezultate simulacije
 \begin{frame}
   \frametitle{Top-down dizajn}
   \begin{itemize}
-    \item da li je ovo rešenje suviše apstraktno? 
+    \item da li je ovo rešenje suviše apstraktno?
     \item sve što ne umemo da napravimo ignorisaćemo na trenutak
     \item pretpostavimo da su sve komponente koje nam trebaju da implementiramo algoritam već napravljene
     \item naš zadatak je tada jednostavan
@@ -599,7 +599,7 @@ def simOneGame(probA, probB):
 \begin{frame}[fragile]
   \frametitle{Dizajn na trećem nivou: \texttt{simOneGame} $_5$}
 \begin{itemize}
-  \item ako servira igrač A onda koristimo \texttt{probA}, 
+  \item ako servira igrač A onda koristimo \texttt{probA},
   \item zavisno od rezultata ili povećamo poene za A ili servis preuzima B
 \end{itemize}
 \begin{minted}{python}
@@ -848,7 +848,7 @@ Pobede B: 1671 (33.4%)
 \begin{frame}
   \frametitle{Prototip}
 \begin{itemize}
-  \item drugi način je da prvo napravimo uprošćenu verziju programa, 
+  \item drugi način je da prvo napravimo uprošćenu verziju programa,
   \item i da postepeno dodajemo detalje dok ne dostignemo punu specifikaciju
   \item ova početna verzija programa zove se \myblue{prototip}
 \end{itemize}
@@ -872,7 +872,7 @@ Pobede B: 1671 (33.4%)
   \frametitle{Prototipovi i spiralni razvoj}
 \begin{itemize}
   \item kako smo racquetball simulator mogli napraviti spiralnim razvojem?
-  \item napravimo prototip koji podrazumeva 
+  \item napravimo prototip koji podrazumeva
   \begin{itemize}
     \item 50-50 verovatnoću osvajanja svakog poena
     \item igra se fiksno 30 relija
