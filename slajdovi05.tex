@@ -1,4 +1,4 @@
-\documentclass[compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -32,7 +32,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2019.}
+\date{2020.}
 
 \begin{document}
 
@@ -77,7 +77,7 @@
   \frametitle{Funkcija funkcija $_3$}
   \begin{itemize}
     \item funkcija je kao potprogram, mali program unutar većeg programa
-    \item osnovna ideja -- napišemo niz naredbi i dodelimo mu ime; 
+    \item osnovna ideja -- napišemo niz naredbi i dodelimo mu ime;
     \item kasnije izvršavamo taj niz naredbi pozivajući ga po imenu
   \end{itemize}
 }
@@ -210,7 +210,7 @@ Happy birthday to you!
 \begin{frame}[fragile]
   \frametitle{Primer funkcija $_6$}
   \begin{itemize}
-    \item opštija funkcija \texttt{sing} 
+    \item opštija funkcija \texttt{sing}
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 def sing(person):
@@ -353,7 +353,7 @@ person = "Fred"
                                 def sing(person):
 def main():                         ?\tikzmark{end1}?happy()
     sing("Fred")?\tikzmark{start1}?                    happy()
-    print()                         print("Happy birthday, dear", 
+    print()                         print("Happy birthday, dear",
     sing("Lucy")                          person + ".")
                                     happy()
 \end{minted}
@@ -400,7 +400,7 @@ def main():             def sing(person):           def happy():
                             def sing(person):
 def main():                         ?\tikzmark{end5}?happy()
     sing("Fred")?\tikzmark{start5}?                    happy()
-    print()                         print("Happy birthday, dear", 
+    print()                         print("Happy birthday, dear",
     sing("Lucy")                          person + ".")
                                     ?\tikzmark{start6}?happy()
 \end{minted}
@@ -427,7 +427,7 @@ def main():                         ?\tikzmark{end5}?happy()
                             def sing(person):
 def main():                         ?\tikzmark{pin04}?happy()
     ?\tikzmark{pin01}?sing("Fred")                    happy()
-    print()                         print("Happy birthday, dear", 
+    print()                         print("Happy birthday, dear",
     ?\tikzmark{pin02}?sing("Lucy")?\tikzmark{pin03}?                          person + ".")
                                     happy()
 \end{minted}
@@ -448,7 +448,7 @@ def main():                         ?\tikzmark{pin04}?happy()
                             def sing(person):
 def main():                         ?\tikzmark{pin08}?happy()
     ?\tikzmark{pin05}?sing("Fred")                    happy()
-    print()                         print("Happy birthday, dear", 
+    print()                         print("Happy birthday, dear",
     ?\tikzmark{pin06}?sing("Lucy")?\tikzmark{pin07}?                          person + ".")
                                     ?\tikzmark{pin09}?happy()
 \end{minted}
@@ -691,7 +691,7 @@ def test():
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_7$}
 \begin{center}
-  \includegraphics[width=10cm]{pic09}
+  \includegraphics[width=14cm]{pic09}
 \end{center}
 \end{frame}
 
@@ -742,7 +742,7 @@ def test():
 \begin{frame}[fragile,shrink=10]
   \frametitle{Izmena parametara $_{10}$}
 \begin{center}
-  \includegraphics[width=12cm]{pic10}
+  \includegraphics[width=14cm]{pic10}
 \end{center}
 \end{frame}
 
@@ -868,7 +868,7 @@ def test():
 \begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
-        balances[i] = balances[i] * 
+        balances[i] = balances[i] *
             (1+rate)
 
 def test():
@@ -883,7 +883,7 @@ def test():
 \begin{frame}[fragile]
   \frametitle{Izmena parametara $_{20}$}
 \begin{center}
-  \includegraphics[width=10cm]{pic11}
+  \includegraphics[width=12cm]{pic11}
 \end{center}
 \end{frame}
 
@@ -898,7 +898,7 @@ def test():
 \begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
-        balances[i] = balances[i] * 
+        balances[i] = balances[i] *
             (1+rate)
 
 def test():
@@ -913,7 +913,7 @@ def test():
 \begin{frame}[fragile]
   \frametitle{Izmena parametara $_{22}$}
 \begin{center}
-  \includegraphics[width=10cm]{pic12}
+  \includegraphics[width=11cm]{pic12}
 \end{center}
 \end{frame}
 
@@ -928,7 +928,7 @@ def test():
 \begin{minted}[linenos=false]{python}
 def addInterest(balances, rate):
     for i in range(len(balances)):
-        balances[i] = balances[i] * 
+        balances[i] = balances[i] *
             (1+rate)
 
 def test():
@@ -987,7 +987,7 @@ def print_greeting(greeting, *names):
     for name in names:
         print(greeting + " " + name)
 
-print_greeting("Happy birthday, dear", 
+print_greeting("Happy birthday, dear",
                "Joey", "Johnny", "Dee Dee", "Tommy")
 \end{minted}
 \end{frame}
@@ -1095,12 +1095,12 @@ def print_call(fn):
     def fn_wrap(*args, **kwargs):
         print("Pozivam %s" % fn.__name__)
         # prosledi bilo kakve argumente funkciji fn
-        return fn(*args, **kwargs) 
-    
+        return fn(*args, **kwargs)
+
     return fn_wrap  # rezultat funkcije je funkcija!
 
 suma = print_call(sum)  # sum je ugradjena funkcija
-print suma([1, 2, 3, 4])
+print(suma([1, 2, 3, 4]))
 \end{minted}
 \end{frame}
 
@@ -1110,17 +1110,17 @@ print suma([1, 2, 3, 4])
 def print_call(fn):
     def fn_wrap(*args, **kwargs):
         print("Pozivam %s" % fn.__name__)
-        retval = fn(*args, **kwargs) 
+        retval = fn(*args, **kwargs)
         print("Zavrsen poziv")
         return retval
-    
+
     return fn_wrap  # rezultat funkcije je funkcija!
 
 def greeter(name):
     return "Hello, %s" % name
 
 greeter = print_call(greeter)  # zadrzavamo staro ime
-print greeter("Branko")
+print(greeter("Branko"))
 \end{minted}
 \end{frame}
 
@@ -1187,10 +1187,10 @@ def generate_power_func(n):
 
 raised_to_4 = generate_power_func(4)
 del generate_power_func  # ukloni definiciju ove funkcije
-print raised_to_4(2)
+print(raised_to_4(2))
 
 # vrednost n je sacuvana za funkciju raised_to_4
-print raised_to_4.__closure__[0].cell_contents  
+print(raised_to_4.__closure__[0].cell_contents)
 \end{minted}
 \end{frame}
 

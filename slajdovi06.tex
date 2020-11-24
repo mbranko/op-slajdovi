@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 
@@ -66,7 +66,7 @@
 def main():
     celsius = eval(input("Unesite temperaturu C >> "))
     fahrenheit = 9.0/5 * celsius + 32
-    print("Temperatura je ", fahrenheit, 
+    print("Temperatura je ", fahrenheit,
         "stepeni Farenhajta.")
 
 main()
@@ -200,7 +200,7 @@ main()
     \item kada poredimo stringove, koristi se \myblue{leksikografski} redosled
     \item tj. stringovi se sortiraju prema Unicode kodovima znakova
     \begin{itemize}
-      \item velika slova su ,,manja`` od malih, dakle \\ 
+      \item velika slova su ,,manja`` od malih, dakle \\
         \texttt{"Bbbb" < "aaaa"}
     \end{itemize}
   \end{itemize}
@@ -210,7 +210,7 @@ main()
   \frametitle{Bulovi izrazi}
   \begin{itemize}
     \item uslov je Bulov izraz (George Boole 1815-1864)
-    \item Bulov izraz može imati samo dve vrednosti, 
+    \item Bulov izraz može imati samo dve vrednosti,
     \begin{itemize}
       \item \myblue{tačno} (uslov je ispunjen)
       \item \myblue{netačno} (uslov nije ispunjen)
@@ -223,7 +223,7 @@ main()
 \begin{frame}[fragile]
   \frametitle{Bulovi izrazi $_2$}
   \begin{itemize}
-    \item Bulovi izrazi su tipa \texttt{bool} 
+    \item Bulovi izrazi su tipa \texttt{bool}
     \item dve moguće vrednosti: \texttt{True} i \texttt{False}
   \end{itemize}
 \begin{verbatim}
@@ -284,7 +284,7 @@ ValueError: math domain error
   \end{itemize}
 \begin{minted}[linenos=false]{python}
 # quadratic2.py
-import math  
+import math
 
 def main():
     a, b, c = eval(input(
@@ -354,7 +354,7 @@ def main():
   \frametitle{Primer: kvadratna jednačina}
 \begin{minted}[linenos=false]{python}
 # quadratic3.py
-import math 
+import math
 
 def main():
     a, b, c = eval(input(
@@ -375,12 +375,12 @@ main()
 \begin{frame}[fragile]
   \frametitle{Primer: kvadratna jednačina $_2$}
 \begin{verbatim}
->>> 
+>>>
 Unesite koeficijente (a, b, c): 1,1,2
 
 Nema realnih korena!
 
->>> 
+>>>
 Unesite koeficijente (a, b, c): 2, 5, 2
 
 Rešenja su: -0.5 -2.0
@@ -479,7 +479,7 @@ else:
 \begin{frame}[fragile,shrink=5]
   \frametitle{Višestruko grananje $_8$}
 \begin{minted}[linenos=false]{python}
-import math 
+import math
 def main():
     a, b, c = eval(input(
         "Unesite koeficijente (a, b, c): "))
@@ -708,7 +708,7 @@ if x1 >= x2 and x1 >= x3:
     maks = x1
 elif x2 >= x1 and x2 >=x3:
     maks = x2
-else
+else:
     maks = x3
 \end{minted}
   \begin{itemize}
@@ -754,7 +754,7 @@ if x1 >= x2:
 else:
    if x2 >= x3:
       maks = x2
-   else
+   else:
       maks = x3
 \end{minted}
 \end{frame}
@@ -816,7 +816,7 @@ n = eval(input("Koliko ima brojeva? "))
 
 maks = eval(input("Unesite broj >> "))
 
-for i in range(n-1): 
+for i in range(n-1):
     x = eval(input("Unesite broj >> "))
     if x > maks:
         maks = x

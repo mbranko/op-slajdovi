@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 
@@ -26,7 +26,7 @@
   \begin{itemize}
     \item koncepti konačne i beskonačne petlje pomoću \texttt{for} i \texttt{while} naredbi
     \item interaktivna petlja i sentinel petlja korišćenjem \texttt{while} naredbe
-    \item end-of-file petlja	
+    \item end-of-file petlja
     \item ugnježdene petlje
     \item Bulova algebra i Bulovi izrazi
   \end{itemize}
@@ -469,7 +469,7 @@ def main():
   \frametitle{Fajlovi i sentinel $_2$}
 \begin{minted}{python}
 line = infile.readline()
-while line != ""
+while line != "":
     # obradi line
     line = infile.readline()
 \end{minted}
@@ -685,7 +685,7 @@ else:
   \begin{tabular}{c|c}
     \texttt{P} & \texttt{not P} \\ \hline
     T & F \\ \hline
-    F & T 
+    F & T
   \end{tabular}
   \end{center}
 \end{frame}
@@ -740,8 +740,8 @@ while not(scoreA == 15 or scoreB == 15):
     \item ako jedan igrač osvoji 7 poena dok drugi ne osvoji nijedan, igra se završava
   \end{itemize}
 \begin{minted}{python}
-while not(scoreA == 15 or scoreB == 15 or 
-  (scoreA == 7 and scoreB == 0) or 
+while not(scoreA == 15 or scoreB == 15 or
+  (scoreA == 7 and scoreB == 0) or
   (scoreB == 7 and scoreA == 0):
     # nastavi da igraš
 \end{minted}
@@ -842,7 +842,7 @@ while scoreA != 15 and scoreB != 15:
   \end{itemize}
 \begin{verbatim}
 repeat
-    unesi broj 
+    unesi broj
 until number >= 0
 \end{verbatim}
 \end{frame}
@@ -878,7 +878,7 @@ while number < 0:
 \begin{minted}{python}
 while True:
     number = eval(input("Unesite broj >> "))
-    if number >= 0: 
+    if number >= 0:
         break # izađi iz petlje ako je broj ispravan
 \end{minted}
   \begin{itemize}
@@ -926,7 +926,7 @@ while True:
 \begin{minted}{python}
 while True:
     number = eval(input("Unesite pozitivan broj: "))
-    if number >= 0: 
+    if number >= 0:
         break
     print("Uneti broj nije pozitivan!")
 \end{minted}
@@ -944,7 +944,7 @@ while True:
 \begin{verbatim}
 while True:
     uzmi sledeći podatak
-    if podatak je sentinel: 
+    if podatak je sentinel:
         break
     obradi podatak
 \end{verbatim}

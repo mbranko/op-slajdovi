@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -423,7 +423,7 @@ def mean(nums):
   \frametitle{Funkcija za izračunavanje odstupanja: \texttt{stdDev} $_2$}
   \begin{itemize}
     \item izračunavanje proseka više puta unutar \texttt{stdDev} nije efikasno
-    \item pošto naš program ispisuje i prosek i odstupanje, 
+    \item pošto naš program ispisuje i prosek i odstupanje,
     \item prenećemo prosek kao parametar u \texttt{stdDev}
   \end{itemize}
 \begin{minted}{python}
@@ -479,7 +479,7 @@ def main():
     avg = mean(data)
     std = stdDev(data, avg)
     med = median(data)
-    
+
     print("\nProsek je", avg)
     print("Standardno odstupanje je", std)
     print("Median je", med)
@@ -528,7 +528,7 @@ TypeError: 'tuple' object does not support item assignment
     \item rečnik čuva \myblue{parove ključ-vrednost}
   \end{itemize}
 \begin{minted}{python}
->>> lozinke = {"guido":"superprogrammer", 
+>>> lozinke = {"guido":"superprogrammer",
         "turing":"genius", "bill":"monopoly"}
 >>> lozinke["guido"]
 'superprogrammer'
@@ -768,7 +768,7 @@ uniqueWords.sort(compareWords)
   \end{itemize}
 \begin{minted}{python}
 for i in range(n):
-    print("{0:<10}{1:>6}".format(uniqueWords[i], 
+    print("{0:<10}{1:>6}".format(uniqueWords[i],
         counts[uniquewords[i]])
 \end{minted}
 \end{frame}
