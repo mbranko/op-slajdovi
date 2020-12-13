@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 % da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
@@ -73,7 +73,7 @@ pip install pyqt5 pyqt5-tools
   \begin{itemize}
     \item bez obzira na izabranu GUI biblioteku, svaki program ima sličnu strukturu
     \item program se ne izvršava linearno (od početka prema kraju, bez pauze), već se izvršava samo u pojedinim trenucima \\ \ \\
-    \item[1] inicijalizacija programa prilikom pokretanja 
+    \item[1] inicijalizacija programa prilikom pokretanja
     \begin{itemize}
       \item inicijalizuju se interne strukture podataka
     \end{itemize}
@@ -127,15 +127,15 @@ class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         self.initUI()
-        
-    def initUI(self):               
+
+    def initUI(self):
         # ovde se uključuje status bar
         self.statusBar().showMessage('Ready')
         self.setGeometry(300, 300, 250, 150)
-        self.setWindowTitle('Statusbar')    
+        self.setWindowTitle('Statusbar')
         self.show()
 
-def main():    
+def main():
     app = QtWidgets.QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
@@ -157,8 +157,8 @@ def main():
   \frametitle{Dodajemo meni}
 \begin{minted}{python}
 class Example(QtWidgets.QMainWindow):
-    def initUI(self):                       
-        exitAction = QtWidgets.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
+    def initUI(self):
+        exitAction = QtWidgets.QAction(QtGui.QIcon('exit.png'), '&Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
         exitAction.triggered.connect(QtWidgets.qApp.quit)
@@ -167,9 +167,9 @@ class Example(QtWidgets.QMainWindow):
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(exitAction)
-        
+
         self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Menubar')    
+        self.setWindowTitle('Menubar')
         self.show()
 \end{minted}
 \end{frame}
@@ -191,7 +191,7 @@ class Example(QtWidgets.QMainWindow):
     def initUI(self):
         ...
         self.toolbar = self.addToolBar('Exit')
-        self.toolbar.addAction(exitAction)        
+        self.toolbar.addAction(exitAction)
 \end{minted}
 \begin{center}
 \includegraphics[width=8cm]{pyqt04.png}
@@ -220,7 +220,7 @@ class Example(QtWidgets.QMainWindow):
         lbl2 = QtWidgets.QLabel('pozicioniranje', self)
         lbl2.move(35, 40)
         lbl3 = QtWidgets.QLabel('komponenti', self)
-        lbl3.move(55, 70)        
+        lbl3.move(55, 70)
         self.show()
 \end{minted}
 \end{frame}
@@ -254,7 +254,7 @@ class Example(QtWidgets.QMainWindow):
         vbox = QtWidgets.QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(hbox)
-        self.setLayout(vbox)    
+        self.setLayout(vbox)
 \end{minted}
 \end{frame}
 
@@ -401,7 +401,7 @@ class Example(QtWidgets.QWidget):
     # redefinišemo je u našem nasledniku QWidget-a
     def keyPressEvent(self, e):
         if e.key() == QtCore.Qt.Key_Escape:
-            self.close() 
+            self.close()
 \end{minted}
 \end{frame}
 
@@ -409,19 +409,19 @@ class Example(QtWidgets.QWidget):
   \frametitle{Informacije o izvoru događaja}
 \begin{minted}{python}
 class Example(QtWidgets.QMainWindow):
-    def initUI(self):      
+    def initUI(self):
         btn1 = QtWidgets.QPushButton("Button 1", self)
         btn1.move(30, 50)
         btn2 = QtWidgets.QPushButton("Button 2", self)
         btn2.move(150, 50)
-        btn1.clicked.connect(self.buttonClicked)            
+        btn1.clicked.connect(self.buttonClicked)
         btn2.clicked.connect(self.buttonClicked)
         self.statusBar()
         ...
     def buttonClicked(self):
-        # zbog koga sam pozvan?      
+        # zbog koga sam pozvan?
         sender = self.sender()
-        self.statusBar().showMessage(sender.text() + 
+        self.statusBar().showMessage(sender.text() +
             ' was pressed')
 \end{minted}
 \end{frame}
@@ -438,14 +438,14 @@ class Example(QtWidgets.QMainWindow):
 \begin{minted}{python}
 class Example(QtWidgets.QMainWindow):
     # closeApp je novi signal
-    closeApp = QtCore.pyqtSignal() 
+    closeApp = QtCore.pyqtSignal()
 
     def initUI(self):
         # poveži closeApp sa close() slotom
         # close zatvara aplikaciju
         self.closeApp.connect(self.close)
         ...
-        
+
     def mousePressEvent(self, event):
         # emituj događaj kad se klikne mišem
         self.closeApp.emit()
@@ -464,8 +464,8 @@ class Example(QtWidgets.QMainWindow):
         cb.toggle()
         cb.stateChanged.connect(self.changeTitle)
         ...
-        
-    def changeTitle(self, state):      
+
+    def changeTitle(self, state):
         if state == QtCore.Qt.Checked:
             self.setWindowTitle('Naslov')
         else:
@@ -555,7 +555,7 @@ class Example(QtWidgets.QWidget):
         self.timer = QtCore.QBasicTimer()
         self.step = 0
         ...
-    def timerEvent(self, e):      
+    def timerEvent(self, e):
         if self.step >= 100:
             self.timer.stop()
             self.btn.setText('Finished')
@@ -592,11 +592,11 @@ class Example(QtWidgets.QWidget):
         combo.addItem("Fedora")
         combo.addItem("Red Hat")
         combo.addItem("Gentoo")
-        combo.activated[str].connect(self.onActivated)        
+        combo.activated[str].connect(self.onActivated)
         ...
     def onActivated(self, text):
         self.lbl.setText(text)
-        self.lbl.adjustSize()  
+        self.lbl.adjustSize()
 \end{minted}
 \end{frame}
 
@@ -619,12 +619,12 @@ class Example(QtWidgets.QWidget):
         qp.begin(self)
         self.drawText(event, qp)
         qp.end()
-        
+
     def drawText(self, event, qp):
         qp.setPen(QtGui.QColor(168, 34, 3))
         qp.setFont(QtGui.QFont('Decorative', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignCenter, 
-            self.text)        
+        qp.drawText(event.rect(), QtCore.Qt.AlignCenter,
+            self.text)
 \end{minted}
 \end{frame}
 

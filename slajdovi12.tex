@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 % da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
@@ -57,7 +57,7 @@
     \item šta je zajedničko svim tačkama?
     \begin{itemize}
       \item struktura (podaci kojima su opisane)
-      \item ponašanje (operacije nad njima) 
+      \item ponašanje (operacije nad njima)
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -202,7 +202,7 @@ class Point:
         return self.x == other.x and self.y == other.y
 
     def distance(self, other):
-        return math.sqrt((self.x-other.x)**2 + 
+        return math.sqrt((self.x-other.x)**2 +
             (self.y-other.y)**2)
 \end{minted}
 \end{frame}
@@ -227,7 +227,7 @@ class LineSegment:
     def __init__(self, point1, point2):
         self.point1 = point1
         self.point2 = point2
-        
+
     def contains(self, point):
         # proveri da li je tacka na duzi
 \end{minted}
@@ -297,7 +297,7 @@ class Point(Shape):
     def __init__(self):
         # poziv roditeljskog konstruktora
         super(Point, self).__init__()
-        
+
     def draw(self):
         # crtanje tacke
 \end{minted}
@@ -395,15 +395,15 @@ class Student:
 class Student:
     ...
     def to_string(self):
-        return "|".join(s.indeks, s.ime, s.prezime, 
-            s.roditelj, s.jmbg, s.adresa, s.telefon, 
+        return "|".join(s.indeks, s.ime, s.prezime,
+            s.roditelj, s.jmbg, s.adresa, s.telefon,
             s.email, s.godina')
-    
+
     def from_string(line):
-        # Ovo je statička metoda: nije potreban objekat 
+        # Ovo je statička metoda: nije potreban objekat
         # da bi se pozvala
         s = Student()
-        s.indeks, s.ime, s.prezime, s.roditelj, s.jmbg, 
+        s.indeks, s.ime, s.prezime, s.roditelj, s.jmbg,
             s.adresa, s.telefon, s.email, s.godina = \
             line.split("|")
         return s

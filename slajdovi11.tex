@@ -1,4 +1,4 @@
-\documentclass[utf8,compress]{beamer}
+\documentclass[utf8,compress,aspectratio=169]{beamer}
 \usepackage{irbookslide}
 \usepackage{irilmenau2}
 \usepackage{url}
@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2018.}
+\date{2020.}
 
 \begin{document}
 
@@ -174,7 +174,7 @@ def search(x, nums):
   \begin{itemize}
     \item igra pogađanja zamišljenog broja:
     \item igrač A zamisli broj između 1 i 100, a igrač B ga pogađa
-    \item za svaki pokušaj igrač A kaže da li je zamišljeni broj veći 
+    \item za svaki pokušaj igrač A kaže da li je zamišljeni broj veći
       ili manji od broja koji je pokušao igrač B \\ \ \\
     \item isplati se prvo probati 50; tri ishoda:
     \item[a)] pogodili smo broj :)
@@ -251,7 +251,7 @@ def search(x, nums):
       \item linearna je jednostavnija
       \item binarna je efikasnija jer ne testira sve elemente
     \end{itemize}
-    \item (intuitivno) možemo očekivati da linearna pretraga radi 
+    \item (intuitivno) možemo očekivati da linearna pretraga radi
       bolje za kratke liste, a binarna za dugačke
     \item kako da budemo sigurni?
   \end{itemize}
@@ -260,7 +260,7 @@ def search(x, nums):
 \begin{frame}[fragile]
   \frametitle{Poređenje algoritama $_2$}
   \begin{itemize}
-    \item jedan način: da probamo oba algoritma za liste različite dužine 
+    \item jedan način: da probamo oba algoritma za liste različite dužine
        i merimo vreme
     \begin{itemize}
       \item linearna je brža za liste kraće od 10 elemenata
@@ -290,7 +290,7 @@ def search(x, nums):
   \frametitle{Poređenje algoritama $_4$}
   \begin{itemize}
     \item kako brojimo ,,korake`` u algoritmu?
-    \item posmatramo zavisnost broja koraka od veličine kolekcije 
+    \item posmatramo zavisnost broja koraka od veličine kolekcije
       podataka ili složenosti proračuna \\ \ \\
     \item za pretragu: složenost zavisi od veličine kolekcije
   \end{itemize}
@@ -323,7 +323,7 @@ def search(x, nums):
   \begin{itemize}
     \item za binarnu pretragu:
     \begin{itemize}
-      \item neka lista ima 16 elemenata; u svakom ciklusu polovina se 
+      \item neka lista ima 16 elemenata; u svakom ciklusu polovina se
         eliminiše -- prvi put eliminiše se 8 elemenata
       \item nakon drugog ciklusa ostane još 4 elementa
       \item nakon trećeg ciklusa ostane još 2 elementa
@@ -349,7 +349,7 @@ def search(x, nums):
   \frametitle{Poređenje algoritama $_8$}
   \begin{itemize}
     \item telefonski imenik Njujorka: 12 miliona imena
-    \item pronalaženje datog imena u imeniku: 
+    \item pronalaženje datog imena u imeniku:
     \item najviše $log_2 12000000 = 24$ pokušaja! \\ \ \\
     \item za linearnu pretragu treba u proseku 6000000 pokušaja
   \end{itemize}
@@ -419,7 +419,7 @@ def search(x, nums, low, high):
     \begin{itemize}
       \item ne treba definisati pojmove pomoću njih samih
     \end{itemize}
-    \item \myblue{rekurzivna} definicija, za razliku od cirkularne, ima slučajeve kada 
+    \item \myblue{rekurzivna} definicija, za razliku od cirkularne, ima slučajeve kada
       se ne definiše pomoću sebe same \\ \ \\
     \item algoritam za binarnu pretragu koristi sebe samog
     \item ,,poziva`` istu funkciju unutar njene definicije
@@ -439,7 +439,7 @@ def search(x, nums, low, high):
       \begin{array}{rl}
         1 &\mbox{ ako $n=0$} \\
         n(n-1)! &\mbox{ ina\v{c}e}
-      \end{array} 
+      \end{array}
       \right. $$ \\ \ \\
     \item zašto ovo nije cirkularna definicija?
     \item kada dođemo do $0!$ to je \myblue{osnovni slučaj} koji se rešava bez rekurzije
@@ -514,7 +514,7 @@ def reverse(s):
 \end{minted}
   \begin{itemize}
     \item isečak \texttt{s[1:]} vraća sve osim prvog znaka
-    \item okrenemo ovaj isečak i dodamo prvi znak \texttt{s[0]} na kraj 
+    \item okrenemo ovaj isečak i dodamo prvi znak \texttt{s[0]} na kraj
   \end{itemize}
 \end{frame}
 
@@ -670,7 +670,7 @@ def loopPower(a, n):
       \begin{array}{ll}
         a^{n//2}\cdot a^{n//2} &\mbox{ ako je $n$ paran broj} \\
         a^{n//2}\cdot a^{n//2}\cdot a &\mbox{ ako je $n$ neparan broj}
-      \end{array} 
+      \end{array}
       \right. $$ \\ \ \\
 \end{frame}
 
@@ -755,7 +755,7 @@ def search(x, nums):
   \frametitle{Rekurzija vs iteracija $_2$}
   \begin{itemize}
     \item izračunavanje faktorijela i binarna pretraga na sličan način koriste petlje i rekurziju i efikasnost im je slična
-    \item kod stepenovanja je drugačije: 
+    \item kod stepenovanja je drugačije:
   \begin{itemize}
     \item verzija sa petljom je linearne složenosti
     \item verzija sa rekurzijom je logaritamske složenosti
@@ -807,7 +807,7 @@ $$ fib(n) = \left\{
   \begin{array}{ll}
     1 &\mbox{ako je $n<3$} \\
     fib(n-1)+fib(n-2) &\mbox{ina\v{c}e}
-  \end{array} 
+  \end{array}
   \right. $$
   \begin{itemize}
     \item lako je napisati funkciju na osnovu ovakve definicije:
@@ -846,7 +846,7 @@ def fib(n):
 \begin{frame}[fragile]
   \frametitle{Fibonacci rekurzivno $_4$}
   \begin{itemize}
-    \item da bismo izračunali \texttt{fib(6)}, \texttt{fib(4)} će se računati dva puta, 
+    \item da bismo izračunali \texttt{fib(6)}, \texttt{fib(4)} će se računati dva puta,
       \texttt{fib(3)} će se računati 3 puta, \texttt{fib(2)} će se računati 4 puta...
     \item za velike brojeve ima jako puno ponovljenih proračuna
   \end{itemize}
@@ -870,7 +870,7 @@ def fib(n):
 \begin{frame}[fragile]
   \frametitle{Algoritmi za sortiranje}
   \begin{itemize}
-    \item osnovni problem sortiranja: 
+    \item osnovni problem sortiranja:
     \item prerasporediti elemente liste tako da su poređani u rastućem ili opadajućem redosledu
   \end{itemize}
 \end{frame}
@@ -1319,7 +1319,7 @@ Premesti disk sa A na C.
     \item specifikacija programa
   \begin{itemize}
     \item ulaz: fajl sa Python programom; ulazni podaci za njega
-    \item izlaz: \texttt{"OK"} ako će se program zaustaviti, \texttt{"FAULT"} ako ima beskonačnu petlju 
+    \item izlaz: \texttt{"OK"} ako će se program zaustaviti, \texttt{"FAULT"} ako ima beskonačnu petlju
   \end{itemize}
   	\item npr. Python interpreter je program koji analizira programe!
   	\item program i njegovi ulazi se mogu predstaviti kao stringovi
@@ -1372,7 +1372,7 @@ def main():
         line = input("")
     testProg = "\n".join(lines)
 
-    # ako se program zaustavi kad dobije samog sebe 
+    # ako se program zaustavi kad dobije samog sebe
     # kao ulazne podatke, uđi u beskonačnu petlju
     if terminates(testProg, testProg):
         while True:
