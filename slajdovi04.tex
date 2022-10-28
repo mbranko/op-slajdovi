@@ -399,7 +399,7 @@ mesecSkr = meseci[pos:pos+3]
 meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun",
     "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"]
 
-n = eval(raw_input("Unesite mesec (1-12): "))
+n = eval(input("Unesite mesec (1-12): "))
 
 # ispiši rezultat
 print("Skraćenica je", meseci[n-1] + ".")
@@ -576,7 +576,7 @@ print()
 >>> numStr = "500"
 >>> eval(numStr)
 500
->>> x = eval(raw_input("Enter a number "))
+>>> x = eval(input("Enter a number "))
 Enter a number 3.14
 >>> print(x)
 3.14
@@ -773,7 +773,7 @@ Vrednost je
 
 Traceback (most recent call last):
   File "<pyshell#10>", line 1, in -toplevel-
-    print "The value is", value + "."
+    print("The value is", value + ".")
 TypeError: unsupported operand type(s) for +: 'float' and 'str'
 \end{verbatim}
 \end{frame}
@@ -1101,7 +1101,7 @@ infile.close()
 infile = open(someFile, "r")
 for i in range(5):
     line = infile.readline()
-    print line[:-1]
+    print(line[:-1])
 infile.close()
 \end{minted}
   \begin{itemize}
