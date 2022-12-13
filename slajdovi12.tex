@@ -15,7 +15,7 @@
 \subtitle{\tiny{Slajdovi za predmet Osnove programiranja}}
 \subject{Osnove programiranja}
 \institute{Katedra za informatiku, Fakultet tehničkih nauka, Novi Sad}
-\date{2020.}
+\date{2022.}
 
 \begin{document}
 % da pygmentize ne uokviruje crvenom bojom nepoznate karaktere
@@ -150,6 +150,22 @@ class Point:
     ...
     def equals(self, other):
         return self.x == other.x and self.y == other.y
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pajtonični \texttt{equals}}
+\begin{minted}{python}
+class Point:
+    ...
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+a = Point(1, 1)
+b = Point(2, 2)
+
+if a == b:
+    # do something
 \end{minted}
 \end{frame}
 
